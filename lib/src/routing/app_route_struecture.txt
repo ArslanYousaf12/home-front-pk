@@ -1,45 +1,47 @@
- [1] Welcome Screen
-     |
-     +---> [2] Sign In Screen ------------------+
-     |                                         |
-     +---> [3] Sign Up Client                  |
-     |                                         |
-     +---> [4] Sign Up Constructor             |
-     |                                         |
-     +---> [5] Sign Up Designer                v
-                                               |
- [6] Home/Dashboard <--------------------------+
-     |
-     +---> [7] Search for Services -----> [8] Service Detail
-     |                                         ^
-     +---> [9] Cost Calculator                 |
-     |                                         |
-     +---> [10] Profile ----------------------+
-           |                                  |
-           +---> [11] Job Applications       |
-           |                                  |
-           +---> [12] Project Management ----+
-           |                                  |
-           +---> [13] History/Orders         |
-           |                                  |
-           +---> [14] Settings               |
-                                            |
- [15] Help & Support <----------------------+
-                                            |
- [16] Map Screen <--------------------------+
-
-
-[1] Welcome Screen: The first screen users see, offering options to sign in or sign up.
-[2] Sign In Screen: Allows existing users to sign in, leading them to the Home/Dashboard.
-[3] to [5] Sign Up Screens: Separate screens for different user roles (client, constructor, designer) to sign up.
-[6] Home/Dashboard: The main hub after sign-in, providing access to various functionalities.
-[7] Search for Services: Where users can search for services, leading to individual service details.
-[8] Service Detail: Detailed view of a service, which can link back to the Map Screen or Project Management.
-[9] Cost Calculator: A tool accessible from the home screen for cost estimations.
-[10] Profile: A general entry point to specific user profiles, leading to job applications, project management, history/orders, and settings.
-[11] Job Applications: Where constructors/designers view job applications (nested within Profile).
-[12] Project Management: For managing projects (nested within Profile).
-[13] History/Orders: To view past transactions (nested within Profile).
-[14] Settings: Where users can adjust their app settings (nested within Profile).
-[15] Help & Support: A section for app assistance, linked from various points in the app.
-[16] Map Screen: For providing location details, accessible from the Service Detail or during service request processes.
+[1] Welcome/Sign In
+    |
+    +---> [2] Sign Up Client
+    |       |
+    |       +---> [5] Client Dashboard
+    |               |
+    |               +---> [9] Search Services -----> [10] Service Detail
+    |               |
+    |               +---> [11] Cost Calculator
+    |               |
+    |               +---> [12] Profile
+    |               |       |
+    |               |       +---> [18] History
+    |               |       |
+    |               |       +---> [19] Settings
+    |               |
+    |               +---> [17] Project Management
+    |
+    +---> [3] Sign Up Constructor
+    |       |
+    |       +---> [6] Constructor Dashboard
+    |               |
+    |               +---> [13] Job Applications
+    |               |
+    |               +---> [14] Submit Bid
+    |               |
+    |               +---> [15] Schedule
+    |               |
+    |               +---> [12] Profile --+
+    |                                    |
+    +---> [4] Sign Up Designer          |
+            |                            |
+            +---> [7] Designer Dashboard|
+                    |                    |
+                    +---> [16] View Portfolio
+                    |                    |
+                    +---> [12] Profile --+
+                                          |
+[8] Help & Support <----------------------+
+                                          |
+[20] Map Screen <-------------------------+
+                                          |
+[21] Notifications <----------------------+
+                                          |
+[22] Messages <---------------------------+
+                                          |
+[23] Payment <-----------------------------+

@@ -13,18 +13,25 @@ class MyApp extends StatelessWidget {
       routerConfig: goRouter,
       onGenerateTitle: (context) => 'Home Front Pk'.hardcoded,
       theme: ThemeData(
-          useMaterial3: true,
-          primarySwatch: Colors.green,
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.black87,
-            foregroundColor: Colors.white,
-            elevation: 0,
-          ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.green,
-          ))),
+        useMaterial3: true,
+        primarySwatch: Colors.green,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.black87,
+          foregroundColor: Colors.white,
+          elevation: 0,
+        ),
+        scaffoldBackgroundColor: const Color(0xFF182430),
+        // elevatedButtonTheme: ElevatedButtonThemeData(
+        //   style: ElevatedButton.styleFrom(
+        //     backgroundColor: Colors.white,
+        //     foregroundColor: Colors.green,
+        //   ),
+        // ),
+        textTheme: ThemeData().textTheme.apply(
+              displayColor: Colors.white,
+              bodyColor: Colors.white,
+            ),
+      ),
     );
   }
 }
