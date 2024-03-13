@@ -1,9 +1,16 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/sign_in/client_signin.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/sign_in/constructor_signin.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/sign_in/designer_signin.dart';
 
 import 'package:home_front_pk/src/features/welcome/presentation/welcome_screen.dart';
 
 enum AppRoute {
   welcome, // Welcome/Sign In screen for all users
+  signInClient,
+  signInDesigner,
+  signInConstructor,
   signUpClient, // Sign Up screen for clients
   signUpConstructor, // Sign Up screen for constructors
   signUpDesigner, // Sign Up screen for designers
@@ -27,22 +34,21 @@ enum AppRoute {
   schedule, // Calendar or schedule of upcoming projects for constructors
 }
 
-final goRouter = GoRouter(
-  initialLocation: '/',
-  debugLogDiagnostics: true,
-  routes: [
-    GoRoute(
-      path: '/',
-      name: AppRoute.welcome.name,
-      builder: (context, state) => const WelcomeScreen(),
-      // routes: [
-      //   GoRoute(
-      //     path: 'sign-up-client',
-      //     name: AppRoute.signUpClient.name,
-      //     pageBuilder: (context, state) => MaterialPage(
-      //       fullscreenDialog: true,
-      //       child: SignUpClientScreen(),
-      //     ),
+final goRouter =
+    GoRouter(initialLocation: '/', debugLogDiagnostics: true, routes: [
+  GoRoute(
+    path: '/',
+    name: AppRoute.welcome.name,
+    builder: (context, state) => const WelcomeScreen(),
+    routes: [
+      GoRoute(
+        path: 'sign-In-client',
+        name: AppRoute.signInClient.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: false,
+          child: ClientSignInScreen(),
+        ),
+      )
       //     routes: [
       //       GoRoute(
       //         path: 'client-dashboard',
@@ -106,13 +112,15 @@ final goRouter = GoRouter(
       //       ),
       //     ],
       //   ),
-      //   GoRoute(
-      //     path: 'sign-up-constructor',
-      //     name: AppRoute.signUpConstructor.name,
-      //     pageBuilder: (context, state) => MaterialPage(
-      //       fullscreenDialog: true,
-      //       child: SignUpConstructorScreen(),
-      //     ),
+      ,
+      GoRoute(
+        path: 'sign-up-constructor',
+        name: AppRoute.signInConstructor.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: false,
+          child: ConstructorSignIn(),
+        ),
+      )
       //     routes: [
       //       GoRoute(
       //         path: 'constructor-dashboard',
@@ -124,15 +132,17 @@ final goRouter = GoRouter(
       //       ),
       //     ],
       //   ),
-      //   GoRoute(
-      //     path: 'sign-up-designer',
-      //     name: AppRoute.signUpDesigner.name,
-      //     pageBuilder: (context, state) => MaterialPage(
-      //       fullscreenDialog: true,
-      //       child: SignUpDesignerScreen(),
-      //     ),
-      //   ),
+      ,
+      GoRoute(
+        path: 'sign-up-designer',
+        name: AppRoute.signInDesigner.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: false,
+          child: DesignerSignIn(),
+        ),
+      ),
       // ],
-    ),
-  ],
-);
+      // ),
+    ],
+  )
+]);

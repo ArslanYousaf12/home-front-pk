@@ -1,0 +1,19 @@
+import 'package:flutter/material.dart';
+import 'package:home_front_pk/src/common_widgets/custom_image.dart';
+
+class CircularImage extends StatelessWidget {
+  const CircularImage({super.key, required this.imageUrl});
+  final String imageUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipOval(
+      child: CustomImage(
+        imageUrl: imageUrl,
+        width: 100, // Set the width to fit your layout
+        height: 100, // Set the height to fit your layout
+        boxFit: BoxFit.cover, // Cover the container's shape
+      ),
+    );
+  }
+}
