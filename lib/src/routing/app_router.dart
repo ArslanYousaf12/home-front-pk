@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/client_signin.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/constructor_signin.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/designer_signin.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/sign_up/client/client_signup_first.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/sign_up/client/client_signup_second.dart';
 
 import 'package:home_front_pk/src/features/welcome/presentation/welcome_screen.dart';
 
@@ -11,7 +13,8 @@ enum AppRoute {
   signInClient,
   signInDesigner,
   signInConstructor,
-  signUpClient, // Sign Up screen for clients
+  signUpClientFirst, // Sign Up screen for clients
+  signUpClientSecond,
   signUpConstructor, // Sign Up screen for constructors
   signUpDesigner, // Sign Up screen for designers
   clientDashboard, // Dashboard screen for clients
@@ -42,13 +45,26 @@ final goRouter =
     builder: (context, state) => const WelcomeScreen(),
     routes: [
       GoRoute(
-        path: 'sign-In-client',
-        name: AppRoute.signInClient.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          fullscreenDialog: false,
-          child: ClientSignInScreen(),
-        ),
-      )
+          path: 'sign-In-client-first',
+          name: AppRoute.signInClient.name,
+          pageBuilder: (context, state) => const MaterialPage(
+                fullscreenDialog: false,
+                child: ClientSignInScreen(),
+              ),
+          routes: [
+            GoRoute(
+              path: 'sign-up-client',
+              name: AppRoute.signUpClientFirst.name,
+              builder: (context, state) => const ClientSignUp(),
+              routes: [
+                GoRoute(
+                  path: 'sign-in-client-second',
+                  name: AppRoute.signUpClientSecond.name,
+                  builder: (context, state) => const ClientSignUpSecond(),
+                ),
+              ],
+            ),
+          ])
       //     routes: [
       //       GoRoute(
       //         path: 'client-dashboard',

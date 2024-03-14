@@ -68,6 +68,8 @@ flutter:
     - assets/
     - assets/welcome/
     - assets/signin/
+    - assets/signup/
+
 
   #   - images/a_dot_ham.jpeg
 
