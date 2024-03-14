@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/common_widgets/circular_image.dart';
 import 'package:home_front_pk/src/common_widgets/custom_sigin.dart';
 import 'package:home_front_pk/src/common_widgets/responsive_scrollable_card.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
+import 'package:home_front_pk/src/routing/app_router.dart';
 
 class DesignerSignIn extends StatefulWidget {
   const DesignerSignIn({super.key});
@@ -51,6 +53,14 @@ class _DesignerSignInState extends State<DesignerSignIn> {
                     child: SignInForm(
                         signInText: 'Designer',
                         onFormSubmit: _handleFormSubmit)),
+                TextButton(
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.white,
+                    ),
+                    onPressed: () {
+                      context.goNamed(AppRoute.signUpDesigner.name);
+                    },
+                    child: Text('SignUp'))
               ],
             ),
           ),

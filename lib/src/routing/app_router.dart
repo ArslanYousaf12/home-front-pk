@@ -5,6 +5,8 @@ import 'package:home_front_pk/src/features/authentication/presentation/sign_in/c
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/designer_signin.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/client/client_signup_first.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/client/client_signup_second.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/sign_up/constructor/constructor_signup.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/sign_up/designer/designer_signup.dart';
 
 import 'package:home_front_pk/src/features/welcome/presentation/welcome_screen.dart';
 
@@ -130,12 +132,19 @@ final goRouter =
       //   ),
       ,
       GoRoute(
-        path: 'sign-up-constructor',
+        path: 'sign-in-constructor',
         name: AppRoute.signInConstructor.name,
         pageBuilder: (context, state) => const MaterialPage(
           fullscreenDialog: false,
           child: ConstructorSignIn(),
         ),
+        routes: [
+          GoRoute(
+            path: 'sign-up-constructor',
+            name: AppRoute.signUpConstructor.name,
+            builder: (context, state) => const ConstructorSignUp(),
+          ),
+        ],
       )
       //     routes: [
       //       GoRoute(
@@ -150,12 +159,19 @@ final goRouter =
       //   ),
       ,
       GoRoute(
-        path: 'sign-up-designer',
+        path: 'sign-in-designer',
         name: AppRoute.signInDesigner.name,
         pageBuilder: (context, state) => const MaterialPage(
           fullscreenDialog: false,
           child: DesignerSignIn(),
         ),
+        routes: [
+          GoRoute(
+            path: 'sign-up-designer',
+            name: AppRoute.signUpDesigner.name,
+            builder: (context, state) => const DesignerSignUp(),
+          ),
+        ],
       ),
       // ],
       // ),

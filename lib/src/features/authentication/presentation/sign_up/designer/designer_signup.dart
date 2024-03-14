@@ -3,26 +3,53 @@ import 'package:home_front_pk/src/common_widgets/circular_image.dart';
 import 'package:home_front_pk/src/common_widgets/lable_inputfield.dart';
 import 'package:home_front_pk/src/common_widgets/welcome_screen_button.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
+import 'package:intl/intl.dart';
 
-class ClientSignUpSecond extends StatefulWidget {
-  const ClientSignUpSecond({super.key});
+class DesignerSignUp extends StatefulWidget {
+  const DesignerSignUp({super.key});
 
   @override
-  State<ClientSignUpSecond> createState() => _ClientSignUpSecondState();
+  State<DesignerSignUp> createState() => _DesignerSignUpState();
 }
 
-class _ClientSignUpSecondState extends State<ClientSignUpSecond> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String _address = '';
-  String _city = '';
+class _DesignerSignUpState extends State<DesignerSignUp> {
+  final _formKey = GlobalKey<FormState>();
+  String _name = '';
+  String _email = '';
   String _password = '';
-  final _passordTextEditingController = TextEditingController();
-  final _confirmPassordTextEditingController = TextEditingController();
+  final _dobTextEditingController = TextEditingController();
+  final _passwordTextEditingController = TextEditingController();
+  final _confirmedTextEditingController = TextEditingController();
+
+  Future<void> _pickingDOB() async {
+    final pickedDob = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1990),
+        lastDate: DateTime.now());
+    if (pickedDob != null) {
+      setState(() {
+        _dobTextEditingController.text =
+            DateFormat('yyyy-MM-dd').format(pickedDob);
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _dobTextEditingController.dispose();
+    _passwordTextEditingController.dispose();
+    _confirmedTextEditingController.dispose();
+    super.dispose();
+  }
 
   void _submit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      // print(_email);
     }
+    return;
   }
 
   @override
@@ -44,63 +71,83 @@ class _ClientSignUpSecondState extends State<ClientSignUpSecond> {
                       child: Column(
                         children: [
                           LabelInputField(
-                            labelString: 'Address',
+                            labelString: 'Name',
                             child: TextFormField(
                               decoration: const InputDecoration(
-                                hintText: 'Address',
+                                hintText: 'Name',
                                 border: InputBorder.none,
                                 hintStyle: TextStyle(
                                   fontSize: 20,
                                 ),
-                                prefixIcon: Icon(Icons.home),
+                                prefixIcon: Icon(Icons.person_outline),
                               ),
                               style: const TextStyle(
                                   color: Colors.black, fontSize: 20),
                               cursorHeight: 40,
                               onSaved: (newValue) {
-                                _address = newValue!;
+                                _name = newValue!;
                               },
                               validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    value.trim().length <= 2) {
-                                  return 'Enter the Valid Address';
+                                if (value == null || value.isEmpty) {
+                                  return 'Please Enter the First Name';
                                 }
                                 return null;
                               },
                             ),
                           ),
                           LabelInputField(
-                            labelString: 'City',
+                            labelString: 'Email',
                             child: TextFormField(
                               decoration: const InputDecoration(
-                                hintText: 'City',
+                                hintText: 'Email',
                                 border: InputBorder.none,
-                                prefixIcon: Icon(Icons.location_city),
                                 hintStyle: TextStyle(
                                   fontSize: 20,
                                 ),
+                                prefixIcon: Icon(Icons.email),
                               ),
+                              keyboardType: TextInputType.emailAddress,
                               style: const TextStyle(
                                   color: Colors.black, fontSize: 20),
                               cursorHeight: 40,
                               onSaved: (newValue) {
-                                _city = newValue!;
+                                _email = newValue!;
                               },
                               validator: (value) {
                                 if (value == null ||
                                     value.isEmpty ||
-                                    value.trim().length <= 1) {
-                                  return 'Enter the city name';
+                                    !value.contains('@')) {
+                                  return 'Please Enter the Valid Email';
                                 }
                                 return null;
                               },
+                            ),
+                          ),
+                          LabelInputField(
+                            labelString: 'Date Of Birth',
+                            child: TextFormField(
+                              controller: _dobTextEditingController,
+                              readOnly: true,
+                              decoration: const InputDecoration(
+                                hintText: 'Date Of Birth',
+                                border: InputBorder.none,
+                                hintStyle: TextStyle(
+                                  fontSize: 20,
+                                ),
+                                suffixIcon: Icon(Icons.calendar_today),
+                              ),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 20),
+                              cursorHeight: 40,
+                              onTap: _pickingDOB,
+                              onSaved: (newValue) {},
+                              validator: (value) {},
                             ),
                           ),
                           LabelInputField(
                             labelString: 'Password',
                             child: TextFormField(
-                              controller: _passordTextEditingController,
+                              controller: _passwordTextEditingController,
                               decoration: const InputDecoration(
                                 hintText: 'Password',
                                 border: InputBorder.none,
@@ -117,41 +164,39 @@ class _ClientSignUpSecondState extends State<ClientSignUpSecond> {
                                 _password = newValue!;
                               },
                               validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    value.trim().length <= 7) {
-                                  return 'Enter the Valid 7 Character long Password';
+                                if (value == null || value.isEmpty) {
+                                  return 'Please Enter the valid 7 character password';
                                 }
                                 return null;
                               },
                             ),
                           ),
                           LabelInputField(
-                            labelString: 'Confirme Password',
+                            labelString: 'Confirm Password',
                             child: TextFormField(
-                              controller: _confirmPassordTextEditingController,
+                              controller: _confirmedTextEditingController,
                               decoration: const InputDecoration(
-                                hintText: 'Confirme Password',
+                                hintText: 'Confirm Password',
                                 border: InputBorder.none,
                                 hintStyle: TextStyle(
                                   fontSize: 20,
                                 ),
                                 prefixIcon: Icon(Icons.password),
                               ),
+                              obscureText: true,
                               style: const TextStyle(
                                   color: Colors.black, fontSize: 20),
                               cursorHeight: 40,
-                              obscureText: true,
-                              onSaved: (newValue) {},
+                              onSaved: (newValue) {
+                                _password = newValue!;
+                              },
                               validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    value.trim().length <= 2) {
-                                  return 'please enter the valid password';
+                                if (value == null || value.isEmpty) {
+                                  return 'Please Enter the valid 7 character password';
                                 }
                                 if (value !=
-                                    _passordTextEditingController.text) {
-                                  return 'Passwords do not match';
+                                    _passwordTextEditingController.text) {
+                                  return 'Password Did\'n Match';
                                 }
                                 return null;
                               },
@@ -159,7 +204,7 @@ class _ClientSignUpSecondState extends State<ClientSignUpSecond> {
                           ),
                           gapH12,
                           WelcomeButton(
-                            text: 'Submit as Client',
+                            text: 'Submit as Designer',
                             color: Colors.amber.shade400,
                             onPressed: _submit,
                           ),
