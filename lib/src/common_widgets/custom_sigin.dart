@@ -8,10 +8,10 @@ class SignInForm extends StatefulWidget {
   final FormSubmitCallback onFormSubmit;
 
   const SignInForm({
-    Key? key,
+    super.key,
     required this.signInText,
     required this.onFormSubmit,
-  }) : super(key: key);
+  });
 
   @override
   State<SignInForm> createState() => _SignInFormState();

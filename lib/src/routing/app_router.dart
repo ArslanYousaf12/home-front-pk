@@ -7,6 +7,7 @@ import 'package:home_front_pk/src/features/authentication/presentation/sign_up/c
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/client/client_signup_second.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/constructor/constructor_signup.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/designer/designer_signup.dart';
+import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard.dart';
 
 import 'package:home_front_pk/src/features/welcome/presentation/welcome_screen.dart';
 
@@ -44,7 +45,7 @@ final goRouter =
   GoRoute(
     path: '/',
     name: AppRoute.welcome.name,
-    builder: (context, state) => const WelcomeScreen(),
+    builder: (context, state) => const ClientDashboard(),
     routes: [
       GoRoute(
           path: 'sign-In-client-first',

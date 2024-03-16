@@ -60,7 +60,7 @@ class _ConstructorSignInState extends State<ConstructorSignIn> {
                     onPressed: () {
                       context.goNamed(AppRoute.signUpConstructor.name);
                     },
-                    child: Text('SignUp'))
+                    child: const Text('SignUp'))
               ],
             ),
           ),

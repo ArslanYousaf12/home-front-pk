@@ -37,7 +37,7 @@ class _DesignerSignInState extends State<DesignerSignIn> {
                 const CircularImage(imageUrl: 'assets/signin/login.jpeg'),
                 gapH4,
                 const ResponsiveScrollableCard(
-                  color: const Color.fromARGB(99, 48, 70, 91),
+                  color: Color.fromARGB(99, 48, 70, 91),
                   child: Center(
                     child: Text(
                       'Designer Login',
@@ -60,7 +60,7 @@ class _DesignerSignInState extends State<DesignerSignIn> {
                     onPressed: () {
                       context.goNamed(AppRoute.signUpDesigner.name);
                     },
-                    child: Text('SignUp'))
+                    child: const Text('SignUp'))
               ],
             ),
           ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/common_widgets/circular_image.dart';
 import 'package:home_front_pk/src/common_widgets/lable_inputfield.dart';
@@ -193,7 +192,9 @@ class _ClientSignUpState extends State<ClientSignUp> {
                               cursorHeight: 40,
                               onTap: _pickingDOB,
                               onSaved: (newValue) {},
-                              validator: (value) {},
+                              validator: (value) {
+                                return null;
+                              },
                             ),
                           ),
                           gapH12,

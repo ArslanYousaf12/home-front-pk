@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/common_widgets/circular_image.dart';
 import 'package:home_front_pk/src/common_widgets/custom_sigin.dart';
-import 'package:home_front_pk/src/common_widgets/decorated_box_with_shadow.dart';
-import 'package:home_front_pk/src/common_widgets/responsive_center.dart';
 import 'package:home_front_pk/src/common_widgets/responsive_scrollable_card.dart';
-import 'package:home_front_pk/src/common_widgets/welcome_screen_button.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 
@@ -40,7 +37,7 @@ class _ClientSignInScreenState extends State<ClientSignInScreen> {
                 const CircularImage(imageUrl: 'assets/signin/login.jpeg'),
                 gapH4,
                 const ResponsiveScrollableCard(
-                  color: const Color.fromARGB(99, 48, 70, 91),
+                  color: Color.fromARGB(99, 48, 70, 91),
                   child: Center(
                     child: Text(
                       'Client Login',
@@ -62,7 +59,7 @@ class _ClientSignInScreenState extends State<ClientSignInScreen> {
                     onPressed: () {
                       context.goNamed(AppRoute.signUpClientFirst.name);
                     },
-                    child: Text('SignUp'))
+                    child: const Text('SignUp'))
               ],
             ),
           ),

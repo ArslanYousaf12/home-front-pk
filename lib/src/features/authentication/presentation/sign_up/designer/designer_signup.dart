@@ -141,7 +141,9 @@ class _DesignerSignUpState extends State<DesignerSignUp> {
                               cursorHeight: 40,
                               onTap: _pickingDOB,
                               onSaved: (newValue) {},
-                              validator: (value) {},
+                              validator: (value) {
+                                return null;
+                              },
                             ),
                           ),
                           LabelInputField(
