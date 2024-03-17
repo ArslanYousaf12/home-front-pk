@@ -45,7 +45,7 @@ class _DesignerDashboardState extends State<DesignerDashboard> {
                   gapH8,
                   ElevatedButton(
                     onPressed: () {},
-                    child: const Text('Portfolio'),
+                    child: const Text('Jobs'),
                   ),
                 ],
               ),

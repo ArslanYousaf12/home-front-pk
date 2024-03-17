@@ -21,14 +21,12 @@ class GridCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
+              colors: [
+                Colors.green.shade300,
+                Colors.green.shade100,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [
-                Theme.of(context)
-                    .colorScheme
-                    .background, // Use theme colors for better consistency
-                Theme.of(context).primaryColor,
-              ],
             ),
             borderRadius: BorderRadius.circular(
                 16), // Consistent rounded corners with the card
