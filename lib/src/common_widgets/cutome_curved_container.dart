@@ -4,9 +4,11 @@ class CustomCurvedContainer extends StatelessWidget {
   const CustomCurvedContainer({
     super.key,
     required this.child,
+    required this.gradientColors,
   });
 
   final Widget child;
+  final LinearGradient gradientColors;
 
   @override
   Widget build(BuildContext context) {
@@ -14,20 +16,13 @@ class CustomCurvedContainer extends StatelessWidget {
       height: 200,
       width: double.infinity,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Colors.green.shade100,
-            Colors.green.shade400,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.only(
+        gradient: gradientColors,
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(100),
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: child,
       ),
     );

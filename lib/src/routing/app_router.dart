@@ -8,8 +8,7 @@ import 'package:home_front_pk/src/features/authentication/presentation/sign_up/c
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/constructor/constructor_signup.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/designer/designer_signup.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard.dart';
-
-import 'package:home_front_pk/src/features/welcome/presentation/welcome_screen.dart';
+import 'package:home_front_pk/src/features/dashboard/presentation/designer_dashboard.dart';
 
 enum AppRoute {
   welcome, // Welcome/Sign In screen for all users
@@ -45,7 +44,7 @@ final goRouter =
   GoRoute(
     path: '/',
     name: AppRoute.welcome.name,
-    builder: (context, state) => const ClientDashboard(),
+    builder: (context, state) => const DesignerDashboard(),
     routes: [
       GoRoute(
           path: 'sign-In-client-first',

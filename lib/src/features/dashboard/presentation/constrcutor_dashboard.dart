@@ -11,9 +11,9 @@ class ConstructorDashboard extends StatefulWidget {
 class _ConstructorDashboardState extends State<ConstructorDashboard> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: const Size.fromHeight(80),
+    return const Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(80),
         child: HomeAppBar(),
       ),
     );

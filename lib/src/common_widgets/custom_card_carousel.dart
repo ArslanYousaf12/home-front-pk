@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 
 class CustomeCardCarousel extends StatelessWidget {
-  CustomeCardCarousel(
+  const CustomeCardCarousel(
       {super.key,
       required this.title,
       required this.icon,
