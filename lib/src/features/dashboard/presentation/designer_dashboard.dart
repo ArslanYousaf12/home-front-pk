@@ -58,14 +58,14 @@ class _DesignerDashboardState extends State<DesignerDashboard> {
                   childAspectRatio: 1.5 / 1.2,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  children: [
+                  children: const [
                     GridCard(
                         iconName: FontAwesomeIcons.images, title: 'Portfolio'),
                     GridCard(
                         iconName: FontAwesomeIcons.briefcase,
                         title: 'New Requests'),
                     GridCard(
-                        iconName: FontAwesomeIcons.tasks,
+                        iconName: FontAwesomeIcons.listCheck,
                         title: 'Ongoing Projects'),
                     GridCard(
                         iconName: FontAwesomeIcons.comments, title: 'Messages'),
@@ -73,12 +73,12 @@ class _DesignerDashboardState extends State<DesignerDashboard> {
                         iconName: FontAwesomeIcons.paperPlane,
                         title: 'Offers Sent'),
                     GridCard(
-                        iconName: FontAwesomeIcons.checkCircle,
+                        iconName: FontAwesomeIcons.circleCheck,
                         title: 'Completed Projects'),
                     GridCard(
                         iconName: FontAwesomeIcons.wallet, title: 'Payments'),
                     GridCard(
-                        iconName: FontAwesomeIcons.userEdit,
+                        iconName: FontAwesomeIcons.userPen,
                         title: 'Update Profile'),
                   ]),
             ),

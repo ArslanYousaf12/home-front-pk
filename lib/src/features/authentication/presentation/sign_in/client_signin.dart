@@ -18,6 +18,7 @@ class _ClientSignInScreenState extends State<ClientSignInScreen> {
     // Handle the form submission, e.g., authenticate and navigate
     print('Email: $email, Password: $password');
     // Example: Navigator.of(context).pushReplacementNamed('/clientDashboard');
+    context.goNamed(AppRoute.clientDashboard.name);
   }
 
   @override

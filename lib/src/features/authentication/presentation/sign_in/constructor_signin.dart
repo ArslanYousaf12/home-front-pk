@@ -18,6 +18,7 @@ class _ConstructorSignInState extends State<ConstructorSignIn> {
     // Handle the form submission, e.g., authenticate and navigate
     print('Email: $email, Password: $password');
     // Example: Navigator.of(context).pushReplacementNamed('/clientDashboard');
+    context.goNamed(AppRoute.constructorDashboard.name);
   }
 
   @override

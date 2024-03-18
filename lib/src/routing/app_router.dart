@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:home_front_pk/src/common_widgets/welcome_screen_button.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/client_signin.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/constructor_signin.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/designer_signin.dart';
@@ -8,7 +9,9 @@ import 'package:home_front_pk/src/features/authentication/presentation/sign_up/c
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/constructor/constructor_signup.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/designer/designer_signup.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard.dart';
+import 'package:home_front_pk/src/features/dashboard/presentation/constrcutor_dashboard.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/designer_dashboard.dart';
+import 'package:home_front_pk/src/features/welcome/presentation/welcome_screen.dart';
 
 enum AppRoute {
   welcome, // Welcome/Sign In screen for all users
@@ -44,7 +47,7 @@ final goRouter =
   GoRoute(
     path: '/',
     name: AppRoute.welcome.name,
-    builder: (context, state) => const DesignerDashboard(),
+    builder: (context, state) => const WelcomeScreen(),
     routes: [
       GoRoute(
           path: 'sign-In-client-first',
@@ -54,6 +57,11 @@ final goRouter =
                 child: ClientSignInScreen(),
               ),
           routes: [
+            GoRoute(
+              path: 'client-dashboard',
+              name: AppRoute.clientDashboard.name,
+              builder: (context, state) => const ClientDashboard(),
+            ),
             GoRoute(
               path: 'sign-up-client',
               name: AppRoute.signUpClientFirst.name,
@@ -140,6 +148,11 @@ final goRouter =
         ),
         routes: [
           GoRoute(
+            path: 'constructor-dashboard',
+            name: AppRoute.constructorDashboard.name,
+            builder: (context, state) => const ConstructorDashboard(),
+          ),
+          GoRoute(
             path: 'sign-up-constructor',
             name: AppRoute.signUpConstructor.name,
             builder: (context, state) => const ConstructorSignUp(),
@@ -166,6 +179,11 @@ final goRouter =
           child: DesignerSignIn(),
         ),
         routes: [
+          GoRoute(
+            path: 'designer-dashboard',
+            name: AppRoute.designerDashboard.name,
+            builder: (context, state) => const DesignerDashboard(),
+          ),
           GoRoute(
             path: 'sign-up-designer',
             name: AppRoute.signUpDesigner.name,

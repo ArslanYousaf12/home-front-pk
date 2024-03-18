@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:home_front_pk/src/constants/app_sizes.dart';
 
 class GridCard extends StatelessWidget {
-  const GridCard({super.key, required this.iconName, required this.title});
+  const GridCard(
+      {super.key,
+      required this.iconName,
+      required this.title,
+      this.gradients,
+      this.color});
 
   final IconData iconName;
   final String title;
+  final List<Color>? gradients;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +29,11 @@ class GridCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Colors.green.shade300,
-                Colors.green.shade100,
-              ],
+              colors: gradients ??
+                  [
+                    Colors.green.shade300,
+                    Colors.green.shade100,
+                  ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -40,14 +49,14 @@ class GridCard extends StatelessWidget {
                 Icon(
                   iconName,
                   size: 30,
-                  color: Colors.white,
+                  color: color ?? Colors.white,
                 ),
-                SizedBox(height: 12), // Spacing after icon
+                gapH12, // Spacing after icon
                 Text(
                   title,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: color ?? Colors.white,
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
