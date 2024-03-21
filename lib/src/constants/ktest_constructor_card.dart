@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:home_front_pk/src/common_widgets/custom_card_carousel.dart';
+import 'package:home_front_pk/src/features/dashboard/domain/constructor.dart';
 
-final ktestConstructorCard = [
-  const CustomeCardCarousel(
+final ktestConstructor = [
+  const ConstructorIslamabad(
+    id: '1',
     title: 'Residential Builder',
     icon: Icons.build,
-    description:
-        'Experienced in constructing high-quality residential buildings.',
+    detail: 'Experienced in constructing high-quality residential buildings.',
   ),
-  const CustomeCardCarousel(
+  const ConstructorIslamabad(
+    id: '2',
     title: 'Commercial Builder',
     icon: Icons.build,
-    description:
+    detail:
         'Specializes in building commercial properties such as office buildings.',
   ),
-  const CustomeCardCarousel(
+  const ConstructorIslamabad(
+    id: '3',
     title: 'Custom Home Builder',
     icon: Icons.build,
-    description:
-        'Tailors construction projects to clients\' unique preferences.',
+    detail: 'Tailors construction projects to clients\' unique preferences.',
   ),
-  const CustomeCardCarousel(
+  const ConstructorIslamabad(
+    id: '4',
     title: 'Renovation Contractor',
     icon: Icons.build,
-    description: 'Skilled in renovating existing buildings and homes.',
+    detail: 'Skilled in renovating existing buildings and homes.',
   ),
 ];

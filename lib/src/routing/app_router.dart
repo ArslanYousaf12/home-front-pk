@@ -47,7 +47,7 @@ final goRouter =
   GoRoute(
     path: '/',
     name: AppRoute.welcome.name,
-    builder: (context, state) => const WelcomeScreen(),
+    builder: (context, state) => const ClientDashboard(),
     routes: [
       GoRoute(
           path: 'sign-In-client-first',

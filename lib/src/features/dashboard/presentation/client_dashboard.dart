@@ -1,10 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:home_front_pk/src/common_widgets/custom_card_carousel.dart';
 import 'package:home_front_pk/src/common_widgets/cutome_curved_container.dart';
 import 'package:home_front_pk/src/common_widgets/home_app_bar.dart';
 import 'package:home_front_pk/src/common_widgets/welcome_screen_button.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 import 'package:home_front_pk/src/constants/ktest_constructor_card.dart';
+import 'package:home_front_pk/src/features/dashboard/data/fake_constructor_repo.dart';
 
 class ClientDashboard extends StatefulWidget {
   const ClientDashboard({super.key});
@@ -14,6 +16,7 @@ class ClientDashboard extends StatefulWidget {
 }
 
 class _ClientDashboardState extends State<ClientDashboard> {
+  final constructors = FakeConstructorRepository.instance.getConstructorList();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,9 +61,15 @@ class _ClientDashboardState extends State<ClientDashboard> {
             ),
             gapH12,
             CarouselSlider.builder(
-              itemCount: ktestConstructorCard.length,
-              itemBuilder: (context, index, realIndex) =>
-                  ktestConstructorCard[index],
+              itemCount: constructors.length,
+              itemBuilder: (context, index, realIndex) {
+                final constructor = constructors[index];
+                final title = constructor.title;
+                final icon = constructor.icon;
+                final description = constructor.detail;
+                return CustomeCardCarousel(
+                    title: title, icon: icon, description: description);
+              },
               options: CarouselOptions(
                 height: 250,
                 enableInfiniteScroll: true,
