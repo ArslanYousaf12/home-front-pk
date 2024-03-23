@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:home_front_pk/src/common_widgets/welcome_screen_button.dart';
+import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/client_signin.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/constructor_signin.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/designer_signin.dart';
@@ -8,9 +8,12 @@ import 'package:home_front_pk/src/features/authentication/presentation/sign_up/c
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/client/client_signup_second.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/constructor/constructor_signup.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/designer/designer_signup.dart';
-import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard.dart';
-import 'package:home_front_pk/src/features/dashboard/presentation/constrcutor_dashboard.dart';
-import 'package:home_front_pk/src/features/dashboard/presentation/designer_dashboard.dart';
+import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/client_dashboard.dart';
+import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/constructors.dart/constructor_detailed.dart';
+import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/designers_list/deigner_list_screen.dart';
+import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/designers_list/designer_detailed.dart';
+import 'package:home_front_pk/src/features/dashboard/presentation/constructor_dashboard/constrcutor_dashboard.dart';
+import 'package:home_front_pk/src/features/dashboard/presentation/designer_dashboard/designer_dashboard.dart';
 import 'package:home_front_pk/src/features/welcome/presentation/welcome_screen.dart';
 
 enum AppRoute {
@@ -23,6 +26,9 @@ enum AppRoute {
   signUpConstructor, // Sign Up screen for constructors
   signUpDesigner, // Sign Up screen for designers
   clientDashboard, // Dashboard screen for clients
+  constructorDetailed,
+  designerList,
+  designerDetailed,
   designerDashboard, // Dashboard screen for designers
   constructorDashboard, // Dashboard screen for constructors
   serviceDetail, // Details for a specific service
@@ -47,10 +53,10 @@ final goRouter =
   GoRoute(
     path: '/',
     name: AppRoute.welcome.name,
-    builder: (context, state) => const ClientDashboard(),
+    builder: (context, state) => const WelcomeScreen(),
     routes: [
       GoRoute(
-          path: 'sign-In-client-first',
+          path: 'sign-In-client',
           name: AppRoute.signInClient.name,
           pageBuilder: (context, state) => const MaterialPage(
                 fullscreenDialog: false,
@@ -58,17 +64,41 @@ final goRouter =
               ),
           routes: [
             GoRoute(
-              path: 'client-dashboard',
-              name: AppRoute.clientDashboard.name,
-              builder: (context, state) => const ClientDashboard(),
-            ),
+                path: 'client-dashboard',
+                name: AppRoute.clientDashboard.name,
+                builder: (context, state) => const ClientDashboard(),
+                routes: [
+                  GoRoute(
+                    path: 'constructor-detailed-screen/:id',
+                    name: AppRoute.constructorDetailed.name,
+                    builder: (context, state) {
+                      final constructorId = state.pathParameters['id']!;
+                      return ConstructorDetailedScreen(
+                          constructorId: constructorId);
+                    },
+                  ),
+                  GoRoute(
+                      path: 'designer-list',
+                      name: AppRoute.designerList.name,
+                      builder: (context, state) => const DesignerListScreen(),
+                      routes: [
+                        GoRoute(
+                            path: 'designer-detailed-screen/:id',
+                            name: AppRoute.designerDetailed.name,
+                            builder: (context, state) {
+                              final designerId = state.pathParameters['id']!;
+                              return DesignerDetailedScreen(
+                                  designerId: designerId);
+                            }),
+                      ])
+                ]),
             GoRoute(
               path: 'sign-up-client',
               name: AppRoute.signUpClientFirst.name,
               builder: (context, state) => const ClientSignUp(),
               routes: [
                 GoRoute(
-                  path: 'sign-in-client-second',
+                  path: 'sign-up-client-second',
                   name: AppRoute.signUpClientSecond.name,
                   builder: (context, state) => const ClientSignUpSecond(),
                 ),

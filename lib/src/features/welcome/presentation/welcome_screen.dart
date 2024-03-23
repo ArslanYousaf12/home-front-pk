@@ -5,7 +5,7 @@ import 'package:home_front_pk/src/common_widgets/circular_image.dart';
 import 'package:home_front_pk/src/common_widgets/decorated_box_with_shadow.dart';
 import 'package:home_front_pk/src/common_widgets/responsive_center.dart';
 import 'package:home_front_pk/src/common_widgets/responsive_scrollable_card.dart';
-import 'package:home_front_pk/src/common_widgets/welcome_screen_button.dart';
+import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 
@@ -67,7 +67,7 @@ class WelcomeScreen extends StatelessWidget {
               gapH64,
               Column(
                 children: [
-                  WelcomeButton(
+                  ActionLoadButton(
                     text: 'Client Login',
                     color: Colors.green,
                     onPressed: () {
@@ -75,7 +75,7 @@ class WelcomeScreen extends StatelessWidget {
                     },
                   ),
                   gapH16,
-                  WelcomeButton(
+                  ActionLoadButton(
                     text: 'Constructor Login',
                     color: const Color.fromARGB(245, 228, 186, 62),
                     onPressed: () {
@@ -83,7 +83,7 @@ class WelcomeScreen extends StatelessWidget {
                     },
                   ),
                   gapH16,
-                  WelcomeButton(
+                  ActionLoadButton(
                     text: 'Designer Login',
                     color: const Color.fromARGB(255, 129, 199, 132),
                     onPressed: () {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:home_front_pk/src/common_widgets/welcome_screen_button.dart';
+import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
 
 typedef FormSubmitCallback = void Function(String email, String password);
 
@@ -62,7 +62,7 @@ class _SignInFormState extends State<SignInForm> {
               },
             ),
             const SizedBox(height: 64),
-            WelcomeButton(
+            ActionLoadButton(
               text: 'Login',
               color: Colors.amber.shade400,
               onPressed: _submit,

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:flutter/material.dart';
 import 'package:home_front_pk/src/app.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
@@ -9,7 +10,7 @@ void main() {
   //ensure flutter SDK is ready for widget rendering
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 void registerErroHandler() {

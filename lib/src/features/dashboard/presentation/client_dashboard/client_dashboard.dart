@@ -1,12 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:home_front_pk/src/common_widgets/custom_card_carousel.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:home_front_pk/src/common_widgets/async_value_widget.dart';
+import 'package:home_front_pk/src/common_widgets/custom_talent_card.dart';
 import 'package:home_front_pk/src/common_widgets/cutome_curved_container.dart';
 import 'package:home_front_pk/src/common_widgets/home_app_bar.dart';
-import 'package:home_front_pk/src/common_widgets/welcome_screen_button.dart';
+import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 import 'package:home_front_pk/src/constants/ktest_constructor_card.dart';
 import 'package:home_front_pk/src/features/dashboard/data/fake_constructor_repo.dart';
+import 'package:home_front_pk/src/routing/app_router.dart';
 
 class ClientDashboard extends StatefulWidget {
   const ClientDashboard({super.key});
@@ -16,7 +20,8 @@ class ClientDashboard extends StatefulWidget {
 }
 
 class _ClientDashboardState extends State<ClientDashboard> {
-  final constructors = FakeConstructorRepository.instance.getConstructorList();
+  // singleton
+  // final constructors = FakeConstructorRepository.instance.getConstructorList();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,42 +65,63 @@ class _ClientDashboardState extends State<ClientDashboard> {
               ),
             ),
             gapH12,
-            CarouselSlider.builder(
-              itemCount: constructors.length,
-              itemBuilder: (context, index, realIndex) {
-                final constructor = constructors[index];
-                final title = constructor.title;
-                final icon = constructor.icon;
-                final description = constructor.detail;
-                return CustomeCardCarousel(
-                    title: title, icon: icon, description: description);
+            Consumer(
+              builder: (context, ref, child) {
+                // final constructorRepository =
+                //     ref.watch(constructorRepositoryProvider);
+                // final constructors = constructorRepository.getConstructorList();
+                final constructorsValue =
+                    ref.watch(constructorsListStreamProvider);
+                return AsyncValueWidget(
+                  value: constructorsValue,
+                  data: (constructors) => CarouselSlider.builder(
+                    itemCount: constructors.length,
+                    itemBuilder: (context, index, realIndex) {
+                      final constructor = constructors[index];
+                      final title = constructor.title;
+                      final icon = constructor.icon;
+                      final description = constructor.detail;
+                      return CustomTalentCard(
+                        title: title,
+                        icon: icon,
+                        description: description,
+                        onPressed: () {
+                          context.goNamed(AppRoute.constructorDetailed.name,
+                              pathParameters: {'id': constructor.id});
+                        },
+                      );
+                    },
+                    options: CarouselOptions(
+                      height: 250,
+                      enableInfiniteScroll: true,
+                      autoPlay: false,
+                      // autoPlayInterval: Duration(seconds: 3),
+                      // autoPlayAnimationDuration: Duration(milliseconds: 800),
+                      // autoPlayCurve: Curves.fastOutSlowIn,
+                      enlargeCenterPage: true,
+                      viewportFraction: 0.8,
+                    ),
+                  ),
+                );
               },
-              options: CarouselOptions(
-                height: 250,
-                enableInfiniteScroll: true,
-                autoPlay: false,
-                // autoPlayInterval: Duration(seconds: 3),
-                // autoPlayAnimationDuration: Duration(milliseconds: 800),
-                // autoPlayCurve: Curves.fastOutSlowIn,
-                enlargeCenterPage: true,
-                viewportFraction: 0.8,
-              ),
             ),
             gapH12,
             Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: [
-                    WelcomeButton(
+                    ActionLoadButton(
                       text: 'Incomming Jobs',
                       color: Colors.green.shade200,
                       onPressed: () {},
                     ),
                     gapH12,
-                    WelcomeButton(
+                    ActionLoadButton(
                       text: 'View Designer',
                       color: Colors.amber.shade200,
-                      onPressed: () {},
+                      onPressed: () {
+                        context.goNamed(AppRoute.designerList.name);
+                      },
                     ),
                   ],
                 )),

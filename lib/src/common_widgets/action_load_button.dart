@@ -7,8 +7,8 @@ import 'package:home_front_pk/src/constants/app_sizes.dart';
 /// @param isLoading - if true, a loading indicator will be displayed instead of
 /// the text.
 /// @param onPressed - callback to be called when the button is pressed.
-class WelcomeButton extends StatelessWidget {
-  const WelcomeButton(
+class ActionLoadButton extends StatelessWidget {
+  const ActionLoadButton(
       {super.key,
       required this.text,
       this.isLoading = false,

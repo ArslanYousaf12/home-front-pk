@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:home_front_pk/src/common_widgets/circular_image.dart';
 import 'package:home_front_pk/src/common_widgets/lable_inputfield.dart';
-import 'package:home_front_pk/src/common_widgets/welcome_screen_button.dart';
+import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 
 class ClientSignUpSecond extends StatefulWidget {
@@ -158,7 +158,7 @@ class _ClientSignUpSecondState extends State<ClientSignUpSecond> {
                             ),
                           ),
                           gapH12,
-                          WelcomeButton(
+                          ActionLoadButton(
                             text: 'Submit as Client',
                             color: Colors.amber.shade400,
                             onPressed: _submit,

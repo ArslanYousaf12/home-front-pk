@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/common_widgets/circular_image.dart';
 import 'package:home_front_pk/src/common_widgets/lable_inputfield.dart';
-import 'package:home_front_pk/src/common_widgets/welcome_screen_button.dart';
+import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 import 'package:intl/intl.dart';
@@ -198,7 +198,7 @@ class _ClientSignUpState extends State<ClientSignUp> {
                             ),
                           ),
                           gapH12,
-                          WelcomeButton(
+                          ActionLoadButton(
                             text: 'Continue',
                             color: Colors.amber.shade400,
                             onPressed: _continue,

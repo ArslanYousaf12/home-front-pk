@@ -4,6 +4,8 @@ import 'package:home_front_pk/src/features/dashboard/domain/designer.dart';
 final ktestDesigner = [
   const DesignerIslamabad(
     id: '1',
+    name: 'Name',
+    imageUrl: 'assets/person.jpeg',
     title: 'Interior Designer',
     icon: Icons.design_services,
     detail:
@@ -11,6 +13,8 @@ final ktestDesigner = [
   ),
   const DesignerIslamabad(
     id: '2',
+    imageUrl: 'assets/person.jpeg',
+    name: 'Name',
     title: 'Architectural Designer',
     icon: Icons.design_services,
     detail:
@@ -18,6 +22,8 @@ final ktestDesigner = [
   ),
   const DesignerIslamabad(
     id: '3',
+    imageUrl: 'assets/person.jpeg',
+    name: 'Name',
     title: 'Landscape Designer',
     icon: Icons.design_services,
     detail:
@@ -25,6 +31,8 @@ final ktestDesigner = [
   ),
   const DesignerIslamabad(
     id: '4',
+    imageUrl: 'assets/person.jpeg',
+    name: 'Name',
     title: 'Graphic Designer',
     icon: Icons.design_services,
     detail:
