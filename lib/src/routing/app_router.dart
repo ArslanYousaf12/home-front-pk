@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/account/account_screen.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/client_signin.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/constructor_signin.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/designer_signin.dart';
@@ -14,10 +15,13 @@ import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboa
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/designers_list/designer_detailed.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/constructor_dashboard/constrcutor_dashboard.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/designer_dashboard/designer_dashboard.dart';
+import 'package:home_front_pk/src/features/portfolio/presentation/constructor_portfolio.dart';
+import 'package:home_front_pk/src/features/portfolio/presentation/designer_portfolio.dart';
 import 'package:home_front_pk/src/features/welcome/presentation/welcome_screen.dart';
 
 enum AppRoute {
   welcome, // Welcome/Sign In screen for all users
+
   signInClient,
   signInDesigner,
   signInConstructor,
@@ -26,11 +30,17 @@ enum AppRoute {
   signUpConstructor, // Sign Up screen for constructors
   signUpDesigner, // Sign Up screen for designers
   clientDashboard, // Dashboard screen for clients
+  clientAccount,
+  clientMessage,
   constructorDetailed,
   designerList,
   designerDetailed,
   designerDashboard, // Dashboard screen for designers
+  designerAccount,
+  designerMessage,
   constructorDashboard, // Dashboard screen for constructors
+  constructorAccount,
+  constructorMessage,
   serviceDetail, // Details for a specific service
   costCalculator, // Calculator for estimating service costs
   profile, // Profile screen (common for all users, with specific sections based on role)
@@ -53,7 +63,7 @@ final goRouter =
   GoRoute(
     path: '/',
     name: AppRoute.welcome.name,
-    builder: (context, state) => const WelcomeScreen(),
+    builder: (context, state) => const ConstructorPortfolio(),
     routes: [
       GoRoute(
           path: 'sign-In-client',
@@ -68,6 +78,11 @@ final goRouter =
                 name: AppRoute.clientDashboard.name,
                 builder: (context, state) => const ClientDashboard(),
                 routes: [
+                  GoRoute(
+                    path: 'account',
+                    name: AppRoute.clientAccount.name,
+                    builder: (context, state) => const AccountScreen(),
+                  ),
                   GoRoute(
                     path: 'constructor-detailed-screen/:id',
                     name: AppRoute.constructorDetailed.name,
@@ -104,71 +119,7 @@ final goRouter =
                 ),
               ],
             ),
-          ])
-      //     routes: [
-      //       GoRoute(
-      //         path: 'client-dashboard',
-      //         name: AppRoute.clientDashboard.name,
-      //         pageBuilder: (context, state) => MaterialPage(
-      //           fullscreenDialog: true,
-      //           child: ClientDashboard(),
-      //         ),
-      //         routes: [
-      //           GoRoute(
-      //             path: 'service-detail',
-      //             name: AppRoute.serviceDetail.name,
-      //             pageBuilder: (context, state) => MaterialPage(
-      //               fullscreenDialog: true,
-      //               child: ServiceDetailScreen(),
-      //             ),
-      //           ),
-      //           GoRoute(
-      //             path: 'cost-calculator',
-      //             name: AppRoute.costCalculator.name,
-      //             pageBuilder: (context, state) => MaterialPage(
-      //               fullscreenDialog: true,
-      //               child: CostCalculatorScreen(),
-      //             ),
-      //           ),
-      //           GoRoute(
-      //             path: 'project-mangement',
-      //             name: AppRoute.projectManagement.name,
-      //             pageBuilder: (context, state) => MaterialPage(
-      //               fullscreenDialog: true,
-      //               child: ProjectMangementScreen(),
-      //             ),
-      //           ),
-      //           GoRoute(
-      //             path: 'profile',
-      //             name: AppRoute.profile.name,
-      //             pageBuilder: (context, state) => MaterialPage(
-      //               fullscreenDialog: true,
-      //               child: ProfileScreen(),
-      //             ),
-      //             routes: [
-      //               GoRoute(
-      //                 path: 'history',
-      //                 name: AppRoute.history.name,
-      //                 pageBuilder: (context, state) => MaterialPage(
-      //                   fullscreenDialog: true,
-      //                   child: HistoryScreen(),
-      //                 ),
-      //               ),
-      //               GoRoute(
-      //                 path: 'setting',
-      //                 name: AppRoute.settings.name,
-      //                 pageBuilder: (context, state) => MaterialPage(
-      //                   fullscreenDialog: true,
-      //                   child: SettingScreen(),
-      //                 ),
-      //               ),
-      //             ],
-      //           ),
-      //         ],
-      //       ),
-      //     ],
-      //   ),
-      ,
+          ]),
       GoRoute(
         path: 'sign-in-constructor',
         name: AppRoute.signInConstructor.name,
@@ -178,29 +129,23 @@ final goRouter =
         ),
         routes: [
           GoRoute(
-            path: 'constructor-dashboard',
-            name: AppRoute.constructorDashboard.name,
-            builder: (context, state) => const ConstructorDashboard(),
-          ),
+              path: 'constructor-dashboard',
+              name: AppRoute.constructorDashboard.name,
+              builder: (context, state) => const ConstructorDashboard(),
+              routes: [
+                GoRoute(
+                  path: 'constructor-account',
+                  name: AppRoute.constructorAccount.name,
+                  builder: (context, state) => const AccountScreen(),
+                ),
+              ]),
           GoRoute(
             path: 'sign-up-constructor',
             name: AppRoute.signUpConstructor.name,
             builder: (context, state) => const ConstructorSignUp(),
           ),
         ],
-      )
-      //     routes: [
-      //       GoRoute(
-      //         path: 'constructor-dashboard',
-      //         name: AppRoute.constructorDashboard.name,
-      //         pageBuilder: (context, state) => MaterialPage(
-      //           fullscreenDialog: true,
-      //           child: ConstructorDashboard(),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      ,
+      ),
       GoRoute(
         path: 'sign-in-designer',
         name: AppRoute.signInDesigner.name,
@@ -210,10 +155,16 @@ final goRouter =
         ),
         routes: [
           GoRoute(
-            path: 'designer-dashboard',
-            name: AppRoute.designerDashboard.name,
-            builder: (context, state) => const DesignerDashboard(),
-          ),
+              path: 'designer-dashboard',
+              name: AppRoute.designerDashboard.name,
+              builder: (context, state) => const DesignerDashboard(),
+              routes: [
+                GoRoute(
+                  path: 'designer-account',
+                  name: AppRoute.designerAccount.name,
+                  builder: (context, state) => const AccountScreen(),
+                ),
+              ]),
           GoRoute(
             path: 'sign-up-designer',
             name: AppRoute.signUpDesigner.name,

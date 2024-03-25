@@ -20,7 +20,9 @@ class _DesignerDashboardState extends State<DesignerDashboard> {
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(80),
-        child: HomeAppBar(),
+        child: HomeAppBar(
+          userRole: 'designer',
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

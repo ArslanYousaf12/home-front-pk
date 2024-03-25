@@ -41,6 +41,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   flutter_riverpod: ^2.5.1
+  rxdart: 0.27.7
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,9 @@ flutter:
     - assets/welcome/
     - assets/signin/
     - assets/signup/
+    - assets/designer/
+    - assets/constructor/
+
    
 
 

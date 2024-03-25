@@ -18,7 +18,9 @@ class _ConstructorDashboardState extends State<ConstructorDashboard> {
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(80),
-        child: HomeAppBar(),
+        child: HomeAppBar(
+          userRole: 'constructor',
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

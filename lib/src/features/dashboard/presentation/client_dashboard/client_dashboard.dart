@@ -27,7 +27,9 @@ class _ClientDashboardState extends State<ClientDashboard> {
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(80),
-        child: HomeAppBar(),
+        child: HomeAppBar(
+          userRole: 'client',
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
