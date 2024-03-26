@@ -3,24 +3,25 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 
 class GridCard extends StatelessWidget {
-  const GridCard(
-      {super.key,
-      required this.iconName,
-      required this.title,
-      this.gradients,
-      this.color});
+  const GridCard({
+    super.key,
+    required this.iconName,
+    required this.title,
+    this.gradients,
+    this.color,
+    this.onPressed,
+  });
 
   final IconData iconName;
   final String title;
   final List<Color>? gradients;
   final Color? color;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        // Implement your onTap functionality here, if necessary
-      },
+      onTap: onPressed,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16), // Rounded corners

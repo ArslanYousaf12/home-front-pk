@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/common_widgets/cutome_curved_container.dart';
 import 'package:home_front_pk/src/common_widgets/grid_card.dart';
 import 'package:home_front_pk/src/common_widgets/home_app_bar.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
+import 'package:home_front_pk/src/routing/app_router.dart';
 
 class ConstructorDashboard extends StatefulWidget {
   const ConstructorDashboard({super.key});
@@ -61,6 +63,8 @@ class _ConstructorDashboardState extends State<ConstructorDashboard> {
                   title: 'Portfolio',
                   gradients: [Colors.amber.shade300, Colors.amber.shade100],
                   color: Colors.black54,
+                  onPressed: () =>
+                      context.goNamed(AppRoute.constructorPortfolio.name),
                 ),
                 GridCard(
                   iconName: FontAwesomeIcons.briefcase,

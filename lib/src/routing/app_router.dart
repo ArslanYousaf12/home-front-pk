@@ -37,9 +37,11 @@ enum AppRoute {
   designerDetailed,
   designerDashboard, // Dashboard screen for designers
   designerAccount,
+  designerPortfolio,
   designerMessage,
   constructorDashboard, // Dashboard screen for constructors
   constructorAccount,
+  constructorPortfolio,
   constructorMessage,
   serviceDetail, // Details for a specific service
   costCalculator, // Calculator for estimating service costs
@@ -63,7 +65,7 @@ final goRouter =
   GoRoute(
     path: '/',
     name: AppRoute.welcome.name,
-    builder: (context, state) => const ConstructorPortfolio(),
+    builder: (context, state) => const WelcomeScreen(),
     routes: [
       GoRoute(
           path: 'sign-In-client',
@@ -138,6 +140,11 @@ final goRouter =
                   name: AppRoute.constructorAccount.name,
                   builder: (context, state) => const AccountScreen(),
                 ),
+                GoRoute(
+                  path: 'constructor-portfolio',
+                  name: AppRoute.constructorPortfolio.name,
+                  builder: (context, state) => const ConstructorPortfolio(),
+                ),
               ]),
           GoRoute(
             path: 'sign-up-constructor',
@@ -163,6 +170,11 @@ final goRouter =
                   path: 'designer-account',
                   name: AppRoute.designerAccount.name,
                   builder: (context, state) => const AccountScreen(),
+                ),
+                GoRoute(
+                  path: 'designer-portfolio',
+                  name: AppRoute.designerPortfolio.name,
+                  builder: (context, state) => const DesignerPortfolio(),
                 ),
               ]),
           GoRoute(

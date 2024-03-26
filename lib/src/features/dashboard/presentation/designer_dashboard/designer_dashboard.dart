@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/common_widgets/cutome_curved_container.dart';
 import 'package:home_front_pk/src/common_widgets/grid_card.dart';
 import 'package:home_front_pk/src/common_widgets/home_app_bar.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
+import 'package:home_front_pk/src/routing/app_router.dart';
 
 class DesignerDashboard extends StatefulWidget {
   const DesignerDashboard({super.key});
@@ -60,9 +62,15 @@ class _DesignerDashboardState extends State<DesignerDashboard> {
                   childAspectRatio: 1.5 / 1.2,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  children: const [
+                  children: [
                     GridCard(
-                        iconName: FontAwesomeIcons.images, title: 'Portfolio'),
+                      iconName: FontAwesomeIcons.images,
+                      title: 'Portfolio',
+                      onPressed: () {
+                        print('button pressed');
+                        context.goNamed(AppRoute.designerPortfolio.name);
+                      },
+                    ),
                     GridCard(
                         iconName: FontAwesomeIcons.briefcase,
                         title: 'New Requests'),

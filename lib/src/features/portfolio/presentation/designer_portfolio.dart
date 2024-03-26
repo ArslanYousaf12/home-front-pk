@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:home_front_pk/src/common_widgets/async_value_widget.dart';
 import 'package:home_front_pk/src/constants/ktest_designer_portfolio.dart';
+import 'package:home_front_pk/src/features/portfolio/data/fake_designer_portfolio_repository.dart';
 import 'package:home_front_pk/src/features/portfolio/presentation/custom_portfolio.dart';
 
-class DesignerPortfolio extends StatelessWidget {
+class DesignerPortfolio extends ConsumerWidget {
   const DesignerPortfolio({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    // Using the PortfolioPage widget to display designer's portfolio
-    return PortfolioPage(
-      title: 'Designer Portfolio',
-      portfolioItems: designerPortfolioItems,
-      emptyPortfolioMessage: 'No portfolio items found. Try to add some.',
+  Widget build(BuildContext context, WidgetRef ref) {
+    final designerPortfolioValue =
+        ref.watch(designerListPortfolioStreamProvider);
+    return AsyncValueWidget(
+      value: designerPortfolioValue,
+      data: (designerPortfolio) => PortfolioPage(
+        title: 'Designer Portfolio',
+        portfolioItems: designerPortfolio,
+        emptyPortfolioMessage: 'No portfolio items found. Try to add some.',
+      ),
     );
+    // Using the PortfolioPage widget to display designer's portfolio
   }
 }
