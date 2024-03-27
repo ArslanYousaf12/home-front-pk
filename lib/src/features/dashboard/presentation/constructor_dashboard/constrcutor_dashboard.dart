@@ -1,27 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
 import 'package:home_front_pk/src/common_widgets/cutome_curved_container.dart';
 import 'package:home_front_pk/src/common_widgets/grid_card.dart';
 import 'package:home_front_pk/src/common_widgets/home_app_bar.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/account/account_screen_controller.dart';
+import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 
-class ConstructorDashboard extends StatefulWidget {
+class ConstructorDashboard extends ConsumerStatefulWidget {
   const ConstructorDashboard({super.key});
 
   @override
-  State<ConstructorDashboard> createState() => _ConstructorDashboardState();
+  ConsumerState<ConstructorDashboard> createState() =>
+      _ConstructorDashboardState();
 }
 
-class _ConstructorDashboardState extends State<ConstructorDashboard> {
+class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PreferredSize(
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(80),
         child: HomeAppBar(
           userRole: 'constructor',
+          onTab: () async {
+            final goRouter = GoRouter.of(context);
+            final logout = await showAlertDialog(
+              context: context,
+              title: 'Are you sure?'.hardcoded,
+              cancelActionText: 'Cancel'.hardcoded,
+              defaultActionText: 'Logout'.hardcoded,
+            );
+            if (logout == true) {
+              final success = await ref
+                  .read(accountScreenControllerProvider.notifier)
+                  .signOut();
+              if (success) {
+                goRouter.pop();
+              }
+            }
+          },
         ),
       ),
       body: SingleChildScrollView(

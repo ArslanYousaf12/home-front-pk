@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
 import 'package:home_front_pk/src/common_widgets/async_value_widget.dart';
 import 'package:home_front_pk/src/common_widgets/custom_talent_card.dart';
 import 'package:home_front_pk/src/common_widgets/cutome_curved_container.dart';
@@ -9,26 +10,45 @@ import 'package:home_front_pk/src/common_widgets/home_app_bar.dart';
 import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 import 'package:home_front_pk/src/constants/ktest_constructor_card.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/account/account_screen_controller.dart';
 import 'package:home_front_pk/src/features/dashboard/data/fake_constructor_repo.dart';
+import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 
-class ClientDashboard extends StatefulWidget {
+class ClientDashboard extends ConsumerStatefulWidget {
   const ClientDashboard({super.key});
 
   @override
-  State<ClientDashboard> createState() => _ClientDashboardState();
+  ConsumerState<ClientDashboard> createState() => _ClientDashboardState();
 }
 
-class _ClientDashboardState extends State<ClientDashboard> {
+class _ClientDashboardState extends ConsumerState<ClientDashboard> {
   // singleton
   // final constructors = FakeConstructorRepository.instance.getConstructorList();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PreferredSize(
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(80),
         child: HomeAppBar(
           userRole: 'client',
+          onTab: () async {
+            final goRouter = GoRouter.of(context);
+            final logout = await showAlertDialog(
+              context: context,
+              title: 'Are you sure?'.hardcoded,
+              cancelActionText: 'Cancel'.hardcoded,
+              defaultActionText: 'Logout'.hardcoded,
+            );
+            if (logout == true) {
+              final success = await ref
+                  .read(accountScreenControllerProvider.notifier)
+                  .signOut();
+              if (success) {
+                goRouter.pop();
+              }
+            }
+          },
         ),
       ),
       body: SingleChildScrollView(

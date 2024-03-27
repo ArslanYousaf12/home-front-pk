@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_front_pk/src/features/authentication/domain/app_user.dart';
 import 'package:home_front_pk/src/utils/in_memory_store.dart';
 
-class ClientFakeAuthRepository {
+class FakeAuthRepository {
   final _authState = InMemoryStore<AppUser?>(null);
   Stream<AppUser?> authStateChange() => _authState.stream;
 
@@ -33,14 +33,14 @@ class ClientFakeAuthRepository {
   void dispose() => _authState.close();
 }
 
-final clientAuthRepositoryProvider = Provider<ClientFakeAuthRepository>((ref) {
-  final auth = ClientFakeAuthRepository();
+final authRepositoryProvider = Provider<FakeAuthRepository>((ref) {
+  final auth = FakeAuthRepository();
   ref.onDispose(
     () => auth.dispose(),
   );
   return auth;
 });
-final clientAuthStateChangeProvider = StreamProvider<AppUser?>((ref) {
-  final clientFakeAuthRepository = ref.watch(clientAuthRepositoryProvider);
-  return clientFakeAuthRepository.authStateChange();
+final authStateChangeProvider = StreamProvider<AppUser?>((ref) {
+  final fakeAuthRepository = ref.watch(authRepositoryProvider);
+  return fakeAuthRepository.authStateChange();
 });
