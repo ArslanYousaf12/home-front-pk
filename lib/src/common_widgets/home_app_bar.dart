@@ -10,20 +10,20 @@ class HomeAppBar extends StatelessWidget {
     super.key,
     this.notificationCallBack,
     this.messageCallBack,
-    this.onTab,
+    this.logOut,
     required this.userRole,
   });
 
   final VoidCallback? notificationCallBack;
   final VoidCallback? messageCallBack;
-  final VoidCallback? onTab;
+  final VoidCallback? logOut;
   final String userRole;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       leading: InkWell(
-        onTap: onTab,
+        onTap: logOut,
         child: const Icon(
           Icons.exit_to_app,
           size: 28,
@@ -32,6 +32,7 @@ class HomeAppBar extends StatelessWidget {
       title: const Center(child: Text('Dashboard')),
       actions: [
         GestureDetector(
+          onTap: notificationCallBack,
           child: Icon(
             Icons.notifications_none_outlined,
             size: 28,

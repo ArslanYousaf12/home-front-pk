@@ -28,7 +28,7 @@ class _DesignerDashboardState extends ConsumerState<DesignerDashboard> {
         preferredSize: Size.fromHeight(80),
         child: HomeAppBar(
           userRole: 'designer',
-          onTab: () async {
+          logOut: () async {
             final goRouter = GoRouter.of(context);
             final logout = await showAlertDialog(
               context: context,

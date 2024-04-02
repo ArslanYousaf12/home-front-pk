@@ -58,7 +58,7 @@ class _ClientSignInScreenState extends State<ClientSignInScreen> {
                     child: SignInForm(
                       signInText: 'Client',
                       onFormSubmit: _handleFormSubmit,
-                      role: Role.client,
+                    
                     )),
                 TextButton(
                     style: TextButton.styleFrom(

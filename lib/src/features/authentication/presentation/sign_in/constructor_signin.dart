@@ -55,7 +55,6 @@ class _ConstructorSignInState extends State<ConstructorSignIn> {
                     child: SignInForm(
                       signInText: 'Constructor',
                       onFormSubmit: _handleFormSubmit,
-                      role: Role.constructor,
                     )),
                 TextButton(
                     style: TextButton.styleFrom(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
 import 'package:home_front_pk/src/common_widgets/async_value_widget.dart';
 import 'package:home_front_pk/src/common_widgets/circular_image.dart';
 import 'package:home_front_pk/src/common_widgets/custom_image.dart';
@@ -31,7 +32,9 @@ class DesignerDetailedScreen extends ConsumerWidget {
               name: desiner.name,
               title: desiner.title,
               description: desiner.detail,
-              onpressed: () {},
+              onpressed: () {
+                showNotImplementedAlertDialog(context: context);
+              },
             ),
           ),
         ),

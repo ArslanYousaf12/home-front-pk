@@ -27,7 +27,7 @@ class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
         preferredSize: Size.fromHeight(80),
         child: HomeAppBar(
           userRole: 'constructor',
-          onTab: () async {
+          logOut: () async {
             final goRouter = GoRouter.of(context);
             final logout = await showAlertDialog(
               context: context,

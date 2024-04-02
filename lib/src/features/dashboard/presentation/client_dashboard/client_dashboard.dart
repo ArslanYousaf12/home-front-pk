@@ -32,7 +32,9 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
         preferredSize: Size.fromHeight(80),
         child: HomeAppBar(
           userRole: 'client',
-          onTab: () async {
+          notificationCallBack: () =>
+              showNotImplementedAlertDialog(context: context),
+          logOut: () async {
             final goRouter = GoRouter.of(context);
             final logout = await showAlertDialog(
               context: context,
@@ -73,7 +75,10 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
                   ),
                   gapH8,
                   ElevatedButton(
-                      onPressed: () {}, child: const Text('Cost Calculator'))
+                      onPressed: () {
+                        showNotImplementedAlertDialog(context: context);
+                      },
+                      child: const Text('Cost Calculator'))
                 ],
               ),
             ),
@@ -135,7 +140,9 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
                     ActionLoadButton(
                       text: 'Incomming Jobs',
                       color: Colors.green.shade200,
-                      onPressed: () {},
+                      onPressed: () {
+                        showNotImplementedAlertDialog(context: context);
+                      },
                     ),
                     gapH12,
                     ActionLoadButton(

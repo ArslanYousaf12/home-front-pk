@@ -11,24 +11,40 @@ class FakeAuthRepository {
   AppUser? get currentUser => _authState.value;
 
   Future<void> signInWithEmailAndPassword(
-      String email, String password, Role role) async {
+    String email,
+    String password,
+  ) async {
+    await Future.delayed(Duration(seconds: 3));
+    // throw Exception('Invalid UserName');
     if (currentUser == null) {
-      createNewUser(email, role);
+      createNewUser(
+        email,
+      );
     }
   }
 
   Future<void> createUserWithEmailAndPassword(
-      String email, String password, Role role) async {
-    if (currentUser == null) createNewUser(email, role);
+    String email,
+    String password,
+  ) async {
+    await Future.delayed(Duration(seconds: 3));
+    if (currentUser == null)
+      createNewUser(
+        email,
+      );
   }
 
   Future<void> signOut() async {
     _authState.value = null;
   }
 
-  void createNewUser(String email, Role role) {
-    _authState.value =
-        AppUser(uid: email.split('').reversed.join(), email: email, role: role);
+  void createNewUser(
+    String email,
+  ) {
+    _authState.value = AppUser(
+      uid: email.split('').reversed.join(),
+      email: email,
+    );
   }
 
   void dispose() => _authState.close();

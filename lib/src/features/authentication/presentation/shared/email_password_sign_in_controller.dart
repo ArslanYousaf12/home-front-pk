@@ -6,50 +6,53 @@ class EmailPasswordSignInController
     extends StateNotifier<EmailPasswordSignInState> {
   EmailPasswordSignInController(
       {required EmailPasswordSignInFormType formType,
-      required this.role,
       required this.authRepository})
       : super(
           EmailPasswordSignInState(formType: formType),
         );
 
   final FakeAuthRepository authRepository;
-  final Role role;
 
-  Future<bool> submit(String email, String password, Role role) async {
+  Future<bool> submit(
+    String email,
+    String password,
+  ) async {
     state = state.copyWith(value: const AsyncValue.loading());
-    final value =
-        await AsyncValue.guard(() => authenticate(email, password, role));
+    final value = await AsyncValue.guard(() => authenticate(
+          email,
+          password,
+        ));
     state = state.copyWith(value: value);
     return value.hasError == false;
   }
 
-  Future<void> authenticate(String email, String password, role) {
+  Future<void> authenticate(
+    String email,
+    String password,
+  ) {
     switch (state.formType) {
       case EmailPasswordSignInFormType.signIn:
-        return authRepository.signInWithEmailAndPassword(email, password, role);
+        return authRepository.signInWithEmailAndPassword(
+          email,
+          password,
+        );
       case EmailPasswordSignInFormType.register:
         return authRepository.createUserWithEmailAndPassword(
-            email, password, role);
+          email,
+          password,
+        );
     }
   }
 }
 
-class EmailSignInParams {
-  final EmailPasswordSignInFormType formType;
-  final Role role;
-
-  EmailSignInParams(this.formType, this.role);
-}
-
 final emailPasswordSignInControllerProvider = StateNotifierProvider.autoDispose
     .family<EmailPasswordSignInController, EmailPasswordSignInState,
-        EmailSignInParams>(
-  (ref, params) {
+        EmailPasswordSignInFormType>(
+  (ref, formType) {
     final authRepository = ref.watch(authRepositoryProvider);
     // Now, params contains both the formType and role
     return EmailPasswordSignInController(
-      formType: params.formType,
-      role: params.role,
+      formType: formType,
       authRepository: authRepository,
     );
   },

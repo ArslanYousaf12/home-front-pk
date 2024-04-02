@@ -6,6 +6,7 @@ import 'package:home_front_pk/src/features/authentication/presentation/shared/em
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/email_password_sign_in_state.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/string_validators.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
+import 'package:home_front_pk/src/utils/async_value_ui.dart';
 
 typedef FormSubmitCallback = void Function(String email, String password);
 
@@ -14,12 +15,10 @@ class SignInForm extends ConsumerStatefulWidget {
     super.key,
     required this.signInText,
     required this.onFormSubmit,
-    required this.role,
   });
 
   final String signInText;
   final FormSubmitCallback onFormSubmit;
-  final Role role;
 
   @override
   ConsumerState<SignInForm> createState() => _SignInFormState();
@@ -56,10 +55,12 @@ class _SignInFormState extends ConsumerState<SignInForm> {
     // only submit the form if validation passes
     if (_formKey.currentState!.validate()) {
       final controller = ref.read(emailPasswordSignInControllerProvider(
-              EmailSignInParams(
-                  EmailPasswordSignInFormType.signIn, widget.role))
-          .notifier);
-      final sucess = await controller.submit(email, password, widget.role);
+        EmailPasswordSignInFormType.signIn,
+      ).notifier);
+      final sucess = await controller.submit(
+        email,
+        password,
+      );
       if (sucess) {
         widget.onFormSubmit.call(email, password);
       }
@@ -96,8 +97,16 @@ class _SignInFormState extends ConsumerState<SignInForm> {
 
   @override
   Widget build(BuildContext context) {
+    //only Listen when State value change
+    ref.listen(
+        emailPasswordSignInControllerProvider(
+                EmailPasswordSignInFormType.signIn)
+            .select((state) => state.value), (_, state) {
+      state.showAlertDialogOnError(context);
+    });
     final state = ref.watch(emailPasswordSignInControllerProvider(
-        EmailSignInParams(EmailPasswordSignInFormType.signIn, widget.role)));
+      EmailPasswordSignInFormType.signIn,
+    ));
     return FocusScope(
       node: _node,
       child: Form(
@@ -144,6 +153,7 @@ class _SignInFormState extends ConsumerState<SignInForm> {
             ),
             const SizedBox(height: 64),
             ActionLoadButton(
+              isLoading: state.isLoading,
               text: 'Login',
               color: Colors.amber.shade400,
               onPressed: state.isLoading ? null : () => _submit(state),
