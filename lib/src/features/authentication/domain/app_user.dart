@@ -1,3 +1,5 @@
+import 'package:home_front_pk/src/features/authentication/presentation/sign_in/email_password_sign_in_state.dart';
+
 /// Simple class representing the user UID and email.
 class AppUser {
   const AppUser({
@@ -7,5 +9,5 @@ class AppUser {
   });
   final String uid;
   final String? email;
-  final String role;
+  final Role role;
 }

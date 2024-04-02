@@ -4,10 +4,14 @@ import 'package:home_front_pk/src/common_widgets/circular_image.dart';
 import 'package:home_front_pk/src/common_widgets/custom_sigin.dart';
 import 'package:home_front_pk/src/common_widgets/responsive_scrollable_card.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/sign_in/email_password_sign_in_state.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 
 class ClientSignInScreen extends StatefulWidget {
   const ClientSignInScreen({super.key});
+  // * Keys for testing using find.byKey()
+  static const emailKey = Key('email');
+  static const passwordKey = Key('password');
 
   @override
   State<ClientSignInScreen> createState() => _ClientSignInScreenState();
@@ -52,7 +56,10 @@ class _ClientSignInScreenState extends State<ClientSignInScreen> {
                     padding: const EdgeInsets.only(
                         top: 30, bottom: 30, left: 10, right: 10),
                     child: SignInForm(
-                        signInText: 'Client', onFormSubmit: _handleFormSubmit)),
+                      signInText: 'Client',
+                      onFormSubmit: _handleFormSubmit,
+                      role: Role.client,
+                    )),
                 TextButton(
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.white,
