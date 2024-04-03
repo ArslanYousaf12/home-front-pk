@@ -14,7 +14,7 @@ class FakeAuthRepository {
     String email,
     String password,
   ) async {
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     // throw Exception('Invalid UserName');
     if (currentUser == null) {
       createNewUser(

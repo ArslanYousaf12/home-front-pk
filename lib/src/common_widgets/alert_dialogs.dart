@@ -20,18 +20,25 @@ Future<bool?> showAlertDialog({
     barrierDismissible: cancelActionText != null,
     // * AlertDialog.adaptive was added in Flutter 3.13
     builder: (context) => AlertDialog.adaptive(
-      title: Text(title),
+      title: Text(
+        title,
+        style: TextStyle(color: Colors.black),
+      ),
       content: content != null ? Text(content) : null,
       // * Use [TextButton] or [CupertinoDialogAction] depending on the platform
       actions: kIsWeb || !Platform.isIOS
           ? <Widget>[
               if (cancelActionText != null)
                 TextButton(
-                  child: Text(cancelActionText),
+                  child: Text(
+                    cancelActionText,
+                  ),
                   onPressed: () => context.pop(false),
                 ),
               TextButton(
-                child: Text(defaultActionText),
+                child: Text(
+                  defaultActionText,
+                ),
                 onPressed: () => context.pop(true),
               ),
             ]

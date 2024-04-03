@@ -58,14 +58,17 @@ class _ClientSignInScreenState extends State<ClientSignInScreen> {
                     child: SignInForm(
                       signInText: 'Client',
                       onFormSubmit: _handleFormSubmit,
-                    
                     )),
                 TextButton(
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.white,
                     ),
                     onPressed: () {
-                      context.goNamed(AppRoute.signUpClientFirst.name);
+                      context.goNamed(
+                        AppRoute.signUpClientFirst.name,
+                      );
+                      // GoRouter.of(context).go('/client-dashboard');
+                      // GoRouter.of(context).replace('/client-dashboard');
                     },
                     child: const Text('SignUp'))
               ],
