@@ -1,24 +1,91 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/common_widgets/circular_image.dart';
 import 'package:home_front_pk/src/common_widgets/lable_inputfield.dart';
 import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/shared/email_password_sign_in_controller.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/sign_in/email_password_sign_in_state.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/sign_in/string_validators.dart';
+import 'package:home_front_pk/src/localization/string_hardcoded.dart';
+import 'package:home_front_pk/src/routing/app_router.dart';
+import 'package:home_front_pk/src/utils/async_value_ui.dart';
 import 'package:intl/intl.dart';
 
-class DesignerSignUp extends StatefulWidget {
-  const DesignerSignUp({super.key});
+class DesignerSignUp extends ConsumerStatefulWidget {
+  const DesignerSignUp({super.key, this.onSignedIn});
+  final VoidCallback? onSignedIn;
 
   @override
-  State<DesignerSignUp> createState() => _DesignerSignUpState();
+  ConsumerState<DesignerSignUp> createState() => _DesignerSignUpState();
 }
 
-class _DesignerSignUpState extends State<DesignerSignUp> {
-  final _formKey = GlobalKey<FormState>();
+class _DesignerSignUpState extends ConsumerState<DesignerSignUp> {
+  // * Keys for testing using find.byKey()
+  static const emailKey = Key('email');
+  static const passwordKey = Key('password');
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _node = FocusScopeNode();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  String get email => _emailController.text;
+  String get password => _passwordController.text;
+
+  // local variable used to apply AutovalidateMode.onUserInteraction and show
+  // error hints only when the form has been submitted
+  // For more details on how this is implemented, see:
+  // https://codewithandrea.com/articles/flutter-text-field-form-validation/
+  var _submitted = false;
+
+  @override
+  void dispose() {
+    // * TextEditingControllers should be always disposed
+    _node.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _submit(EmailPasswordSignInState state) async {
+    setState(() => _submitted = true);
+    // only submit the form if validation passes
+    if (_formKey.currentState!.validate()) {
+      context.goNamed(AppRoute.designerDashboard.name);
+      final controller = ref.read(emailPasswordSignInControllerProvider(
+              EmailPasswordSignInFormType.register)
+          .notifier);
+
+      final success = await controller.submit(email, password);
+
+      if (success) {
+        widget.onSignedIn?.call();
+      }
+    }
+  }
+
+  void _emailEditingComplete(EmailPasswordSignInState state) {
+    if (state.canSubmitEmail(email)) {
+      _node.nextFocus();
+    }
+  }
+
+  void _passwordEditingComplete(EmailPasswordSignInState state) {
+    if (!state.canSubmitEmail(email)) {
+      _node.previousFocus();
+      return;
+    }
+    _submit(state);
+  }
+
   String _name = '';
-  String _email = '';
+  // String _email = '';
   String _password = '';
   final _dobTextEditingController = TextEditingController();
-  final _passwordTextEditingController = TextEditingController();
+  // final _passwordTextEditingController = TextEditingController();
   final _confirmedTextEditingController = TextEditingController();
 
   Future<void> _pickingDOB() async {
@@ -36,187 +103,179 @@ class _DesignerSignUpState extends State<DesignerSignUp> {
   }
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-    _dobTextEditingController.dispose();
-    _passwordTextEditingController.dispose();
-    _confirmedTextEditingController.dispose();
-    super.dispose();
-  }
-
-  void _submit() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      // print(_email);
-    }
-    return;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    ref.listen<AsyncValue>(
+      emailPasswordSignInControllerProvider(
+              EmailPasswordSignInFormType.register)
+          .select((state) => state.value),
+      (_, state) => state.showAlertDialogOnError(context),
+    );
+    final state = ref.watch(emailPasswordSignInControllerProvider(
+        EmailPasswordSignInFormType.register));
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        body: SafeArea(
-            child: SingleChildScrollView(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: Column(
-                children: [
-                  const CircularImage(imageUrl: 'assets/signup/signup.jpeg'),
-                  gapH24,
-                  Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          LabelInputField(
-                            labelString: 'Name',
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                hintText: 'Name',
-                                border: InputBorder.none,
-                                hintStyle: TextStyle(
-                                  fontSize: 20,
+      child: FocusScope(
+        node: _node,
+        child: Scaffold(
+          body: SafeArea(
+              child: SingleChildScrollView(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+                child: Column(
+                  children: [
+                    const CircularImage(imageUrl: 'assets/signup/signup.jpeg'),
+                    gapH24,
+                    Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            LabelInputField(
+                              labelString: 'Name',
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                  hintText: 'Name',
+                                  border: InputBorder.none,
+                                  hintStyle: TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                  prefixIcon: Icon(Icons.person_outline),
                                 ),
-                                prefixIcon: Icon(Icons.person_outline),
+                                style: const TextStyle(
+                                    color: Colors.black, fontSize: 20),
+                                cursorHeight: 40,
+                                onSaved: (newValue) {
+                                  _name = newValue!;
+                                },
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please Enter the First Name';
+                                  }
+                                  return null;
+                                },
                               ),
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 20),
-                              cursorHeight: 40,
-                              onSaved: (newValue) {
-                                _name = newValue!;
-                              },
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please Enter the First Name';
-                                }
-                                return null;
-                              },
                             ),
-                          ),
-                          LabelInputField(
-                            labelString: 'Email',
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                hintText: 'Email',
-                                border: InputBorder.none,
-                                hintStyle: TextStyle(
-                                  fontSize: 20,
+                            LabelInputField(
+                              labelString: 'Email',
+                              child: TextFormField(
+                                key: emailKey,
+                                controller: _emailController,
+                                style: const TextStyle(
+                                    color: Colors.black, fontSize: 20),
+                                decoration: InputDecoration(
+                                  labelText: 'Email'.hardcoded,
+                                  hintText: 'test@test.com'.hardcoded,
+                                  enabled: !state.isLoading,
                                 ),
-                                prefixIcon: Icon(Icons.email),
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: (email) => !_submitted
+                                    ? null
+                                    : state.emailErrorText(email ?? ''),
+                                autocorrect: false,
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.emailAddress,
+                                keyboardAppearance: Brightness.light,
+                                onEditingComplete: () =>
+                                    _emailEditingComplete(state),
+                                inputFormatters: <TextInputFormatter>[
+                                  ValidatorInputFormatter(
+                                      editingValidator:
+                                          EmailEditingRegexValidator()),
+                                ],
                               ),
-                              keyboardType: TextInputType.emailAddress,
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 20),
-                              cursorHeight: 40,
-                              onSaved: (newValue) {
-                                _email = newValue!;
-                              },
-                              validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    !value.contains('@')) {
-                                  return 'Please Enter the Valid Email';
-                                }
-                                return null;
-                              },
                             ),
-                          ),
-                          LabelInputField(
-                            labelString: 'Date Of Birth',
-                            child: TextFormField(
-                              controller: _dobTextEditingController,
-                              readOnly: true,
-                              decoration: const InputDecoration(
-                                hintText: 'Date Of Birth',
-                                border: InputBorder.none,
-                                hintStyle: TextStyle(
-                                  fontSize: 20,
+                            LabelInputField(
+                              labelString: 'Date Of Birth',
+                              child: TextFormField(
+                                controller: _dobTextEditingController,
+                                readOnly: true,
+                                decoration: const InputDecoration(
+                                  hintText: 'Date Of Birth',
+                                  border: InputBorder.none,
+                                  hintStyle: TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                  suffixIcon: Icon(Icons.calendar_today),
                                 ),
-                                suffixIcon: Icon(Icons.calendar_today),
+                                style: const TextStyle(
+                                    color: Colors.black, fontSize: 20),
+                                cursorHeight: 40,
+                                onTap: _pickingDOB,
+                                onSaved: (newValue) {},
+                                validator: (value) {
+                                  return null;
+                                },
                               ),
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 20),
-                              cursorHeight: 40,
-                              onTap: _pickingDOB,
-                              onSaved: (newValue) {},
-                              validator: (value) {
-                                return null;
-                              },
                             ),
-                          ),
-                          LabelInputField(
-                            labelString: 'Password',
-                            child: TextFormField(
-                              controller: _passwordTextEditingController,
-                              decoration: const InputDecoration(
-                                hintText: 'Password',
-                                border: InputBorder.none,
-                                hintStyle: TextStyle(
-                                  fontSize: 20,
+                            LabelInputField(
+                              labelString: 'Password',
+                              child: TextFormField(
+                                key: passwordKey,
+                                controller: _passwordController,
+                                decoration: InputDecoration(
+                                  labelText: state.passwordLabelText,
+                                  enabled: !state.isLoading,
                                 ),
-                                prefixIcon: Icon(Icons.password),
+                                style: const TextStyle(
+                                    color: Colors.black, fontSize: 20),
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: (password) => !_submitted
+                                    ? null
+                                    : state.passwordErrorText(password ?? ''),
+                                obscureText: true,
+                                autocorrect: false,
+                                textInputAction: TextInputAction.done,
+                                keyboardAppearance: Brightness.light,
+                                onEditingComplete: () =>
+                                    _passwordEditingComplete(state),
                               ),
-                              obscureText: true,
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 20),
-                              cursorHeight: 40,
-                              onSaved: (newValue) {
-                                _password = newValue!;
-                              },
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please Enter the valid 7 character password';
-                                }
-                                return null;
-                              },
                             ),
-                          ),
-                          LabelInputField(
-                            labelString: 'Confirm Password',
-                            child: TextFormField(
-                              controller: _confirmedTextEditingController,
-                              decoration: const InputDecoration(
-                                hintText: 'Confirm Password',
-                                border: InputBorder.none,
-                                hintStyle: TextStyle(
-                                  fontSize: 20,
+                            LabelInputField(
+                              labelString: 'Confirm Password',
+                              child: TextFormField(
+                                controller: _confirmedTextEditingController,
+                                decoration: const InputDecoration(
+                                  hintText: 'Confirm Password',
+                                  border: InputBorder.none,
+                                  hintStyle: TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                  prefixIcon: Icon(Icons.password),
                                 ),
-                                prefixIcon: Icon(Icons.password),
+                                obscureText: true,
+                                style: const TextStyle(
+                                    color: Colors.black, fontSize: 20),
+                                cursorHeight: 40,
+                                onSaved: (newValue) {
+                                  _password = newValue!;
+                                },
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please Enter the valid 7 character password';
+                                  }
+                                  if (value != _passwordController.text) {
+                                    return 'Password Did\'n Match';
+                                  }
+                                  return null;
+                                },
                               ),
-                              obscureText: true,
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 20),
-                              cursorHeight: 40,
-                              onSaved: (newValue) {
-                                _password = newValue!;
-                              },
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please Enter the valid 7 character password';
-                                }
-                                if (value !=
-                                    _passwordTextEditingController.text) {
-                                  return 'Password Did\'n Match';
-                                }
-                                return null;
-                              },
                             ),
-                          ),
-                          gapH12,
-                          ActionLoadButton(
-                            text: 'Submit as Designer',
-                            color: Colors.amber.shade400,
-                            onPressed: _submit,
-                          ),
-                        ],
-                      ))
-                ],
+                            gapH12,
+                            ActionLoadButton(
+                              text: 'Submit as Constructor',
+                              color: Colors.amber.shade400,
+                              onPressed: () => _submit(state),
+                            ),
+                          ],
+                        ))
+                  ],
+                ),
               ),
             ),
-          ),
-        )),
+          )),
+        ),
       ),
     );
   }
