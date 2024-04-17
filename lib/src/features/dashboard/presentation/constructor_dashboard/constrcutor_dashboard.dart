@@ -98,13 +98,15 @@ class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
                         context.goNamed(AppRoute.constructorPortfolio.name),
                   ),
                   GridCard(
-                    iconName: FontAwesomeIcons.briefcase,
-                    title: 'New Requests',
-                    gradients: [Colors.amber.shade300, Colors.amber.shade100],
-                    color: Colors.black54,
-                    onPressed: () =>
-                        showNotImplementedAlertDialog(context: context),
-                  ),
+                      iconName: FontAwesomeIcons.briefcase,
+                      title: 'New Requests',
+                      gradients: [Colors.amber.shade300, Colors.amber.shade100],
+                      color: Colors.black54,
+                      onPressed: () => context.goNamed(
+                          AppRoute.constructorRequest.name,
+                          pathParameters: {'text': 'No new Request Availabale'})
+                      // showNotImplementedAlertDialog(context: context),
+                      ),
                   GridCard(
                     iconName: FontAwesomeIcons.listCheck,
                     title: 'Ongoing Projects',

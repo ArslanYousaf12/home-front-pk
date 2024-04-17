@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
+import 'package:home_front_pk/src/common_widgets/text_display_screen.dart';
 import 'package:home_front_pk/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/account/account_screen.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/client_signin.dart';
@@ -45,6 +46,7 @@ enum AppRoute {
   constructorDashboard, // Dashboard screen for constructors
   constructorAccount,
   constructorPortfolio,
+  constructorRequest,
   constructorMessage,
   serviceDetail, // Details for a specific service
   costCalculator, // Calculator for estimating service costs
@@ -178,6 +180,13 @@ final goRouter = GoRouter(
                       name: AppRoute.constructorPortfolio.name,
                       builder: (context, state) => const ConstructorPortfolio(),
                     ),
+                    GoRoute(
+                        path: 'constructor-request/:text',
+                        name: AppRoute.constructorRequest.name,
+                        builder: (context, state) {
+                          final newRequestText = state.pathParameters['text']!;
+                          return TextDisplayScreen(text: newRequestText);
+                        }),
                   ]),
               GoRoute(
                 path: 'sign-up-constructor',
