@@ -59,7 +59,7 @@ class _DesignerDashboardState extends ConsumerState<DesignerDashboard> {
           child: Column(
             children: [
               CustomCurvedContainer(
-                gradientColors: LinearGradient(
+                gradientColors: const LinearGradient(
                   colors: [
                     Color(0xFFA1EEBD),
                     Color(0xFFF6F7C4),

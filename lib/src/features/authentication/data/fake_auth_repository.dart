@@ -1,9 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:home_front_pk/src/features/authentication/domain/app_user.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/email_password_sign_in_state.dart';
 import 'package:home_front_pk/src/utils/in_memory_store.dart';
 
 class FakeAuthRepository {
+  FakeAuthRepository({
+    this.addDelay = true,
+  });
+  bool addDelay;
   final _authState = InMemoryStore<AppUser?>(null);
   Stream<AppUser?> authStateChange() => _authState.stream;
 
