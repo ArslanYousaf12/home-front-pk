@@ -31,6 +31,8 @@ class _DesignerDashboardState extends ConsumerState<DesignerDashboard> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(80),
           child: HomeAppBar(
+            titles: 'Designer DashBoard',
+            backColor: const Color(0xFFA1EEBD),
             userRole: 'designer',
             notificationCallBack: () =>
                 showNotImplementedAlertDialog(context: context),
@@ -59,8 +61,8 @@ class _DesignerDashboardState extends ConsumerState<DesignerDashboard> {
               CustomCurvedContainer(
                 gradientColors: LinearGradient(
                   colors: [
-                    Colors.green.shade800,
-                    Colors.green.shade100,
+                    Color(0xFFA1EEBD),
+                    Color(0xFFF6F7C4),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -71,8 +73,10 @@ class _DesignerDashboardState extends ConsumerState<DesignerDashboard> {
                   children: [
                     const Text(
                       'Welcome Back',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87),
                     ),
                     gapH8,
                     ElevatedButton(
@@ -102,11 +106,10 @@ class _DesignerDashboardState extends ConsumerState<DesignerDashboard> {
                         },
                       ),
                       GridCard(
-                        iconName: FontAwesomeIcons.briefcase,
-                        title: 'New Requests',
-                        onPressed: () =>
-                            showNotImplementedAlertDialog(context: context),
-                      ),
+                          iconName: FontAwesomeIcons.briefcase,
+                          title: 'New Requests',
+                          onPressed: () =>
+                              context.pushNamed(AppRoute.newRequest.name)),
                       GridCard(
                         iconName: FontAwesomeIcons.listCheck,
                         title: 'Ongoing Projects',

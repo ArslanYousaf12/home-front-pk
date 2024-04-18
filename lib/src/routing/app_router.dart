@@ -18,6 +18,7 @@ import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboa
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/designers_list/designer_detailed.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/constructor_dashboard/constrcutor_dashboard.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/designer_dashboard/designer_dashboard.dart';
+import 'package:home_front_pk/src/features/new_requests/presentation/new_request.dart';
 import 'package:home_front_pk/src/features/portfolio/presentation/constructor_portfolio.dart';
 import 'package:home_front_pk/src/features/portfolio/presentation/designer_portfolio.dart';
 import 'package:home_front_pk/src/features/welcome/presentation/welcome_screen.dart';
@@ -46,7 +47,7 @@ enum AppRoute {
   constructorDashboard, // Dashboard screen for constructors
   constructorAccount,
   constructorPortfolio,
-  constructorRequest,
+  newRequest,
   constructorMessage,
   serviceDetail, // Details for a specific service
   costCalculator, // Calculator for estimating service costs
@@ -100,6 +101,12 @@ final goRouter = GoRouter(
         name: AppRoute.welcome.name,
         builder: (context, state) => const WelcomeScreen(),
         routes: [
+          GoRoute(
+              path: 'new-request',
+              name: AppRoute.newRequest.name,
+              builder: (context, state) {
+                return const NewRequest();
+              }),
           GoRoute(
               path: 'sign-In-client',
               name: AppRoute.signInClient.name,
@@ -180,13 +187,6 @@ final goRouter = GoRouter(
                       name: AppRoute.constructorPortfolio.name,
                       builder: (context, state) => const ConstructorPortfolio(),
                     ),
-                    GoRoute(
-                        path: 'constructor-request/:text',
-                        name: AppRoute.constructorRequest.name,
-                        builder: (context, state) {
-                          final newRequestText = state.pathParameters['text']!;
-                          return TextDisplayScreen(text: newRequestText);
-                        }),
                   ]),
               GoRoute(
                 path: 'sign-up-constructor',

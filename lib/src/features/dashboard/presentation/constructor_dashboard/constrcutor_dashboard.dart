@@ -31,6 +31,7 @@ class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
           preferredSize: Size.fromHeight(80),
           child: HomeAppBar(
             userRole: 'constructor',
+            titles: 'Constructor Dashboard',
             notificationCallBack: () =>
                 showNotImplementedAlertDialog(context: context),
             logOut: () async {
@@ -57,7 +58,10 @@ class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
             children: [
               CustomCurvedContainer(
                 gradientColors: LinearGradient(
-                  colors: [Colors.amber.shade300, Colors.amber.shade100],
+                  colors: [
+                    Colors.amber.shade100,
+                    const Color(0xFFF6F7C4),
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -92,7 +96,7 @@ class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
                   GridCard(
                     iconName: FontAwesomeIcons.images,
                     title: 'Portfolio',
-                    gradients: [Colors.amber.shade300, Colors.amber.shade100],
+                    gradients: [const Color(0xFFF6F7C4), Colors.amber.shade100],
                     color: Colors.black54,
                     onPressed: () =>
                         context.goNamed(AppRoute.constructorPortfolio.name),
@@ -100,17 +104,20 @@ class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
                   GridCard(
                       iconName: FontAwesomeIcons.briefcase,
                       title: 'New Requests',
-                      gradients: [Colors.amber.shade300, Colors.amber.shade100],
+                      gradients: [
+                        const Color(0xFFF6F7C4),
+                        Colors.amber.shade100
+                      ],
                       color: Colors.black54,
                       onPressed: () => context.goNamed(
-                          AppRoute.constructorRequest.name,
-                          pathParameters: {'text': 'No new Request Availabale'})
+                            AppRoute.newRequest.name,
+                          )
                       // showNotImplementedAlertDialog(context: context),
                       ),
                   GridCard(
                     iconName: FontAwesomeIcons.listCheck,
                     title: 'Ongoing Projects',
-                    gradients: [Colors.amber.shade300, Colors.amber.shade100],
+                    gradients: [const Color(0xFFF6F7C4), Colors.amber.shade100],
                     color: Colors.black54,
                     onPressed: () =>
                         showNotImplementedAlertDialog(context: context),
@@ -118,7 +125,7 @@ class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
                   GridCard(
                     iconName: FontAwesomeIcons.comments,
                     title: 'Messages',
-                    gradients: [Colors.amber.shade300, Colors.amber.shade100],
+                    gradients: [const Color(0xFFF6F7C4), Colors.amber.shade100],
                     color: Colors.black54,
                     onPressed: () =>
                         showNotImplementedAlertDialog(context: context),
@@ -126,7 +133,7 @@ class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
                   GridCard(
                     iconName: FontAwesomeIcons.paperPlane,
                     title: 'Offers Sent',
-                    gradients: [Colors.amber.shade300, Colors.amber.shade100],
+                    gradients: [const Color(0xFFF6F7C4), Colors.amber.shade100],
                     color: Colors.black54,
                     onPressed: () =>
                         showNotImplementedAlertDialog(context: context),
@@ -134,7 +141,7 @@ class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
                   GridCard(
                     iconName: FontAwesomeIcons.circleCheck,
                     title: 'Completed Projects',
-                    gradients: [Colors.amber.shade300, Colors.amber.shade100],
+                    gradients: [const Color(0xFFF6F7C4), Colors.amber.shade100],
                     color: Colors.black54,
                     onPressed: () =>
                         showNotImplementedAlertDialog(context: context),
@@ -142,7 +149,7 @@ class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
                   GridCard(
                     iconName: FontAwesomeIcons.wallet,
                     title: 'Payments',
-                    gradients: [Colors.amber.shade300, Colors.amber.shade100],
+                    gradients: [const Color(0xFFF6F7C4), Colors.amber.shade100],
                     color: Colors.black54,
                     onPressed: () =>
                         showNotImplementedAlertDialog(context: context),
@@ -150,7 +157,7 @@ class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
                   GridCard(
                     iconName: FontAwesomeIcons.userPen,
                     title: 'Update Profile',
-                    gradients: [Colors.amber.shade300, Colors.amber.shade100],
+                    gradients: [const Color(0xFFF6F7C4), Colors.amber.shade100],
                     color: Colors.black54,
                     onPressed: () =>
                         showNotImplementedAlertDialog(context: context),

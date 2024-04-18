@@ -20,9 +20,10 @@ class CustomTalentCard extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Card(
-        color: Colors.amber.shade300,
+        color: const Color(0xFFA1EEBD),
         child: Padding(
-          padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
+          padding:
+              const EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 30),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

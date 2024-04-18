@@ -35,6 +35,7 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(80),
           child: HomeAppBar(
+            titles: 'Client Dashboard',
             userRole: 'client',
             notificationCallBack: () =>
                 showNotImplementedAlertDialog(context: context),
@@ -144,6 +145,7 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
                     children: [
                       ActionLoadButton(
                         text: 'Incomming Jobs',
+                        textColor: Colors.black,
                         color: Colors.green.shade200,
                         onPressed: () {
                           showNotImplementedAlertDialog(context: context);
@@ -152,7 +154,8 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
                       gapH12,
                       ActionLoadButton(
                         text: 'View Designer',
-                        color: Colors.amber.shade200,
+                        color: const Color(0xFFF6F7C4),
+                        textColor: Colors.black,
                         onPressed: () {
                           context.goNamed(AppRoute.designerList.name);
                         },

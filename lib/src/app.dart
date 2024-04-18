@@ -18,7 +18,7 @@ class MyApp extends ConsumerWidget {
         useMaterial3: true,
         primarySwatch: Colors.green,
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.amber[300],
+          backgroundColor: Color(0xFFF6F7C4),
           foregroundColor: Color(0xFF182430),
           elevation: 0,
         ),
