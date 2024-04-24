@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 
 class CustomTalentCard extends StatelessWidget {
@@ -23,7 +24,7 @@ class CustomTalentCard extends StatelessWidget {
         color: const Color(0xFFA1EEBD),
         child: Padding(
           padding:
-              const EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 30),
+              const EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 10),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -34,8 +35,8 @@ class CustomTalentCard extends StatelessWidget {
               ),
               gapH12,
               ElevatedButton(
-                child: const Text('Contact'),
                 onPressed: onPressed,
+                child: const Text('Contact'),
               ),
             ],
           ),

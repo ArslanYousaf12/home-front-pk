@@ -3,7 +3,7 @@ import 'package:home_front_pk/src/features/authentication/data/fake_auth_reposit
 
 class AccountScreenController extends StateNotifier<AsyncValue<void>> {
   AccountScreenController({required this.authRepository})
-      : super(const AsyncValue.data(null));
+      : super(const AsyncData(null));
 
   final FakeAuthRepository authRepository;
 
@@ -17,7 +17,7 @@ class AccountScreenController extends StateNotifier<AsyncValue<void>> {
     //   state = AsyncValue.error(e, st);
     //   return false;
     // }
-    state = const AsyncValue<void>.loading();
+    state = const AsyncLoading();
     state = await AsyncValue.guard(() => authRepository.signOut());
     return state.hasError == false;
   }

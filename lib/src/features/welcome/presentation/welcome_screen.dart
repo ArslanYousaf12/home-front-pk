@@ -19,8 +19,8 @@ class WelcomeScreen extends StatelessWidget {
         child: ResponsiveCenter(
           padding: const EdgeInsets.only(
             top: 40,
-            left: 30,
-            right: 30,
+            left: 20,
+            right: 20,
           ),
           child: Column(
             children: [

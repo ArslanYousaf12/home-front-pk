@@ -68,7 +68,10 @@ enum AppRoute {
 
 // final goRouterProvider = Provider<GoRouter>((ref) {
 //   final authRepository = ref.watch(authRepositoryProvider);
-//   return
+//
+//
+//  return
+
 final goRouter = GoRouter(
     initialLocation: '/',
     debugLogDiagnostics: true,
