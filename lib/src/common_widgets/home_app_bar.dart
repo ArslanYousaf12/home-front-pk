@@ -38,7 +38,7 @@ class HomeAppBar extends StatelessWidget {
       actions: [
         GestureDetector(
           onTap: notificationCallBack,
-          child: Icon(
+          child: const Icon(
             Icons.notifications_none_outlined,
             size: 28,
           ),

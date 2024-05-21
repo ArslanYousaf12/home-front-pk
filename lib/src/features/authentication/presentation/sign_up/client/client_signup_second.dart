@@ -53,7 +53,6 @@ class _ClientSignUpSecondState extends ConsumerState<ClientSignUpSecond> {
     setState(() => _submitted = true);
     // only submit the form if validation passes
     if (_formKey.currentState!.validate()) {
-      context.goNamed(AppRoute.clientDashboard.name);
       final controller = ref.read(emailPasswordSignInControllerProvider(
               EmailPasswordSignInFormType.register)
           .notifier);
@@ -62,6 +61,7 @@ class _ClientSignUpSecondState extends ConsumerState<ClientSignUpSecond> {
 
       if (success) {
         widget.onSignedIn?.call();
+        context.goNamed(AppRoute.clientDashboard.name);
       }
     }
   }
@@ -270,9 +270,11 @@ class _ClientSignUpSecondState extends ConsumerState<ClientSignUpSecond> {
                             ),
                             gapH12,
                             ActionLoadButton(
+                              isLoading: state.isLoading,
                               text: 'Submit as Client',
                               color: Colors.amber.shade400,
-                              onPressed: () => _submit(state),
+                              onPressed:
+                                  state.isLoading ? null : () => _submit(state),
                             ),
                           ],
                         ))

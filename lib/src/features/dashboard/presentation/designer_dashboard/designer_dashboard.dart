@@ -29,7 +29,7 @@ class _DesignerDashboardState extends ConsumerState<DesignerDashboard> {
       canPop: false,
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80),
+          preferredSize: const Size.fromHeight(80),
           child: HomeAppBar(
             titles: 'Designer DashBoard',
             backColor: const Color(0xFFA1EEBD),

@@ -54,7 +54,6 @@ class _ConstructorSignUpState extends ConsumerState<ConstructorSignUp> {
     setState(() => _submitted = true);
     // only submit the form if validation passes
     if (_formKey.currentState!.validate()) {
-      context.goNamed(AppRoute.constructorDashboard.name);
       final controller = ref.read(emailPasswordSignInControllerProvider(
               EmailPasswordSignInFormType.register)
           .notifier);
@@ -63,6 +62,7 @@ class _ConstructorSignUpState extends ConsumerState<ConstructorSignUp> {
 
       if (success) {
         widget.onSignedIn?.call();
+        context.goNamed(AppRoute.constructorDashboard.name);
       }
     }
   }
@@ -264,9 +264,11 @@ class _ConstructorSignUpState extends ConsumerState<ConstructorSignUp> {
                             ),
                             gapH12,
                             ActionLoadButton(
+                              isLoading: state.isLoading,
                               text: 'Submit as Constructor',
                               color: Colors.amber.shade400,
-                              onPressed: () => _submit(state),
+                              onPressed:
+                                  state.isLoading ? null : () => _submit(state),
                             ),
                           ],
                         ))

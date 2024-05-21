@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+const kdialogDefaultKey = Key('default-dialog-key');
+
 /// Generic function to show a platform-aware Material or Cupertino dialog
 Future<bool?> showAlertDialog({
   required BuildContext context,
@@ -36,6 +38,7 @@ Future<bool?> showAlertDialog({
                   onPressed: () => context.pop(false),
                 ),
               TextButton(
+                key: kdialogDefaultKey,
                 child: Text(
                   defaultActionText,
                 ),
@@ -49,6 +52,7 @@ Future<bool?> showAlertDialog({
                   onPressed: () => context.pop(false),
                 ),
               CupertinoDialogAction(
+                key: kdialogDefaultKey,
                 child: Text(defaultActionText),
                 onPressed: () => context.pop(true),
               ),

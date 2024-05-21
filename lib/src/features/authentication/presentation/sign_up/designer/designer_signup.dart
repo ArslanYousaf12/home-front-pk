@@ -54,7 +54,6 @@ class _DesignerSignUpState extends ConsumerState<DesignerSignUp> {
     setState(() => _submitted = true);
     // only submit the form if validation passes
     if (_formKey.currentState!.validate()) {
-      context.goNamed(AppRoute.designerDashboard.name);
       final controller = ref.read(emailPasswordSignInControllerProvider(
               EmailPasswordSignInFormType.register)
           .notifier);
@@ -63,6 +62,7 @@ class _DesignerSignUpState extends ConsumerState<DesignerSignUp> {
 
       if (success) {
         widget.onSignedIn?.call();
+        context.goNamed(AppRoute.designerDashboard.name);
       }
     }
   }
@@ -264,9 +264,11 @@ class _DesignerSignUpState extends ConsumerState<DesignerSignUp> {
                             ),
                             gapH12,
                             ActionLoadButton(
+                              isLoading: state.isLoading,
                               text: 'Submit as Constructor',
                               color: Colors.amber.shade400,
-                              onPressed: () => _submit(state),
+                              onPressed:
+                                  state.isLoading ? null : () => _submit(state),
                             ),
                           ],
                         ))

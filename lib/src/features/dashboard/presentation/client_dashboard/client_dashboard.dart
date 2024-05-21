@@ -32,8 +32,9 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
     return PopScope(
       canPop: false,
       child: Scaffold(
+        //AppBar Code
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80),
+          preferredSize: const Size.fromHeight(80),
           child: HomeAppBar(
             titles: 'Client Dashboard',
             userRole: 'client',
@@ -61,6 +62,7 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              //Welcome Back Section
               CustomCurvedContainer(
                 gradientColors: LinearGradient(
                   colors: [
@@ -89,6 +91,7 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
                 ),
               ),
               gapH12,
+              //constructor heading
               const Text(
                 'Constructors',
                 style: TextStyle(
@@ -98,6 +101,9 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
                 ),
               ),
               gapH12,
+
+              //Slider code
+
               Consumer(
                 builder: (context, ref, child) {
                   // final constructorRepository =
@@ -139,6 +145,9 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
                 },
               ),
               gapH12,
+
+              //Incoming Jobs button
+
               Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
@@ -152,6 +161,9 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
                         },
                       ),
                       gapH12,
+
+                      //View designer Button
+
                       ActionLoadButton(
                         text: 'View Designer',
                         color: const Color(0xFFF6F7C4),

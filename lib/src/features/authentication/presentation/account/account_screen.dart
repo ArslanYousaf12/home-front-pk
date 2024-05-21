@@ -12,6 +12,8 @@ import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 import 'package:home_front_pk/src/utils/async_value_ui.dart';
 
+const logoutKey = Key('logoutButton');
+
 /// Simple account screen showing some user info and a logout button.
 class AccountScreen extends ConsumerWidget {
   const AccountScreen({super.key});
@@ -32,6 +34,7 @@ class AccountScreen extends ConsumerWidget {
               ),
         actions: [
           ActionTextButton(
+            key: logoutKey,
             text: 'Logout'.hardcoded,
             color: Colors.black87,
             onPressed: state.isLoading
