@@ -20,7 +20,7 @@ class _ClientSignUpState extends State<ClientSignUp> {
   final _dobTexteditingController = TextEditingController();
   String _firstName = '';
   String _lastName = '';
-  String _email = '';
+
   String _phone = '';
 
   void _continue() {
@@ -115,34 +115,6 @@ class _ClientSignUpState extends State<ClientSignUp> {
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please Enter the Last Name';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          LabelInputField(
-                            labelString: 'Email',
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                hintText: 'Email',
-                                border: InputBorder.none,
-                                hintStyle: TextStyle(
-                                  fontSize: 20,
-                                ),
-                                prefixIcon: Icon(Icons.email),
-                              ),
-                              keyboardType: TextInputType.emailAddress,
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 20),
-                              cursorHeight: 40,
-                              onSaved: (newValue) {
-                                _email = newValue!;
-                              },
-                              validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    !value.contains('@')) {
-                                  return 'Please Enter the Valid Email';
                                 }
                                 return null;
                               },

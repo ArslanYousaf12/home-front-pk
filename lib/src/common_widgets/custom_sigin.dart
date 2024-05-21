@@ -1,71 +1,162 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/shared/email_password_sign_in_controller.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/sign_in/email_password_sign_in_state.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/sign_in/string_validators.dart';
+import 'package:home_front_pk/src/localization/string_hardcoded.dart';
+import 'package:home_front_pk/src/utils/async_value_ui.dart';
 
 typedef FormSubmitCallback = void Function(String email, String password);
 
-class SignInForm extends StatefulWidget {
-  final String signInText;
-  final FormSubmitCallback onFormSubmit;
-
+class SignInForm extends ConsumerStatefulWidget {
   const SignInForm({
     super.key,
     required this.signInText,
     required this.onFormSubmit,
   });
 
+  final String signInText;
+  final FormSubmitCallback onFormSubmit;
+
   @override
-  State<SignInForm> createState() => _SignInFormState();
+  ConsumerState<SignInForm> createState() => _SignInFormState();
 }
 
-class _SignInFormState extends State<SignInForm> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String _enteredEmail = '';
-  String _enteredPassword = '';
+class _SignInFormState extends ConsumerState<SignInForm> {
+  // * Keys for testing using find.byKey()
+  static const emailKey = Key('email');
+  static const passwordKey = Key('password');
+  final _formKey = GlobalKey<FormState>();
+  final _node = FocusScopeNode();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
-  void _submit() {
+  String get email => _emailController.text;
+  String get password => _passwordController.text;
+  // local variable used to apply AutovalidateMode.onUserInteraction and show
+  // error hints only when the form has been submitted
+  // For more details on how this is implemented, see:
+  // https://codewithandrea.com/articles/flutter-text-field-form-validation/
+  var _submitted = false;
+
+  @override
+  void dispose() {
+    // * TextEditingControllers should be always disposed
+    _node.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _submit(EmailPasswordSignInState state) async {
+    setState(() => _submitted = true);
+    // only submit the form if validation passes
     if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      widget.onFormSubmit(_enteredEmail, _enteredPassword);
+      final controller = ref.read(emailPasswordSignInControllerProvider(
+        EmailPasswordSignInFormType.signIn,
+      ).notifier);
+      final sucess = await controller.submit(
+        email,
+        password,
+      );
+      if (sucess) {
+        widget.onFormSubmit.call(email, password);
+      }
     }
   }
 
+  void _emailEditingComplete(EmailPasswordSignInState state) {
+    if (state.canSubmitEmail(email)) {
+      _node.nextFocus();
+    }
+  }
+
+  void _passwordEditingComplete(EmailPasswordSignInState state) {
+    if (!state.canSubmitEmail(email)) {
+      _node.previousFocus();
+      return;
+    }
+    _submit(state);
+  }
+
+  // void _updateFormType(EmailPasswordSignInFormType formType) {
+  //   // * Toggle between register and sign in form
+  //   setState(() => state = state.copyWith(formType: formType));
+  //   // * Clear the password field when doing so
+  //   _passwordController.clear();
+  // }
+
+  // void _submit() {
+  //   if (_formKey.currentState!.validate()) {
+  //     _formKey.currentState!.save();
+  //     widget.onFormSubmit(_enteredEmail, _enteredPassword);
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+    //only Listen when State value change
+    ref.listen(
+        emailPasswordSignInControllerProvider(
+                EmailPasswordSignInFormType.signIn)
+            .select((state) => state.value), (_, state) {
+      state.showAlertDialogOnError(context);
+    });
+    final state = ref.watch(emailPasswordSignInControllerProvider(
+      EmailPasswordSignInFormType.signIn,
+    ));
+    return FocusScope(
+      node: _node,
       child: Form(
         key: _formKey,
         child: Column(
           children: [
             TextFormField(
-              decoration: const InputDecoration(labelText: 'Email'),
-              keyboardType: TextInputType.emailAddress,
+              key: emailKey,
+              controller: _emailController,
+              decoration: InputDecoration(
+                labelText: 'Email'.hardcoded,
+                hintText: 'test@test.com'.hardcoded,
+                hintStyle: TextStyle(color: Color.fromARGB(118, 255, 255, 255)),
+                enabled: !state.isLoading,
+              ),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (email) =>
+                  !_submitted ? null : state.emailErrorText(email ?? ''),
               autocorrect: false,
-              onSaved: (newValue) => _enteredEmail = newValue ?? '',
-              validator: (value) {
-                if (value == null || value.isEmpty || !value.contains('@')) {
-                  return 'Please Enter a valid Email';
-                }
-                return null;
-              },
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.emailAddress,
+              keyboardAppearance: Brightness.light,
+              onEditingComplete: () => _emailEditingComplete(state),
+              inputFormatters: <TextInputFormatter>[
+                ValidatorInputFormatter(
+                    editingValidator: EmailEditingRegexValidator()),
+              ],
             ),
             TextFormField(
-              decoration: const InputDecoration(labelText: 'Password'),
+              key: passwordKey,
+              controller: _passwordController,
+              decoration: InputDecoration(
+                labelText: state.passwordLabelText,
+                enabled: !state.isLoading,
+              ),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (password) =>
+                  !_submitted ? null : state.passwordErrorText(password ?? ''),
               obscureText: true,
               autocorrect: false,
-              onSaved: (newValue) => _enteredPassword = newValue ?? '',
-              validator: (value) {
-                if (value == null || value.isEmpty || value.trim().length < 8) {
-                  return 'Password must be at least 8 characters';
-                }
-                return null;
-              },
+              textInputAction: TextInputAction.done,
+              keyboardAppearance: Brightness.light,
+              onEditingComplete: () => _passwordEditingComplete(state),
             ),
             const SizedBox(height: 64),
             ActionLoadButton(
+              isLoading: state.isLoading,
               text: 'Login',
               color: Colors.amber.shade400,
-              onPressed: _submit,
+              onPressed: state.isLoading ? null : () => _submit(state),
             )
           ],
         ),

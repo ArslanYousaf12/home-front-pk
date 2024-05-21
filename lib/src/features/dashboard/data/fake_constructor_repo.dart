@@ -1,8 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:home_front_pk/src/constants/ktest_constructor_card.dart';
 import 'package:home_front_pk/src/features/dashboard/domain/constructor.dart';
+import 'package:home_front_pk/src/utils/delay.dart';
 
 class FakeConstructorRepository {
+  FakeConstructorRepository({
+    this.addDelay = true,
+  });
+  bool addDelay;
   //private constructor so object can not be initiated outside
   // of this class
 
@@ -24,26 +31,33 @@ class FakeConstructorRepository {
   //      Incase if we need Construcor bases of Id
 
   ConstructorIslamabad? getConstructor(String id) {
-    try {
-      return _constructorList.firstWhere((constructor) => constructor.id == id);
-    } catch (e) {
-      return null;
-    }
+    return _getConstructor(_constructorList, id);
   }
 
-  Future<List<ConstructorIslamabad>> fetchConstructorList() {
+  Future<List<ConstructorIslamabad>> fetchConstructorList() async {
+    await delay(addDelay);
     return Future.value(_constructorList);
   }
 
-  Stream<List<ConstructorIslamabad>> watchConstructorList() {
-    return Stream.value(_constructorList);
+  Stream<List<ConstructorIslamabad>> watchConstructorList() async* {
+    await delay(addDelay);
+    yield _constructorList;
   }
 
   // Getting constructor base on id
 
   Stream<ConstructorIslamabad?> watchConstructor(String id) {
-    return watchConstructorList().map((constructorList) =>
-        constructorList.firstWhere((constructor) => constructor.id == id));
+    return watchConstructorList()
+        .map((constructorList) => _getConstructor(constructorList, id));
+  }
+
+  static ConstructorIslamabad? _getConstructor(
+      List<ConstructorIslamabad> constructors, String id) {
+    try {
+      return constructors.firstWhere((constructor) => constructor.id == id);
+    } catch (e) {
+      return null;
+    }
   }
 }
 

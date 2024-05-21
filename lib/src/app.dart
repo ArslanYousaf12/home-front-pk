@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // final goRouter = ref.watch(goRouterProvider);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       restorationScopeId: 'app',
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: Colors.green,
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.amber[300],
+          backgroundColor: Color(0xFFF6F7C4),
           foregroundColor: Color(0xFF182430),
           elevation: 0,
         ),

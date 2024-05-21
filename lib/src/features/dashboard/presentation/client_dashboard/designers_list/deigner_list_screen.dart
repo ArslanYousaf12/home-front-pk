@@ -19,6 +19,10 @@ class DesignerListScreen extends ConsumerWidget {
     return AsyncValueWidget(
       value: designerValue,
       data: (designers) => Scaffold(
+        appBar: AppBar(
+          title: Text('Designers'),
+          backgroundColor: Color(0xFFF6F7C4),
+        ),
         body: Padding(
           padding: const EdgeInsets.all(30.0),
           child: ListView.separated(

@@ -13,11 +13,13 @@ class ActionLoadButton extends StatelessWidget {
       required this.text,
       this.isLoading = false,
       this.onPressed,
-      required this.color});
+      required this.color,
+      this.textColor});
   final String text;
   final bool isLoading;
   final VoidCallback? onPressed;
   final Color color;
+  final Color? textColor;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -42,10 +44,8 @@ class ActionLoadButton extends StatelessWidget {
                 : Text(
                     text,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge!
-                        .copyWith(color: Colors.white),
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        color: textColor == null ? Colors.white : textColor!),
                   ),
             const Icon(
               Icons.arrow_forward,

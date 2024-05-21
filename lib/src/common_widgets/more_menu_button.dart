@@ -1,3 +1,4 @@
+import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,8 @@ class MoreMenuButton extends StatelessWidget {
 
             break;
           case PopupMenuOption.message:
-            context.goNamed(AppRoute.messages.name);
+            // context.goNamed(AppRoute.messages.name);
+            showNotImplementedAlertDialog(context: context);
             break;
         }
       },

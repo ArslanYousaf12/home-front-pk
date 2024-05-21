@@ -23,97 +23,133 @@ class DesignerDashboard extends ConsumerStatefulWidget {
 class _DesignerDashboardState extends ConsumerState<DesignerDashboard> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80),
-        child: HomeAppBar(
-          userRole: 'designer',
-          onTab: () async {
-            final goRouter = GoRouter.of(context);
-            final logout = await showAlertDialog(
-              context: context,
-              title: 'Are you sure?'.hardcoded,
-              cancelActionText: 'Cancel'.hardcoded,
-              defaultActionText: 'Logout'.hardcoded,
-            );
-            if (logout == true) {
-              final success = await ref
-                  .read(accountScreenControllerProvider.notifier)
-                  .signOut();
-              if (success) {
-                goRouter.pop();
+    //using popScope to prevent user to goBack to sigin Screen
+    // without logout
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(80),
+          child: HomeAppBar(
+            titles: 'Designer DashBoard',
+            backColor: const Color(0xFFA1EEBD),
+            userRole: 'designer',
+            notificationCallBack: () =>
+                showNotImplementedAlertDialog(context: context),
+            logOut: () async {
+              final goRouter = GoRouter.of(context);
+              final logout = await showAlertDialog(
+                context: context,
+                title: 'Are you sure?'.hardcoded,
+                cancelActionText: 'Cancel'.hardcoded,
+                defaultActionText: 'Logout'.hardcoded,
+              );
+              if (logout == true) {
+                final success = await ref
+                    .read(accountScreenControllerProvider.notifier)
+                    .signOut();
+                if (success) {
+                  goRouter.pop();
+                }
               }
-            }
-          },
+            },
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            CustomCurvedContainer(
-              gradientColors: LinearGradient(
-                colors: [
-                  Colors.green.shade800,
-                  Colors.green.shade100,
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Welcome Back',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  gapH8,
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('Jobs'),
-                  ),
-                ],
-              ),
-            ),
-            gapH12,
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: GridView.count(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.5 / 1.2,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              CustomCurvedContainer(
+                gradientColors: const LinearGradient(
+                  colors: [
+                    Color(0xFFA1EEBD),
+                    Color(0xFFF6F7C4),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GridCard(
-                      iconName: FontAwesomeIcons.images,
-                      title: 'Portfolio',
-                      onPressed: () {
-                        print('button pressed');
-                        context.goNamed(AppRoute.designerPortfolio.name);
-                      },
+                    const Text(
+                      'Welcome Back',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87),
                     ),
-                    GridCard(
-                        iconName: FontAwesomeIcons.briefcase,
-                        title: 'New Requests'),
-                    GridCard(
+                    gapH8,
+                    ElevatedButton(
+                      onPressed: () {
+                        showNotImplementedAlertDialog(context: context);
+                      },
+                      child: const Text('Jobs'),
+                    ),
+                  ],
+                ),
+              ),
+              gapH12,
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: GridView.count(
+                    crossAxisCount: 2,
+                    childAspectRatio: 1.5 / 1.2,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      GridCard(
+                        iconName: FontAwesomeIcons.images,
+                        title: 'Portfolio',
+                        onPressed: () {
+                          print('button pressed');
+                          context.goNamed(AppRoute.designerPortfolio.name);
+                        },
+                      ),
+                      GridCard(
+                          iconName: FontAwesomeIcons.briefcase,
+                          title: 'New Requests',
+                          onPressed: () =>
+                              context.pushNamed(AppRoute.newRequest.name)),
+                      GridCard(
                         iconName: FontAwesomeIcons.listCheck,
-                        title: 'Ongoing Projects'),
-                    GridCard(
-                        iconName: FontAwesomeIcons.comments, title: 'Messages'),
-                    GridCard(
+                        title: 'Ongoing Projects',
+                        onPressed: () =>
+                            showNotImplementedAlertDialog(context: context),
+                      ),
+                      GridCard(
+                        iconName: FontAwesomeIcons.comments,
+                        title: 'Messages',
+                        onPressed: () =>
+                            showNotImplementedAlertDialog(context: context),
+                      ),
+                      GridCard(
                         iconName: FontAwesomeIcons.paperPlane,
-                        title: 'Offers Sent'),
-                    GridCard(
+                        title: 'Offers Sent',
+                        onPressed: () =>
+                            showNotImplementedAlertDialog(context: context),
+                      ),
+                      GridCard(
                         iconName: FontAwesomeIcons.circleCheck,
-                        title: 'Completed Projects'),
-                    GridCard(
-                        iconName: FontAwesomeIcons.wallet, title: 'Payments'),
-                    GridCard(
+                        title: 'Completed Projects',
+                        onPressed: () =>
+                            showNotImplementedAlertDialog(context: context),
+                      ),
+                      GridCard(
+                        iconName: FontAwesomeIcons.wallet,
+                        title: 'Payments',
+                        onPressed: () =>
+                            showNotImplementedAlertDialog(context: context),
+                      ),
+                      GridCard(
                         iconName: FontAwesomeIcons.userPen,
-                        title: 'Update Profile'),
-                  ]),
-            ),
-          ],
+                        title: 'Update Profile',
+                        onPressed: () =>
+                            showNotImplementedAlertDialog(context: context),
+                      ),
+                    ]),
+              ),
+            ],
+          ),
         ),
       ),
     );
