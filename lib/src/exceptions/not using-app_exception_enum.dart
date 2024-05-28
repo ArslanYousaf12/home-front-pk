@@ -1,10 +1,22 @@
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 
+//Not Using This file Because
+//All the Error not handle using
+//Sealed class instead of enum
+//sealed classes are introduce in
+// dart 3.0 and
+
+//not using this enum due to
+//its limitation
+
 /// An exception type to represent all client-side errors that can be generated
 /// by the app
 enum AppExceptionEnum {
   // Auth
   emailAlreadyInUse('email-already-in-use'),
+  //above emailAlreadyInUse is enumeration value type
+  //and 'email-already-in-use' use code that send to
+  //backend for error logging
   weakPassword('weak-password'),
   wrongPassword('wrong-password'),
   userNotFound('user-not-found'),

@@ -8,8 +8,8 @@ import 'package:home_front_pk/src/features/authentication/presentation/account/a
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/client_signin.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/constructor_signin.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/designer_signin.dart';
-import 'package:home_front_pk/src/features/authentication/presentation/sign_up/client/client_signup_first.dart';
-import 'package:home_front_pk/src/features/authentication/presentation/sign_up/client/client_signup_second.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/sign_up/signup_screen.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/sign_up/client/client_signup.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/constructor/constructor_signup.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/designer/designer_signup.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/client_dashboard.dart';
@@ -21,6 +21,7 @@ import 'package:home_front_pk/src/features/dashboard/presentation/designer_dashb
 import 'package:home_front_pk/src/features/new_requests/presentation/new_request.dart';
 import 'package:home_front_pk/src/features/portfolio/presentation/constructor_portfolio.dart';
 import 'package:home_front_pk/src/features/portfolio/presentation/designer_portfolio.dart';
+import 'package:home_front_pk/src/features/welcome/presentation/seller_screen.dart';
 import 'package:home_front_pk/src/features/welcome/presentation/welcome_screen.dart';
 import 'package:home_front_pk/src/routing/go_router_refresh_stream.dart';
 
@@ -30,8 +31,8 @@ enum AppRoute {
   signInClient,
   signInDesigner,
   signInConstructor,
-  signUpClientFirst, // Sign Up screen for clients
-  signUpClientSecond,
+
+  signUpClient,
   signUpConstructor, // Sign Up screen for constructors
   signUpDesigner, // Sign Up screen for designers
   clientDashboard, // Dashboard screen for clients
@@ -156,15 +157,8 @@ final goRouter = GoRouter(
                     ]),
                 GoRoute(
                   path: 'sign-up-client',
-                  name: AppRoute.signUpClientFirst.name,
+                  name: AppRoute.signUpClient.name,
                   builder: (context, state) => const ClientSignUp(),
-                  routes: [
-                    GoRoute(
-                      path: 'sign-up-client-second',
-                      name: AppRoute.signUpClientSecond.name,
-                      builder: (context, state) => const ClientSignUpSecond(),
-                    ),
-                  ],
                 ),
               ]),
           GoRoute(

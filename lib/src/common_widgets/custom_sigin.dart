@@ -7,6 +7,7 @@ import 'package:home_front_pk/src/features/authentication/presentation/sign_in/e
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/string_validators.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 import 'package:home_front_pk/src/utils/async_value_ui.dart';
+import 'package:home_front_pk/src/utils/constants.dart';
 
 typedef FormSubmitCallback = void Function(String email, String password);
 
@@ -16,8 +17,8 @@ class SignInForm extends ConsumerStatefulWidget {
     required this.signInText,
     required this.onFormSubmit,
   });
-
   final String signInText;
+//TODO: check signInText usage
   final FormSubmitCallback onFormSubmit;
 
   @override
@@ -155,7 +156,7 @@ class _SignInFormState extends ConsumerState<SignInForm> {
             ActionLoadButton(
               isLoading: state.isLoading,
               text: 'Login',
-              color: Colors.amber.shade400,
+              color: kPrimaryColor,
               onPressed: state.isLoading ? null : () => _submit(state),
             )
           ],

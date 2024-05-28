@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
+import 'package:home_front_pk/src/utils/constants.dart';
 
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
@@ -22,7 +23,7 @@ class MyApp extends ConsumerWidget {
           foregroundColor: Color(0xFF182430),
           elevation: 0,
         ),
-        scaffoldBackgroundColor: const Color(0xFF182430),
+        scaffoldBackgroundColor: kBackgroundColor,
         // elevatedButtonTheme: ElevatedButtonThemeData(
         //   style: ElevatedButton.styleFrom(
         //     backgroundColor: Colors.white,
@@ -31,7 +32,8 @@ class MyApp extends ConsumerWidget {
         // ),
         textTheme: ThemeData().textTheme.apply(
               displayColor: Colors.white,
-              bodyColor: Colors.white,
+              bodyColor: kPrimaryColor,
+              fontFamily: 'Montserrat',
             ),
       ),
     );

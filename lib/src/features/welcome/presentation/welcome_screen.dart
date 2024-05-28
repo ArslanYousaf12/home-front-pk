@@ -1,101 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:home_front_pk/src/common_widgets/circular_image.dart';
 
-import 'package:home_front_pk/src/common_widgets/decorated_box_with_shadow.dart';
-import 'package:home_front_pk/src/common_widgets/responsive_center.dart';
-import 'package:home_front_pk/src/common_widgets/responsive_scrollable_card.dart';
-import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
-import 'package:home_front_pk/src/constants/app_sizes.dart';
-import 'package:home_front_pk/src/routing/app_router.dart';
+import 'package:home_front_pk/src/constants/decoration_widget/bottom_decorated_widget.dart';
+import 'package:home_front_pk/src/constants/decoration_widget/center_widget/center_widget.dart';
+import 'package:home_front_pk/src/constants/decoration_widget/top_deocrated_widegt.dart';
+import 'package:home_front_pk/src/features/welcome/presentation/welcome_content.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
+  //topWidget and ButtonWidget both are for screen design
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      body: SafeArea(
-        child: ResponsiveCenter(
-          padding: const EdgeInsets.only(
-            top: 40,
-            left: 20,
-            right: 20,
+      body: Stack(
+        children: [
+          Positioned(
+            top: -160,
+            left: -30,
+            child: TopDecoratedWidget(screenWidth: screenSize.width),
           ),
-          child: Column(
-            children: [
-              const CircularImage(imageUrl: 'assets/logo.jpeg'),
-              gapH4,
-              const ResponsiveScrollableCard(
-                color: Color.fromARGB(99, 48, 70, 91),
-                child: Center(
-                  child: Text(
-                    'Welcome',
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
-                  ),
-                ),
-              ),
-              gapH64,
-              const Padding(
-                padding: EdgeInsets.only(left: 20, right: 20),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    DecoratedBoxWithShadow(
-                      child: CircleAvatar(
-                        backgroundImage:
-                            AssetImage('assets/welcome/image.jpeg'),
-                      ),
-                    ),
-                    gapW32,
-                    DecoratedBoxWithShadow(
-                      child: CircleAvatar(
-                        backgroundImage:
-                            AssetImage('assets/welcome/designer.jpg'),
-                      ),
-                    ),
-                    gapW32,
-                    DecoratedBoxWithShadow(
-                      child: CircleAvatar(
-                        backgroundImage:
-                            AssetImage('assets/welcome/constructor.jpg'),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              gapH64,
-              Column(
-                children: [
-                  ActionLoadButton(
-                    text: 'Client Login',
-                    color: Colors.green,
-                    onPressed: () {
-                      context.goNamed(AppRoute.signInClient.name);
-                    },
-                  ),
-                  gapH16,
-                  ActionLoadButton(
-                    text: 'Constructor Login',
-                    color: const Color.fromARGB(245, 228, 186, 62),
-                    onPressed: () {
-                      context.goNamed(AppRoute.signInConstructor.name);
-                    },
-                  ),
-                  gapH16,
-                  ActionLoadButton(
-                    text: 'Designer Login',
-                    color: const Color.fromARGB(255, 129, 199, 132),
-                    onPressed: () {
-                      context.goNamed(AppRoute.signInDesigner.name);
-                    },
-                  ),
-                  gapH4,
-                ],
-              ),
-            ],
+          Positioned(
+            bottom: -180,
+            left: -40,
+            child: BottomDecoradeWidget(screenWidth: screenSize.width),
           ),
-        ),
+          // center widget is center designed
+          CenterWidget(size: screenSize),
+          //actual data
+          const WelcomeContent(),
+        ],
       ),
     );
   }

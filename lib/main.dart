@@ -9,6 +9,7 @@ import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 void main() {
   //ensure flutter SDK is ready for widget rendering
   WidgetsFlutterBinding.ensureInitialized();
+  registerErroHandler();
 
   runApp(const ProviderScope(child: MyApp()));
 }
