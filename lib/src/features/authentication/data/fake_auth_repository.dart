@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:home_front_pk/src/exceptions/app_exception.dart';
 
 import 'package:home_front_pk/src/features/authentication/domain/app_user.dart';
 import 'package:home_front_pk/src/features/authentication/domain/fake_app_user.dart';
@@ -36,10 +37,10 @@ class FakeAuthRepository {
       }
       // same email, wrong password
       if (u.email == email && u.password != password) {
-        throw Exception('Wrong password'.hardcoded);
+        throw WrongPasswordException();
       }
     }
-    throw Exception('User not found'.hardcoded);
+    throw UserNotFoundException();
   }
 
   Future<void> createUserWithEmailAndPassword(
@@ -50,12 +51,12 @@ class FakeAuthRepository {
     // check if the email is already in use
     for (final u in _users) {
       if (u.email == email) {
-        throw Exception('Email already in use'.hardcoded);
+        throw EmailAlreadyInUseException();
       }
     }
     // minimum password length requirement
     if (password.length < 8) {
-      throw Exception('Password is too weak'.hardcoded);
+      throw WeakPasswordException();
     }
     createNewUser(email, password);
   }

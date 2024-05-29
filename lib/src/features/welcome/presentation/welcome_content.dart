@@ -68,7 +68,7 @@ class WelcomeContent extends StatelessWidget {
                   iconData: Icons.construction,
                   color: kPrimaryColor,
                   onPressed: () {
-                    context.goNamed(AppRoute.signInDesigner.name);
+                    context.goNamed(AppRoute.seller.name);
                   },
                 ),
               ],

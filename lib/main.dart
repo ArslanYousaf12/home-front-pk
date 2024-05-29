@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:flutter/material.dart';
 import 'package:home_front_pk/src/app.dart';
+import 'package:home_front_pk/src/exceptions/async_error_logger.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 
 void main() {
@@ -11,7 +12,9 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   registerErroHandler();
 
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(ProviderScope(observers: [
+    AsyncErrorLogger(),
+  ], child: MyApp()));
 }
 
 void registerErroHandler() {

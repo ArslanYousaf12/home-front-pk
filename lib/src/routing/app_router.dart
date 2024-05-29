@@ -31,7 +31,7 @@ enum AppRoute {
   signInClient,
   signInDesigner,
   signInConstructor,
-
+  seller,
   signUpClient,
   signUpConstructor, // Sign Up screen for constructors
   signUpDesigner, // Sign Up screen for designers
@@ -105,6 +105,11 @@ final goRouter = GoRouter(
         name: AppRoute.welcome.name,
         builder: (context, state) => const WelcomeScreen(),
         routes: [
+          GoRoute(
+            path: 'seller',
+            name: AppRoute.seller.name,
+            builder: (context, state) => SellerScreen(),
+          ),
           GoRoute(
               path: 'new-request',
               name: AppRoute.newRequest.name,
