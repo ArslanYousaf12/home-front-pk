@@ -16,6 +16,7 @@ import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboa
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/constructors.dart/constructor_detailed.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/designers_list/deigner_list_screen.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/designers_list/designer_detailed.dart';
+import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/tabs.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/constructor_dashboard/constrcutor_dashboard.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/designer_dashboard/designer_dashboard.dart';
 import 'package:home_front_pk/src/features/new_requests/presentation/new_request.dart';
@@ -35,6 +36,7 @@ enum AppRoute {
   signUpClient,
   signUpConstructor, // Sign Up screen for constructors
   signUpDesigner, // Sign Up screen for designers
+  clientTabs,
   clientDashboard, // Dashboard screen for clients
   clientAccount,
   clientMessage,
@@ -103,7 +105,7 @@ final goRouter = GoRouter(
       GoRoute(
         path: '/',
         name: AppRoute.welcome.name,
-        builder: (context, state) => const WelcomeScreen(),
+        builder: (context, state) => const ClientDashboard(),
         routes: [
           GoRoute(
             path: 'seller',
@@ -127,7 +129,7 @@ final goRouter = GoRouter(
                 GoRoute(
                     path: 'client-dashboard',
                     name: AppRoute.clientDashboard.name,
-                    builder: (context, state) => const ClientDashboard(),
+                    builder: (context, state) => const UserTabScreen(),
                     routes: [
                       GoRoute(
                         path: 'account',

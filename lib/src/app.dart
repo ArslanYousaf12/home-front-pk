@@ -17,9 +17,9 @@ class MyApp extends ConsumerWidget {
       onGenerateTitle: (context) => 'Home Front Pk'.hardcoded,
       theme: ThemeData(
         useMaterial3: true,
-        primarySwatch: Colors.green,
+
         appBarTheme: AppBarTheme(
-          backgroundColor: Color(0xFFF6F7C4),
+          backgroundColor: kBackgroundColor,
           foregroundColor: Color(0xFF182430),
           elevation: 0,
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class CustomCurvedContainer extends StatelessWidget {
   const CustomCurvedContainer({

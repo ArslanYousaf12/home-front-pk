@@ -14,6 +14,7 @@ import 'package:home_front_pk/src/features/authentication/presentation/account/a
 import 'package:home_front_pk/src/features/dashboard/data/fake_constructor_repo.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
+import 'package:home_front_pk/src/utils/constants.dart';
 
 class ClientDashboard extends ConsumerStatefulWidget {
   const ClientDashboard({super.key});
@@ -33,10 +34,11 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
       canPop: false,
       child: Scaffold(
         //AppBar Code
+
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(80),
           child: HomeAppBar(
-            titles: 'Client Dashboard',
+            titles: 'Dashboard ',
             userRole: 'client',
             notificationCallBack: () =>
                 showNotImplementedAlertDialog(context: context),
@@ -63,30 +65,46 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
           child: Column(
             children: [
               //Welcome Back Section
-              CustomCurvedContainer(
-                gradientColors: LinearGradient(
-                  colors: [
-                    Colors.green.shade100,
-                    Colors.green.shade400,
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              // CustomCurvedContainer(
+              //   gradientColors: LinearGradient(
+              //     colors: [
+              //       Color(0x803DE896),
+              //       Color(0x4D76E3AE),
+              //     ],
+              //     begin: Alignment.topLeft,
+              //     end: Alignment.bottomRight,
+              //   ),
+              //   child: Column(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       const Text(
+              //         'Welcome Back',
+              //         style:
+              //             TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              //       ),
+              //       gapH8,
+              //       ElevatedButton(
+              //           onPressed: () {
+              //             showNotImplementedAlertDialog(context: context);
+              //           },
+              //           child: const Text('Cost Calculator'))
+              //     ],
+              //   ),
+              // ),
+              Padding(
+                padding: EdgeInsets.only(top: 20, left: 5, right: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Welcome Back',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    dashboardCard(
+                      title: 'Post jobs',
+                      iconData: Icons.work,
                     ),
-                    gapH8,
-                    ElevatedButton(
-                        onPressed: () {
-                          showNotImplementedAlertDialog(context: context);
-                        },
-                        child: const Text('Cost Calculator'))
+                    dashboardCard(
+                      title: 'Accept Offers',
+                      iconData: Icons.local_offer_rounded,
+                    ),
                   ],
                 ),
               ),
@@ -153,7 +171,7 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
                   child: Column(
                     children: [
                       ActionLoadButton(
-                        text: 'Incomming Jobs',
+                        text: 'Jobs',
                         textColor: Colors.black,
                         color: Colors.green.shade200,
                         onPressed: () {
@@ -165,7 +183,7 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
                       //View designer Button
 
                       ActionLoadButton(
-                        text: 'View Designer',
+                        text: 'Designer',
                         color: const Color(0xFFF6F7C4),
                         textColor: Colors.black,
                         onPressed: () {
@@ -178,6 +196,42 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class dashboardCard extends StatelessWidget {
+  const dashboardCard({
+    super.key,
+    required this.title,
+    required this.iconData,
+  });
+  final String title;
+  final IconData iconData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      width: 200,
+      child: Card(
+          color: Colors.white,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Icon(
+                iconData,
+                color: Colors.green.shade400,
+              ),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          )),
     );
   }
 }
