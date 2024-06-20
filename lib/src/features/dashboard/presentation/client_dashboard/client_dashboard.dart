@@ -5,9 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
 import 'package:home_front_pk/src/common_widgets/async_value_widget.dart';
 import 'package:home_front_pk/src/common_widgets/custom_talent_card.dart';
+import 'package:home_front_pk/src/common_widgets/custom_text_button.dart';
 import 'package:home_front_pk/src/common_widgets/cutome_curved_container.dart';
 import 'package:home_front_pk/src/common_widgets/home_app_bar.dart';
 import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
+import 'package:home_front_pk/src/common_widgets/persons_card.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 import 'package:home_front_pk/src/constants/ktest_constructor_card.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/account/account_screen_controller.dart';
@@ -63,59 +65,39 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
         ),
         body: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //Welcome Back Section
-              // CustomCurvedContainer(
-              //   gradientColors: LinearGradient(
-              //     colors: [
-              //       Color(0x803DE896),
-              //       Color(0x4D76E3AE),
-              //     ],
-              //     begin: Alignment.topLeft,
-              //     end: Alignment.bottomRight,
-              //   ),
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       const Text(
-              //         'Welcome Back',
-              //         style:
-              //             TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              //       ),
-              //       gapH8,
-              //       ElevatedButton(
-              //           onPressed: () {
-              //             showNotImplementedAlertDialog(context: context);
-              //           },
-              //           child: const Text('Cost Calculator'))
-              //     ],
-              //   ),
-              // ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(top: 20, left: 5, right: 5),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     dashboardCard(
                       title: 'Post jobs',
                       iconData: Icons.work,
                     ),
+                    gapW16,
                     dashboardCard(
                       title: 'Accept Offers',
                       iconData: Icons.local_offer_rounded,
+                      color: Colors.green,
                     ),
                   ],
                 ),
               ),
-              gapH12,
+              gapH24,
               //constructor heading
-              const Text(
-                'Constructors',
-                style: TextStyle(
-                  fontSize: 25, // Increased font size for emphasis
-                  fontWeight: FontWeight.bold, // Bold font weight for impact
-                  color: Colors.white, // Example color
+              Padding(
+                padding: const EdgeInsets.only(left: 50),
+                child: const Text(
+                  'Constructors',
+                  style: TextStyle(
+                    fontSize: 15, // Increased font size for emphasis
+                    fontWeight: FontWeight.w600, // Bold font weight for impact
+                    color: Colors.black, // Example color
+                  ),
+                  textAlign: TextAlign.start,
                 ),
               ),
               gapH12,
@@ -124,9 +106,6 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
 
               Consumer(
                 builder: (context, ref, child) {
-                  // final constructorRepository =
-                  //     ref.watch(constructorRepositoryProvider);
-                  // final constructors = constructorRepository.getConstructorList();
                   final constructorsValue =
                       ref.watch(constructorsListStreamProvider);
                   return AsyncValueWidget(
@@ -136,25 +115,27 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
                       itemBuilder: (context, index, realIndex) {
                         final constructor = constructors[index];
                         final title = constructor.title;
-                        final icon = constructor.icon;
-                        final description = constructor.detail;
-                        return CustomTalentCard(
+                        final location = constructor.location;
+                        final id = constructor.id;
+                        final name = constructor.name;
+                        return PersonCard(
                           title: title,
-                          icon: icon,
-                          description: description,
-                          onPressed: () {
+                          id: id,
+                          location: location,
+                          name: name,
+                          contact: () {
                             context.goNamed(AppRoute.constructorDetailed.name,
                                 pathParameters: {'id': constructor.id});
                           },
                         );
                       },
                       options: CarouselOptions(
-                        height: 250,
+                        height: 320,
                         enableInfiniteScroll: true,
-                        autoPlay: false,
-                        // autoPlayInterval: Duration(seconds: 3),
-                        // autoPlayAnimationDuration: Duration(milliseconds: 800),
-                        // autoPlayCurve: Curves.fastOutSlowIn,
+                        autoPlay: true,
+                        autoPlayInterval: Duration(seconds: 3),
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
                         enlargeCenterPage: true,
                         viewportFraction: 0.8,
                       ),
@@ -162,36 +143,60 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
                   );
                 },
               ),
-              gapH12,
+              gapH32,
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 50),
+              //   child: ActionLoadButton(
+              //     text: 'Designer',
+              //     onPressed: () {
+              //       context.goNamed(AppRoute.designerList.name);
+              //     },
+              //   ),
+              // ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    context.goNamed(AppRoute.designerList.name);
+                  },
+                  child: Text('Designers'),
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: Size.fromHeight(60),
+                      backgroundColor: kSecondaryColor,
+                      foregroundColor: Colors.white,
+                      textStyle:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                ),
+              ),
 
               //Incoming Jobs button
 
-              Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      ActionLoadButton(
-                        text: 'Jobs',
-                        textColor: Colors.black,
-                        color: Colors.green.shade200,
-                        onPressed: () {
-                          showNotImplementedAlertDialog(context: context);
-                        },
-                      ),
-                      gapH12,
+              // Padding(
+              //     padding: const EdgeInsets.all(20.0),
+              //     child: Column(
+              //       children: [
+              //         ActionLoadButton(
+              //           text: 'Jobs',
+              //           textColor: Colors.black,
+              //           color: Colors.green.shade200,
+              //           onPressed: () {
+              //             showNotImplementedAlertDialog(context: context);
+              //           },
+              //         ),
+              //         gapH12,
 
-                      //View designer Button
+              //         //View designer Button
 
-                      ActionLoadButton(
-                        text: 'Designer',
-                        color: const Color(0xFFF6F7C4),
-                        textColor: Colors.black,
-                        onPressed: () {
-                          context.goNamed(AppRoute.designerList.name);
-                        },
-                      ),
-                    ],
-                  )),
+              //         ActionLoadButton(
+              //           text: 'Designer',
+              //           color: const Color(0xFFF6F7C4),
+              //           textColor: Colors.black,
+              //           onPressed: () {
+              //             context.goNamed(AppRoute.designerList.name);
+              //           },
+              //         ),
+              //       ],
+              //     )),
             ],
           ),
         ),
@@ -205,29 +210,32 @@ class dashboardCard extends StatelessWidget {
     super.key,
     required this.title,
     required this.iconData,
+    this.color,
   });
   final String title;
   final IconData iconData;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
-      width: 200,
+      height: 80,
+      width: 150,
       child: Card(
-          color: Colors.white,
+          color: color ?? Colors.white,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Icon(
                 iconData,
-                color: Colors.green.shade400,
+                color: color != null ? Colors.white : Colors.green.shade400,
               ),
               Text(
                 title,
                 style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w100,
+                  color: color != null ? Colors.white : Colors.black,
                 ),
               ),
             ],

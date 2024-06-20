@@ -12,6 +12,7 @@ import 'package:home_front_pk/src/features/authentication/presentation/sign_up/s
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/client/client_signup.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/constructor/constructor_signup.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/designer/designer_signup.dart';
+import 'package:home_front_pk/src/features/cost_calculator/presentation/calculatorScreen.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/client_dashboard.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/constructors.dart/constructor_detailed.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/designers_list/deigner_list_screen.dart';
@@ -105,7 +106,7 @@ final goRouter = GoRouter(
       GoRoute(
         path: '/',
         name: AppRoute.welcome.name,
-        builder: (context, state) => const ClientDashboard(),
+        builder: (context, state) => const UserTabScreen(),
         routes: [
           GoRoute(
             path: 'seller',

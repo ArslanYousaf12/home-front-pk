@@ -5,7 +5,8 @@ import 'package:home_front_pk/src/features/dashboard/domain/constructor.dart';
 final ktestConstructor = [
   const ConstructorIslamabad(
     id: '1',
-    name: 'Name',
+    name: 'Amjad',
+    location: 'B-17, Islamabad',
     imageUrl: 'assets/person.jpeg',
     title: 'Residential Builder',
     icon: Icons.build,
@@ -13,7 +14,8 @@ final ktestConstructor = [
   ),
   const ConstructorIslamabad(
     id: '2',
-    name: 'Name',
+    name: 'Haris',
+    location: 'DHA Phase II, Islamabad',
     imageUrl: 'assets/person.jpeg',
     title: 'Commercial Builder',
     icon: Icons.build,
@@ -22,15 +24,17 @@ final ktestConstructor = [
   ),
   const ConstructorIslamabad(
     id: '3',
-    name: 'Name',
+    name: 'Sania',
     imageUrl: 'assets/person.jpeg',
+    location: 'Bahria Town, Islamabad',
     title: 'Custom Home Builder',
     icon: Icons.build,
     detail: 'Tailors construction projects to clients\' unique preferences.',
   ),
   const ConstructorIslamabad(
     id: '4',
-    name: 'Name',
+    name: 'Kamran',
+    location: 'G-11 Markaz, Islamabad',
     imageUrl: 'assets/person.jpeg',
     title: 'Renovation Contractor',
     icon: Icons.build,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_front_pk/src/features/cost_calculator/presentation/calculatorScreen.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/client_dashboard.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/designers_list/deigner_list_screen.dart';
 
@@ -21,7 +22,9 @@ class _TabsScreenState extends State<UserTabScreen> {
   Widget build(BuildContext context) {
     Widget activePage = ClientDashboard();
     if (_selectedPageIndex == 1) {
-      activePage = DesignerListScreen();
+      activePage = CalculatorScreen();
+    } else if (_selectedPageIndex == 2) {
+      activePage = CalculatorScreen();
     }
     return Scaffold(
       body: activePage,
@@ -30,15 +33,15 @@ class _TabsScreenState extends State<UserTabScreen> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.work),
-            label: 'Jobs',
+            label: 'workers',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'History',
+            icon: Icon(Icons.calculate),
+            label: 'Cost calculator',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_2_rounded),
-            label: 'profile',
+            icon: Icon(Icons.miscellaneous_services_rounded),
+            label: 'Services',
           ),
         ],
         onTap: (index) {

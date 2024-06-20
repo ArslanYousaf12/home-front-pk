@@ -9,25 +9,28 @@ import 'package:home_front_pk/src/utils/constants.dart';
 /// the text.
 /// @param onPressed - callback to be called when the button is pressed.
 class ActionLoadButton extends StatelessWidget {
-  ActionLoadButton(
-      {super.key,
-      required this.text,
-      this.isLoading = false,
-      this.onPressed,
-      this.color,
-      this.textColor,
-      this.iconData});
+  ActionLoadButton({
+    super.key,
+    required this.text,
+    this.isLoading = false,
+    this.onPressed,
+    this.color,
+    this.textColor,
+    this.iconData,
+    this.width,
+  });
   final String text;
   final bool isLoading;
   final VoidCallback? onPressed;
   Color? color;
   final Color? textColor;
   IconData? iconData;
+  final double? width;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: Sizes.p48,
-      width: 250,
+      width: width ?? 250,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: color == null ? kSecondaryColor : color,
