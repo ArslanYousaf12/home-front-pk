@@ -12,14 +12,15 @@ import 'package:home_front_pk/src/utils/constants.dart';
 typedef FormSubmitCallback = void Function(String email, String password);
 
 class SignInForm extends ConsumerStatefulWidget {
-  const SignInForm({
-    super.key,
-    required this.signInText,
-    required this.onFormSubmit,
-  });
+  const SignInForm(
+      {super.key,
+      required this.signInText,
+      required this.onFormSubmit,
+      required this.role});
   final String signInText;
 //TODO: check signInText usage
   final FormSubmitCallback onFormSubmit;
+  final String role;
 
   @override
   ConsumerState<SignInForm> createState() => _SignInFormState();
@@ -61,6 +62,7 @@ class _SignInFormState extends ConsumerState<SignInForm> {
       final sucess = await controller.submit(
         email,
         password,
+        widget.role,
       );
       if (sucess) {
         widget.onFormSubmit.call(email, password);
@@ -120,7 +122,8 @@ class _SignInFormState extends ConsumerState<SignInForm> {
               decoration: InputDecoration(
                 labelText: 'Email'.hardcoded,
                 hintText: 'test@test.com'.hardcoded,
-                hintStyle: const TextStyle(color: Color.fromARGB(118, 255, 255, 255)),
+                hintStyle:
+                    const TextStyle(color: Color.fromARGB(118, 255, 255, 255)),
                 enabled: !state.isLoading,
               ),
               autovalidateMode: AutovalidateMode.onUserInteraction,

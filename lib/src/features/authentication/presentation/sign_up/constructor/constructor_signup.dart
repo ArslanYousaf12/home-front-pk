@@ -15,6 +15,7 @@ class ConstructorSignUp extends StatelessWidget {
       child: SignUpScreen(
         topText: 'Constructor Account',
         signUpform: SignUpForm(
+            role: 'constructor',
             onFormSubmit: (email, password) =>
                 context.goNamed(AppRoute.constructorDashboard.name)),
       ),

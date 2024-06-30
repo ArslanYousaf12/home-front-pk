@@ -14,7 +14,12 @@ class ClientSignUp extends StatelessWidget {
       child: SignUpScreen(
         topText: 'Buyer Account',
         signUpform: SignUpForm(
-            onFormSubmit: (email, password) => context.goNamed(
+            role: 'buyer',
+            onFormSubmit: (
+              email,
+              password,
+            ) =>
+                context.goNamed(
                   AppRoute.clientDashboard.name,
                 )),
       ),

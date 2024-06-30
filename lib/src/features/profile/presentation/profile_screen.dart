@@ -16,6 +16,7 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final goRouter = ref.watch(routerProvider);
     return SafeArea(
       child: SizedBox(
         width: double.infinity,

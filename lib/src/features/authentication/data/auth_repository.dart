@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -45,3 +45,74 @@ final authStateChangeProvider = StreamProvider<AppUser?>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return authRepository.authStateChange();
 });
+
+// import 'package:cloud_firestore/cloud_firestore.dart';
+
+// class AuthRepository {
+//   AuthRepository({
+//     required FirebaseAuth auth,
+//     required FirebaseFirestore firestore,
+//   })  : _auth = auth,
+//         _firestore = firestore;
+
+//   final FirebaseAuth _auth;
+//   final FirebaseFirestore _firestore;
+
+//   Future<void> createUserWithEmailAndPassword(
+//     String email,
+//     String password,
+//     String role, // Add role parameter
+//   ) async {
+//     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+//       email: email,
+//       password: password,
+//     );
+//     // Store user role in Firestore
+//     // await _firestore.collection('users').doc(userCredential.user!.uid).set({
+//     //   'email': email,
+//     //   'role': role,
+//     // });
+//   }
+
+//   Future<void> signInWithEmailAndPassword(
+//     String email,
+//     String password,
+//   ) =>
+//       _auth.signInWithEmailAndPassword(email: email, password: password);
+
+//   Future<void> signOut() => _auth.signOut();
+
+//   AppUser? convertUser(User? user) {
+//     return user != null ? AppUser(uid: user.uid, email: user.email) : null;
+//   }
+
+//   Stream<AppUser?> authStateChange() =>
+//       _auth.authStateChanges().map(convertUser);
+
+//   AppUser? get currentUser => convertUser(_auth.currentUser);
+
+//   Future<String?> getUserRole(String uid) async {
+//     DocumentSnapshot doc = await _firestore.collection('users').doc(uid).get();
+//     return doc['role'];
+//   }
+// }
+
+// final authRepositoryProvider = Provider<AuthRepository>((ref) {
+//   final auth = FirebaseAuth.instance;
+//   final firestore = FirebaseFirestore.instance;
+//   return AuthRepository(auth: auth, firestore: firestore);
+// });
+
+// final authStateChangeProvider = StreamProvider<AppUser?>((ref) {
+//   final authRepository = ref.watch(authRepositoryProvider);
+//   return authRepository.authStateChange();
+// });
+
+// final userRoleProvider = FutureProvider<String?>((ref) async {
+//   final authRepository = ref.watch(authRepositoryProvider);
+//   final user = authRepository.currentUser;
+//   if (user != null) {
+//     return await authRepository.getUserRole(user.uid);
+//   }
+//   return null;
+// });

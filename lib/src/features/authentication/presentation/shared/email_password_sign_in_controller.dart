@@ -17,11 +17,13 @@ class EmailPasswordSignInController
   Future<bool> submit(
     String email,
     String password,
+    String role,
   ) async {
     state = state.copyWith(value: const AsyncValue.loading());
     final value = await AsyncValue.guard(() => authenticate(
           email,
           password,
+          role,
         ));
     state = state.copyWith(value: value);
     return value.hasError == false;
@@ -30,6 +32,7 @@ class EmailPasswordSignInController
   Future<void> authenticate(
     String email,
     String password,
+    String role,
   ) {
     switch (state.formType) {
       case EmailPasswordSignInFormType.signIn:
@@ -41,6 +44,7 @@ class EmailPasswordSignInController
         return authRepository.createUserWithEmailAndPassword(
           email,
           password,
+          // role,
         );
     }
   }

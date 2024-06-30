@@ -34,6 +34,7 @@ class _DesignerSignInState extends ConsumerState<DesignerSignIn> {
     return SignInScreen(
       topText: 'Designer Login',
       signInForm: SignInForm(
+        role: 'designer',
         signInText: 'Designer',
         onFormSubmit: _handleFormSubmit,
       ),
