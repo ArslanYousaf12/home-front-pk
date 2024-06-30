@@ -14,7 +14,6 @@ class DesignerSignUp extends StatelessWidget {
       child: SignUpScreen(
         topText: 'Designer Account',
         signUpform: SignUpForm(
-            role: 'designer',
             onFormSubmit: (email, password) => context.goNamed(
                   AppRoute.designerDashboard.name,
                 )),

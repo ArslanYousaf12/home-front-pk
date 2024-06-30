@@ -13,9 +13,8 @@ import 'package:home_front_pk/src/utils/async_value_ui.dart';
 import 'package:home_front_pk/src/utils/constants.dart';
 
 class SignUpForm extends ConsumerStatefulWidget {
-  const SignUpForm({super.key, required this.onFormSubmit, required this.role});
+  const SignUpForm({super.key, required this.onFormSubmit});
   final FormSubmitCallback onFormSubmit;
-  final String role;
 
   @override
   ConsumerState<SignUpForm> createState() => _SignUpFormState();
@@ -57,7 +56,7 @@ class _SignUpFormState extends ConsumerState<SignUpForm> {
               EmailPasswordSignInFormType.register)
           .notifier);
 
-      final success = await controller.submit(email, password, widget.role);
+      final success = await controller.submit(email, password);
 
       if (success) {
         // widget.onSignedIn?.call();

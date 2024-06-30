@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:home_front_pk/src/common_widgets/custom_sigin.dart';
 
+
 import 'package:home_front_pk/src/features/authentication/presentation/shared/email_password_sign_in_controller.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/email_password_sign_in_state.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/sign_in.dart';
@@ -39,7 +40,6 @@ class _ClientSignInScreenState extends ConsumerState<ClientSignInScreen> {
     return SignInScreen(
       topText: 'Buyer Login',
       signInForm: SignInForm(
-        role: 'buyer',
         signInText: 'Client',
         onFormSubmit: _handleFormSubmit,
       ),
