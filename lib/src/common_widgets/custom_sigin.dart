@@ -19,7 +19,7 @@ class SignInForm extends ConsumerStatefulWidget {
       required this.role});
   final String signInText;
 //TODO: check signInText usage
-  final FormSubmitCallback onFormSubmit;
+  final Function(String email, String password) onFormSubmit;
   final String role;
 
   @override

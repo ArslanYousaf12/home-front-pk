@@ -85,6 +85,7 @@ final routerProvider = Provider<GoRouter>((ref) {
 
       //   if (isLoggedIn) {
       //     final userRole = ref.read(userRoleProvider);
+      //     print(userRole);
       //     if (userRole is AsyncData<String?> && userRole.value != null) {
       //       if (userRole.value == 'buyer' &&
       //           state.uri.path != 'client-dashboard') {
@@ -99,17 +100,17 @@ final routerProvider = Provider<GoRouter>((ref) {
       //         return 'designer-dashboard';
       //       }
       //     }
-      //     //   if (state.uri.path == '/sign-In-client') {
-      //     //     return '/client-dashboard';
-      //     //   } else if (state.uri.path == '/sign-in-constructor') {
-      //     //     return '/constructor-dashboard';
-      //     //   } else if (state.uri.path == '/sign-in-designer') {
-      //     //     return '/designer-dashboard';
-      //     //   }
-      //     // } else {
-      //     //   if (state.uri.path == '/account') {
-      //     //     return '/';
-      //     //   }
+      //     //     //   if (state.uri.path == '/sign-In-client') {
+      //     //     //     return '/client-dashboard';
+      //     //     //   } else if (state.uri.path == '/sign-in-constructor') {
+      //     //     //     return '/constructor-dashboard';
+      //     //     //   } else if (state.uri.path == '/sign-in-designer') {
+      //     //     //     return '/designer-dashboard';
+      //     //     //   }
+      //     //     // } else {
+      //     //     //   if (state.uri.path == '/account') {
+      //     //     //     return '/';
+      //     //     //   }
       //   }
       //   return null;
       // },

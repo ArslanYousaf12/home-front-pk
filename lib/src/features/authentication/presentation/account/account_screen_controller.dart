@@ -23,8 +23,8 @@ class AccountScreenController extends StateNotifier<AsyncValue<void>> {
   }
 }
 
-final accountScreenControllerProvider = StateNotifierProvider.autoDispose<
-    AccountScreenController, AsyncValue<void>>((ref) {
+final accountScreenControllerProvider =
+    StateNotifierProvider<AccountScreenController, AsyncValue<void>>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return AccountScreenController(authRepository: authRepository);
 });

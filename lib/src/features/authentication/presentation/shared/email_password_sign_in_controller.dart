@@ -44,7 +44,7 @@ class EmailPasswordSignInController
         return authRepository.createUserWithEmailAndPassword(
           email,
           password,
-          // role,
+          role,
         );
     }
   }

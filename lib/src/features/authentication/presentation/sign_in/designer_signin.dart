@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
 import 'package:home_front_pk/src/common_widgets/custom_sigin.dart';
+import 'package:home_front_pk/src/features/authentication/data/auth_repository.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/shared/email_password_sign_in_controller.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/email_password_sign_in_state.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/sign_in.dart';
@@ -17,11 +19,41 @@ class DesignerSignIn extends ConsumerStatefulWidget {
 }
 
 class _DesignerSignInState extends ConsumerState<DesignerSignIn> {
-  void _handleFormSubmit(String email, String password) {
+  void _handleFormSubmit(String email, String password) async {
     // Handle the form submission, e.g., authenticate and navigate
     print('Email: $email, Password: $password');
+    final authRepo = ref.read(authRepositoryProvider);
+    final user = authRepo.currentUser;
+    final userRole = await authRepo.getUserRole(user!.uid);
+    if (userRole == 'designer') {
+      context.goNamed(AppRoute.designerDashboard.name);
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Wrong Email or Password')));
+    }
+    // final userRole = ref.watch(userRoleProvider);
+    // print(userRole.value);
+    // userRole.when(
+    //   data: (value) {
+    //     if (value == 'designer') {
+    //       context.goNamed(AppRoute.designerDashboard.name);
+    //     }
+    //   },
+    //   error: (error, stackTrace) => showExceptionAlertDialog(
+    //       context: context, title: 'Error', exception: error),
+    //   loading: () => const Center(
+    //     child: CircularProgressIndicator(),
+    //   ),
+    // );
+    // if (userRole.value != 'designer') {
+    //   ScaffoldMessenger.of(context)
+    //       .showSnackBar(SnackBar(content: Text('Wrong Email or Password')));
+    // }
+
     // Example: Navigator.of(context).pushReplacementNamed('/clientDashboard');
-    context.goNamed(AppRoute.designerDashboard.name);
+
+    // Example: Navigator.of(context).pushReplacementNamed('/clientDashboard');
+    // context.goNamed(AppRoute.designerDashboard.name);
   }
 
   @override

@@ -54,6 +54,7 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
                     .signOut();
                 if (success) {
                   goRouter.pop();
+                  goRouter.pop();
                 }
               }
             },
