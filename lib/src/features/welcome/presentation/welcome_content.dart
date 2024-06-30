@@ -1,14 +1,6 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
-import 'package:home_front_pk/src/common_widgets/action_text_button.dart';
-import 'package:home_front_pk/src/common_widgets/circular_image.dart';
-import 'package:home_front_pk/src/common_widgets/decorated_box_with_shadow.dart';
-import 'package:home_front_pk/src/common_widgets/responsive_center.dart';
-import 'package:home_front_pk/src/common_widgets/responsive_scrollable_card.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 import 'package:home_front_pk/src/utils/constants.dart';
@@ -33,7 +25,7 @@ class WelcomeContent extends StatelessWidget {
             ),
           ),
           gapH12,
-          Text(
+          const Text(
             'Please Select',
             style: TextStyle(
               fontSize: 20,

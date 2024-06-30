@@ -1,12 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 class BottomDecoradeWidget extends StatelessWidget {
   const BottomDecoradeWidget({
-    Key? key,
+    super.key,
     required this.screenWidth,
-  }) : super(key: key);
+  });
 
   final double screenWidth;
 

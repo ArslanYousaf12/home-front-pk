@@ -1,8 +1,6 @@
 @Timeout(Duration(milliseconds: 500))
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:home_front_pk/src/common_widgets/custom_sigin.dart';
-import 'package:home_front_pk/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/shared/email_password_sign_in_controller.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/email_password_sign_in_state.dart';
 import 'package:mocktail/mocktail.dart';

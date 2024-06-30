@@ -1,6 +1,4 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 
 class NewRequestCard extends StatelessWidget {
@@ -32,7 +30,7 @@ class NewRequestCard extends StatelessWidget {
               children: [
                 Text(
                   'Task#$id',
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w300,
                       color: Colors.black54),
@@ -40,24 +38,24 @@ class NewRequestCard extends StatelessWidget {
                 gapH4,
                 Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.w400,
                       color: Color.fromARGB(255, 72, 143, 75)),
                 ),
                 ListTile(
-                  leading: Icon(Icons.location_on),
+                  leading: const Icon(Icons.location_on),
                   title: Text(
                     location,
-                    style: TextStyle(fontSize: 15),
+                    style: const TextStyle(fontSize: 15),
                   ),
                 ),
                 gapH12,
                 ListTile(
-                  leading: Icon(Icons.person),
+                  leading: const Icon(Icons.person),
                   title: Text(
                     name,
-                    style: TextStyle(fontSize: 25),
+                    style: const TextStyle(fontSize: 25),
                   ),
                 ),
                 gapH20,
@@ -65,14 +63,14 @@ class NewRequestCard extends StatelessWidget {
                   children: [
                     TextButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           'Detail',
                           style: TextStyle(fontSize: 20),
                         )),
                     gapW32,
                     ElevatedButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           'Accept',
                           style: TextStyle(fontSize: 20),
                         )),

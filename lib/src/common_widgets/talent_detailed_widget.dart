@@ -37,15 +37,15 @@ class TalentDetailedWidget extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 35,
                 fontWeight: FontWeight.w100,
               ),
             ),
             gapH12,
             Text(
-              name!,
-              style: TextStyle(
+              name,
+              style: const TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.w200,
               ),
@@ -53,7 +53,7 @@ class TalentDetailedWidget extends StatelessWidget {
             gapH24,
             Text(
               description,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w200,
               ),

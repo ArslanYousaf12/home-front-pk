@@ -28,7 +28,7 @@ class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
       canPop: false,
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80),
+          preferredSize: const Size.fromHeight(80),
           child: HomeAppBar(
             userRole: 'constructor',
             titles: 'Constructor Dashboard',

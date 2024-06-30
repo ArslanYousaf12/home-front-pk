@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:home_front_pk/src/common_widgets/custom_talent_card.dart';
 import 'package:home_front_pk/src/features/dashboard/domain/constructor.dart';
 
 final ktestConstructor = [

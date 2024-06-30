@@ -2,13 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
 import 'package:home_front_pk/src/common_widgets/async_value_widget.dart';
-import 'package:home_front_pk/src/common_widgets/circular_image.dart';
-import 'package:home_front_pk/src/common_widgets/custom_image.dart';
-import 'package:home_front_pk/src/common_widgets/primary_button.dart';
-import 'package:home_front_pk/src/common_widgets/responsive_scrollable_card.dart';
 import 'package:home_front_pk/src/common_widgets/talent_detailed_widget.dart';
-import 'package:home_front_pk/src/constants/app_sizes.dart';
-import 'package:home_front_pk/src/features/dashboard/data/fake_constructor_repo.dart';
 import 'package:home_front_pk/src/features/dashboard/data/fake_designer_repo.dart';
 import 'package:home_front_pk/src/features/dashboard/domain/designer.dart';
 

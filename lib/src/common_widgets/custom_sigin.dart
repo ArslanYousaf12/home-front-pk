@@ -120,7 +120,7 @@ class _SignInFormState extends ConsumerState<SignInForm> {
               decoration: InputDecoration(
                 labelText: 'Email'.hardcoded,
                 hintText: 'test@test.com'.hardcoded,
-                hintStyle: TextStyle(color: Color.fromARGB(118, 255, 255, 255)),
+                hintStyle: const TextStyle(color: Color.fromARGB(118, 255, 255, 255)),
                 enabled: !state.isLoading,
               ),
               autovalidateMode: AutovalidateMode.onUserInteraction,

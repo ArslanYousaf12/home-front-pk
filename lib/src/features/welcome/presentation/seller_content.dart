@@ -59,7 +59,7 @@ class SellerContent extends StatelessWidget {
             ),
           ),
           gapH12,
-          Text(
+          const Text(
             'Please Select Your role as Seller',
             style: TextStyle(
               fontSize: 20,

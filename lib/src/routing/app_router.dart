@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
-import 'package:home_front_pk/src/common_widgets/text_display_screen.dart';
-import 'package:home_front_pk/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/account/account_screen.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/client_signin.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/constructor_signin.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/designer_signin.dart';
-import 'package:home_front_pk/src/features/authentication/presentation/sign_up/signup_screen.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/client/client_signup.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/constructor/constructor_signup.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/designer/designer_signup.dart';
-import 'package:home_front_pk/src/features/cost_calculator/presentation/calculatorScreen.dart';
-import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/client_dashboard.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/constructors.dart/constructor_detailed.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/designers_list/deigner_list_screen.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/designers_list/designer_detailed.dart';
@@ -23,9 +16,9 @@ import 'package:home_front_pk/src/features/dashboard/presentation/designer_dashb
 import 'package:home_front_pk/src/features/new_requests/presentation/new_request.dart';
 import 'package:home_front_pk/src/features/portfolio/presentation/constructor_portfolio.dart';
 import 'package:home_front_pk/src/features/portfolio/presentation/designer_portfolio.dart';
+import 'package:home_front_pk/src/features/profile/presentation/profile_screen.dart';
 import 'package:home_front_pk/src/features/welcome/presentation/seller_screen.dart';
 import 'package:home_front_pk/src/features/welcome/presentation/welcome_screen.dart';
-import 'package:home_front_pk/src/routing/go_router_refresh_stream.dart';
 
 enum AppRoute {
   welcome, // Welcome/Sign In screen for all users
@@ -106,12 +99,12 @@ final goRouter = GoRouter(
       GoRoute(
         path: '/',
         name: AppRoute.welcome.name,
-        builder: (context, state) => const UserTabScreen(),
+        builder: (context, state) => const WelcomeScreen(),
         routes: [
           GoRoute(
             path: 'seller',
             name: AppRoute.seller.name,
-            builder: (context, state) => SellerScreen(),
+            builder: (context, state) => const SellerScreen(),
           ),
           GoRoute(
               path: 'new-request',

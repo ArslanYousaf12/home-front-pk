@@ -18,7 +18,7 @@ class MyApp extends ConsumerWidget {
       theme: ThemeData(
         useMaterial3: true,
 
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           backgroundColor: kBackgroundColor,
           foregroundColor: Color(0xFF182430),
           elevation: 0,

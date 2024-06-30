@@ -24,7 +24,7 @@ Future<bool?> showAlertDialog({
     builder: (context) => AlertDialog.adaptive(
       title: Text(
         title,
-        style: TextStyle(color: Colors.black),
+        style: const TextStyle(color: Colors.black),
       ),
       content: content != null ? Text(content) : null,
       // * Use [TextButton] or [CupertinoDialogAction] depending on the platform

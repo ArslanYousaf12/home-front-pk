@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:home_front_pk/src/common_widgets/more_menu_button.dart';
 
 import 'package:home_front_pk/src/constants/app_sizes.dart';
-import 'package:home_front_pk/src/features/authentication/domain/app_user.dart';
-import 'package:home_front_pk/src/features/authentication/presentation/account/account_screen.dart';
 
 class HomeAppBar extends StatelessWidget {
   HomeAppBar({

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
+import 'package:home_front_pk/src/utils/constants.dart';
 
 class CustomTalentCard extends StatelessWidget {
   const CustomTalentCard({
@@ -21,7 +21,7 @@ class CustomTalentCard extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Card(
-        color: const Color(0xFFA1EEBD),
+        elevation: 4,
         child: Padding(
           padding:
               const EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 10),
@@ -29,7 +29,7 @@ class CustomTalentCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: const Icon(Icons.build),
+                // leading: const Icon(Icons.build),
                 title: Text(title),
                 subtitle: Text(description),
               ),
@@ -37,6 +37,12 @@ class CustomTalentCard extends StatelessWidget {
               ElevatedButton(
                 onPressed: onPressed,
                 child: const Text('Contact'),
+                style: ElevatedButton.styleFrom(
+                  elevation: 1,
+                  textStyle: TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
               ),
             ],
           ),

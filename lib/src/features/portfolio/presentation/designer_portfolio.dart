@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_front_pk/src/common_widgets/async_value_widget.dart';
-import 'package:home_front_pk/src/constants/ktest_designer_portfolio.dart';
 import 'package:home_front_pk/src/features/portfolio/data/fake_designer_portfolio_repository.dart';
 import 'package:home_front_pk/src/features/portfolio/presentation/custom_portfolio.dart';
 
 class DesignerPortfolio extends ConsumerWidget {
-  const DesignerPortfolio({Key? key}) : super(key: key);
+  const DesignerPortfolio({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -33,15 +33,15 @@ class ActionLoadButton extends StatelessWidget {
       width: width ?? 250,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: color == null ? kSecondaryColor : color,
+          backgroundColor: color ?? kSecondaryColor,
         ),
         onPressed: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Icon(
-              iconData == null ? Icons.person : iconData,
-              color: textColor == null ? Colors.white : textColor,
+              iconData ?? Icons.person,
+              color: textColor ?? Colors.white,
               size: 30,
             ), // Leading icon
             // Button text

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "610491281004",
+    "project_id": "easy-build-ehtasham",
+    "storage_bucket": "easy-build-ehtasham.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610491281004:android:8ebcefaa34e75ecc5d3249",
+        "android_client_info": {
+          "package_name": "com.example.home_front_pk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9G1GGTdPTsJw04dgb7k4LUMkF13IdcKo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

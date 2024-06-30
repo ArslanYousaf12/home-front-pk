@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:home_front_pk/src/features/authentication/data/fake_auth_repository.dart';
+import 'package:home_front_pk/src/features/authentication/data/auth_repository.dart';
+
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/email_password_sign_in_state.dart';
 
 class EmailPasswordSignInController
@@ -11,7 +12,7 @@ class EmailPasswordSignInController
           EmailPasswordSignInState(formType: formType),
         );
 
-  final FakeAuthRepository authRepository;
+  final AuthRepository authRepository;
 
   Future<bool> submit(
     String email,

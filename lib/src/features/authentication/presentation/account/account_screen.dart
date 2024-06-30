@@ -3,7 +3,6 @@ import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
 import 'package:home_front_pk/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/account/account_screen_controller.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
-import 'package:home_front_pk/src/features/authentication/domain/app_user.dart';
 import 'package:flutter/material.dart';
 import 'package:home_front_pk/src/common_widgets/action_text_button.dart';
 import 'package:home_front_pk/src/common_widgets/responsive_center.dart';

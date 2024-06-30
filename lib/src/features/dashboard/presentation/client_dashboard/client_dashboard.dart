@@ -4,14 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
 import 'package:home_front_pk/src/common_widgets/async_value_widget.dart';
-import 'package:home_front_pk/src/common_widgets/custom_talent_card.dart';
-import 'package:home_front_pk/src/common_widgets/custom_text_button.dart';
-import 'package:home_front_pk/src/common_widgets/cutome_curved_container.dart';
 import 'package:home_front_pk/src/common_widgets/home_app_bar.dart';
-import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
 import 'package:home_front_pk/src/common_widgets/persons_card.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
-import 'package:home_front_pk/src/constants/ktest_constructor_card.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/account/account_screen_controller.dart';
 import 'package:home_front_pk/src/features/dashboard/data/fake_constructor_repo.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
@@ -32,6 +27,7 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
   Widget build(BuildContext context) {
     //using popScope to prevent user to goBack to sigin Screen
     // without logout
+
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -69,28 +65,30 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
             children: [
               const Padding(
                 padding: EdgeInsets.only(top: 20, left: 5, right: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    dashboardCard(
-                      title: 'Post jobs',
-                      iconData: Icons.work,
-                    ),
-                    gapW16,
-                    dashboardCard(
-                      title: 'Accept Offers',
-                      iconData: Icons.local_offer_rounded,
-                      color: Colors.green,
-                    ),
-                  ],
+                child: Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      dashboardCard(
+                        title: 'Post jobs',
+                        iconData: Icons.work,
+                      ),
+                      gapW16,
+                      dashboardCard(
+                        title: 'Accept Offers',
+                        iconData: Icons.local_offer_rounded,
+                        color: Colors.green,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               gapH24,
               //constructor heading
-              Padding(
-                padding: const EdgeInsets.only(left: 50),
-                child: const Text(
+              const Padding(
+                padding: EdgeInsets.only(left: 50, top: 20),
+                child: Text(
                   'Constructors',
                   style: TextStyle(
                     fontSize: 15, // Increased font size for emphasis
@@ -132,10 +130,10 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
                       options: CarouselOptions(
                         height: 320,
                         enableInfiniteScroll: true,
-                        autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 3),
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
+                        // autoPlay: true,
+                        // autoPlayInterval: Duration(seconds: 3),
+                        // autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        // autoPlayCurve: Curves.fastOutSlowIn,
                         enlargeCenterPage: true,
                         viewportFraction: 0.8,
                       ),
@@ -154,18 +152,18 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
               //   ),
               // ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.only(bottom: 26, left: 15, right: 15),
                 child: ElevatedButton(
                   onPressed: () {
                     context.goNamed(AppRoute.designerList.name);
                   },
-                  child: Text('Designers'),
                   style: ElevatedButton.styleFrom(
-                      minimumSize: Size.fromHeight(60),
+                      minimumSize: const Size.fromHeight(60),
                       backgroundColor: kSecondaryColor,
                       foregroundColor: Colors.white,
-                      textStyle:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                      textStyle: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w600)),
+                  child: const Text('Designers'),
                 ),
               ),
 
@@ -218,7 +216,7 @@ class dashboardCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 80,
       width: 150,
       child: Card(

@@ -43,7 +43,7 @@ class PersonCard extends StatelessWidget {
             ),
             Expanded(
               child: ListTile(
-                contentPadding: EdgeInsets.all(0),
+                contentPadding: const EdgeInsets.all(0),
                 leading: const Icon(Icons.location_on),
                 title: Text(
                   location,
@@ -53,11 +53,11 @@ class PersonCard extends StatelessWidget {
             ),
             Expanded(
               child: ListTile(
-                contentPadding: EdgeInsets.all(0),
-                leading: Icon(Icons.person),
+                contentPadding: const EdgeInsets.all(0),
+                leading: const Icon(Icons.person),
                 title: Text(
                   name,
-                  style: TextStyle(fontSize: 17),
+                  style: const TextStyle(fontSize: 17),
                 ),
               ),
             ),
@@ -67,14 +67,14 @@ class PersonCard extends StatelessWidget {
                 children: [
                   TextButton(
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         'Detail',
                         style: TextStyle(fontSize: 12),
                       )),
                   gapW16,
                   ElevatedButton(
                       onPressed: contact,
-                      child: Text(
+                      child: const Text(
                         'Contact',
                         style: TextStyle(fontSize: 12),
                       )),

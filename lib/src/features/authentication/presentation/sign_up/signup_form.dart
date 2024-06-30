@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
 import 'package:home_front_pk/src/common_widgets/custom_sigin.dart';
 import 'package:home_front_pk/src/common_widgets/lable_inputfield.dart';
@@ -10,7 +9,6 @@ import 'package:home_front_pk/src/features/authentication/presentation/shared/em
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/email_password_sign_in_state.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/string_validators.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
-import 'package:home_front_pk/src/routing/app_router.dart';
 import 'package:home_front_pk/src/utils/async_value_ui.dart';
 import 'package:home_front_pk/src/utils/constants.dart';
 
@@ -86,9 +84,9 @@ class _SignUpFormState extends ConsumerState<SignUpForm> {
 
   String _name = '';
 
-  String _password = '';
+  final String _password = '';
 
-  String _email = '';
+  final String _email = '';
   // final _passordTextEditingController = TextEditingController();
   final _confirmPassordTextEditingController = TextEditingController();
 
@@ -122,7 +120,7 @@ class _SignUpFormState extends ConsumerState<SignUpForm> {
                   ),
                 ),
                 style: const TextStyle(color: Colors.black, fontSize: 20),
-                cursorHeight: 15,
+                cursorHeight: 25,
                 onSaved: (newValue) {
                   _name = newValue!;
                 },
@@ -143,14 +141,15 @@ class _SignUpFormState extends ConsumerState<SignUpForm> {
                   labelText: 'Email'.hardcoded,
                   // hintText: 'test@test.com'.hardcoded,
                   border: InputBorder.none,
-                  hintStyle: TextStyle(fontSize: 20, fontFamily: 'Montserrat'),
-                  prefixIcon: Icon(
+                  hintStyle:
+                      const TextStyle(fontSize: 20, fontFamily: 'Montserrat'),
+                  prefixIcon: const Icon(
                     Icons.email_outlined,
                     color: Color.fromARGB(161, 0, 0, 0),
                   ),
                   enabled: !state.isLoading,
                 ),
-                cursorHeight: 15,
+                cursorHeight: 25,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (email) =>
                     !_submitted ? null : state.emailErrorText(email ?? ''),
@@ -180,7 +179,7 @@ class _SignUpFormState extends ConsumerState<SignUpForm> {
                   ),
                   enabled: !state.isLoading,
                 ),
-                cursorHeight: 15,
+                cursorHeight: 25,
                 style: const TextStyle(color: Colors.black, fontSize: 20),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (password) => !_submitted
@@ -208,7 +207,7 @@ class _SignUpFormState extends ConsumerState<SignUpForm> {
                   enabled: !state.isLoading,
                 ),
                 style: const TextStyle(color: Colors.black, fontSize: 20),
-                cursorHeight: 15,
+                cursorHeight: 25,
                 obscureText: true,
                 onSaved: (newValue) {},
                 validator: (value) {
