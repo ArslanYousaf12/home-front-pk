@@ -29,6 +29,14 @@ class EmailPasswordSignInController
     return value.hasError == false;
   }
 
+  Future<bool> sendPasswordResetLink(String email) async {
+    state = state.copyWith(value: const AsyncValue.loading());
+    final value = await AsyncValue.guard(
+        () => authRepository.sendPasswordResetLink(email));
+    state = state.copyWith(value: value);
+    return value.hasError == false;
+  }
+
   Future<void> authenticate(
     String email,
     String password,

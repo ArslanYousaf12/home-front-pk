@@ -40,6 +40,10 @@ class AuthRepository {
     print(credential);
   }
 
+  Future<void> sendPasswordResetLink(String email) async {
+    await _auth.sendPasswordResetEmail(email: email);
+  }
+
   Future<void> signOut() async {
     await _auth.signOut();
   }

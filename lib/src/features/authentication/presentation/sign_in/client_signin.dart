@@ -30,6 +30,7 @@ class _ClientSignInScreenState extends ConsumerState<ClientSignInScreen> {
     print('Email: $email, Password: $password');
     final authRepo = ref.read(authRepositoryProvider);
     final user = authRepo.currentUser;
+
     if (user != null) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Please Wait')));

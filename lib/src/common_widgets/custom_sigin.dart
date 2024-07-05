@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
+import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
+import 'package:home_front_pk/src/constants/app_sizes.dart';
+import 'package:home_front_pk/src/features/authentication/data/auth_repository.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/shared/email_password_sign_in_controller.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/email_password_sign_in_state.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/string_validators.dart';
@@ -107,9 +110,11 @@ class _SignInFormState extends ConsumerState<SignInForm> {
             .select((state) => state.value), (_, state) {
       state.showAlertDialogOnError(context);
     });
+
     final state = ref.watch(emailPasswordSignInControllerProvider(
       EmailPasswordSignInFormType.signIn,
     ));
+
     return FocusScope(
       node: _node,
       child: Form(
@@ -161,7 +166,34 @@ class _SignInFormState extends ConsumerState<SignInForm> {
               text: 'Login',
               color: kPrimaryColor,
               onPressed: state.isLoading ? null : () => _submit(state),
-            )
+            ),
+            gapH12,
+            TextButton(
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.white,
+                ),
+                onPressed: () async {
+                  final emailController =
+                      ref.read(emailPasswordSignInControllerProvider(
+                    EmailPasswordSignInFormType.signIn,
+                  ).notifier);
+                  final sucess =
+                      await emailController.sendPasswordResetLink(email);
+                  if (sucess) {
+                    showAlertDialog(
+                        context: context,
+                        title: 'Sucess',
+                        content:
+                            'Email Sucessfully sent please check your email');
+                  }
+                },
+                child: const Text(
+                  'Forget Password',
+                  style: TextStyle(
+                    color: kSecondaryColor,
+                    fontWeight: FontWeight.w500,
+                  ),
+                )),
           ],
         ),
       ),
