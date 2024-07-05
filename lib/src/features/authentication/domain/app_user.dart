@@ -1,24 +1,33 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+typedef UserID = String;
 
 /// Simple class representing the user UID and email.
 class AppUser {
   const AppUser({
     required this.uid,
     this.email,
+    this.emailVerified = false,
   });
-  final String uid;
+  final UserID uid;
   final String? email;
+  final bool emailVerified;
 
-  @override
-  String toString() => 'AppUser(uid: $uid, email: $email)';
+  Future<void> sendEmailVerification() async {
+    // no-op - implemented by subclasses
+  }
 
+  // * Here we override methods from [Object] directly rather than using
+  // * [Equatable], since this class will be subclassed or implemented
+  // * by other classes.
   @override
-  bool operator ==(covariant AppUser other) {
+  bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other.uid == uid && other.email == email;
+    return other is AppUser && other.uid == uid && other.email == email;
   }
 
   @override
   int get hashCode => uid.hashCode ^ email.hashCode;
+
+  @override
+  String toString() => 'AppUser(uid: $uid, email: $email)';
 }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:home_front_pk/src/features/authentication/data/firbase_app_user.dart';
 import 'package:home_front_pk/src/features/authentication/domain/app_user.dart';
 
 class AuthRepository {
@@ -43,14 +44,14 @@ class AuthRepository {
     await _auth.signOut();
   }
 
-  AppUser? convertUser(User? user) {
-    return user != null ? AppUser(uid: user.uid, email: user.email) : null;
-  }
+  /// Helper method to convert a [User] to an [AppUser]
+  AppUser? _convertUser(User? user) =>
+      user != null ? FirebaseAppUser(user) : null;
 
   Stream<AppUser?> authStateChange() =>
-      _auth.authStateChanges().map(convertUser);
+      _auth.authStateChanges().map(_convertUser);
 
-  AppUser? get currentUser => convertUser(_auth.currentUser);
+  AppUser? get currentUser => _convertUser(_auth.currentUser);
 
   Future<String?> getUserRole(String uid) async {
     DocumentSnapshot doc = await _firestore.collection('users').doc(uid).get();

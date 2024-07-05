@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_front_pk/src/features/authentication/data/auth_repository.dart';
+import 'package:home_front_pk/src/features/authentication/domain/app_user.dart';
 
 class AccountScreenController extends StateNotifier<AsyncValue<void>> {
   AccountScreenController({required this.authRepository})
@@ -19,6 +20,12 @@ class AccountScreenController extends StateNotifier<AsyncValue<void>> {
     // }
     state = const AsyncLoading();
     state = await AsyncValue.guard(() => authRepository.signOut());
+    return state.hasError == false;
+  }
+
+  Future<bool> sendEmailVerification(AppUser user) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() => user.sendEmailVerification());
     return state.hasError == false;
   }
 }
