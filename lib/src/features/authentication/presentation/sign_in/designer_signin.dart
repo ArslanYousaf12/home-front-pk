@@ -5,6 +5,7 @@ import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
 import 'package:home_front_pk/src/common_widgets/custom_sigin.dart';
 import 'package:home_front_pk/src/features/authentication/data/auth_repository.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/shared/email_password_sign_in_controller.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/shared/google_signIn_controller.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/email_password_sign_in_state.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_in/sign_in.dart';
 
@@ -74,6 +75,14 @@ class _DesignerSignInState extends ConsumerState<DesignerSignIn> {
         context.goNamed(
           AppRoute.signUpDesigner.name,
         );
+      },
+      googleSignIn: () async {
+        final sucess = await ref
+            .read(googleSigninControllerProvider.notifier)
+            .signInWithGoogle();
+        if (sucess) {
+          context.goNamed(AppRoute.designerDashboard.name);
+        }
       },
     );
   }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:home_front_pk/src/features/authentication/data/firbase_app_user.dart';
 import 'package:home_front_pk/src/features/authentication/domain/app_user.dart';
 
@@ -38,6 +39,16 @@ class AuthRepository {
         email: email, password: password);
     print('sigin');
     print(credential);
+  }
+
+  Future<void> signInWithGoogle() async {
+    final googleUser = await GoogleSignIn().signIn();
+    final googleAuth = await googleUser!.authentication;
+    final cred = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+      accessToken: googleAuth.accessToken,
+    );
+    await _auth.signInWithCredential(cred);
   }
 
   Future<void> sendPasswordResetLink(String email) async {

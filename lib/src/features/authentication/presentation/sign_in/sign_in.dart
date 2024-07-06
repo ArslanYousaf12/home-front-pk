@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
 
 import 'package:home_front_pk/src/constants/app_sizes.dart';
+import 'package:home_front_pk/src/features/authentication/presentation/sign_in/google_signin_button.dart';
 
 import 'package:home_front_pk/src/utils/constants.dart';
 
@@ -11,14 +11,16 @@ class SignInScreen extends StatelessWidget {
       {super.key,
       required this.topText,
       required this.signInForm,
-      required this.signUp});
+      required this.signUp,
+      required this.googleSignIn});
   final String topText;
   final Widget signInForm;
   final void Function() signUp;
+  final void Function() googleSignIn;
 
   Widget orDivider() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 130, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       child: Row(
         children: [
           Flexible(
@@ -28,12 +30,13 @@ class SignInScreen extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 12),
             child: Text(
-              'or',
+              'or Log In With',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
+                color: Colors.black45,
               ),
             ),
           ),
@@ -79,11 +82,15 @@ class SignInScreen extends StatelessWidget {
                       gapH32,
                       Padding(
                         padding: const EdgeInsets.only(
-                            top: 100, bottom: 30, left: 20, right: 20),
+                            top: 100, bottom: 0, left: 20, right: 20),
                         child: signInForm,
                       ),
-                      gapH32,
+                      gapH4,
                       orDivider(),
+                      gapH16,
+                      GoogleLoginButton(
+                        onPressed: googleSignIn,
+                      ),
                     ],
                   ),
                 ),
