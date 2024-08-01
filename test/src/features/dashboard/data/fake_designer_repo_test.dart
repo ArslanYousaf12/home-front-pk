@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:home_front_pk/src/constants/ktest_designer_list.dart';
-import 'package:home_front_pk/src/features/dashboard/data/fake_designer_repo.dart';
+import 'package:home_front_pk/src/features/dashboard/data/designer_repo/fake_designer_repo.dart';
 
 void main() {
   FakeDesignerRepository makeDesignerRepository() =>

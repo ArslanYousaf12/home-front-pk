@@ -6,9 +6,12 @@ import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
 import 'package:home_front_pk/src/common_widgets/async_value_widget.dart';
 import 'package:home_front_pk/src/common_widgets/home_app_bar.dart';
 import 'package:home_front_pk/src/common_widgets/persons_card.dart';
+import 'package:home_front_pk/src/common_widgets/responsive_center.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/account/account_screen_controller.dart';
-import 'package:home_front_pk/src/features/dashboard/data/fake_constructor_repo.dart';
+import 'package:home_front_pk/src/features/dashboard/data/constructor_repo/constructor_repository.dart';
+
+import 'package:home_front_pk/src/features/user-management/presentation/sliver_products_grid.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 import 'package:home_front_pk/src/utils/constants.dart';
@@ -21,6 +24,32 @@ class ClientDashboard extends ConsumerStatefulWidget {
 }
 
 class _ClientDashboardState extends ConsumerState<ClientDashboard> {
+  // * Use a [ScrollController] to register a listener that dismisses the
+  // * on-screen keyboard when the user scrolls.
+  // * This is needed because this page has a search field that the user can
+  // * type into.
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_dismissOnScreenKeyboard);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_dismissOnScreenKeyboard);
+    super.dispose();
+  }
+
+  // When the search text field gets the focus, the keyboard appears on mobile.
+  // This method is used to dismiss the keyboard when the user scrolls.
+  void _dismissOnScreenKeyboard() {
+    if (FocusScope.of(context).hasFocus) {
+      FocusScope.of(context).unfocus();
+    }
+  }
+
   // singleton
   // final constructors = FakeConstructorRepository.instance.getConstructorList();
   @override
@@ -108,38 +137,49 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
                   final constructorsValue =
                       ref.watch(constructorsListStreamProvider);
                   return AsyncValueWidget(
-                    value: constructorsValue,
-                    data: (constructors) => CarouselSlider.builder(
-                      itemCount: constructors.length,
-                      itemBuilder: (context, index, realIndex) {
-                        final constructor = constructors[index];
-                        final title = constructor.title;
-                        final location = constructor.location;
-                        final id = constructor.id;
-                        final name = constructor.name;
-                        return PersonCard(
-                          title: title,
-                          id: id,
-                          location: location,
-                          name: name,
-                          contact: () {
-                            context.goNamed(AppRoute.constructorDetailed.name,
-                                pathParameters: {'id': constructor.id});
-                          },
-                        );
-                      },
-                      options: CarouselOptions(
-                        height: 320,
-                        enableInfiniteScroll: true,
-                        // autoPlay: true,
-                        // autoPlayInterval: Duration(seconds: 3),
-                        // autoPlayAnimationDuration: Duration(milliseconds: 800),
-                        // autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeCenterPage: true,
-                        viewportFraction: 0.8,
-                      ),
-                    ),
-                  );
+                      value: constructorsValue,
+                      data: (constructors) {
+                        if (constructors.isEmpty) {
+                          return const Center(
+                            child: Text(
+                              'No Constructors found',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          );
+                        } else {
+                          return CarouselSlider.builder(
+                            itemCount: constructors.length,
+                            itemBuilder: (context, index, realIndex) {
+                              final constructor = constructors[index];
+                              final title = constructor.title;
+                              final location = constructor.location;
+                              final id = constructor.id;
+                              final name = constructor.name;
+                              return PersonCard(
+                                title: title,
+                                id: id,
+                                location: location,
+                                name: name,
+                                contact: () {
+                                  context.goNamed(
+                                      AppRoute.constructorDetailed.name,
+                                      pathParameters: {'id': constructor.id});
+                                },
+                              );
+                            },
+                            options: CarouselOptions(
+                              height: 320,
+                              enableInfiniteScroll: true,
+                              // autoPlay: true,
+                              // autoPlayInterval: Duration(seconds: 3),
+                              // autoPlayAnimationDuration: Duration(milliseconds: 800),
+                              // autoPlayCurve: Curves.fastOutSlowIn,
+                              enlargeCenterPage: true,
+                              viewportFraction: 0.8,
+                            ),
+                          );
+                        }
+                      });
                 },
               ),
               gapH32,

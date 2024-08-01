@@ -8,17 +8,24 @@ import 'package:go_router/go_router.dart';
 enum PopupMenuOption {
   message,
   account,
+  admin,
 }
 
 class MoreMenuButton extends StatelessWidget {
-  const MoreMenuButton({super.key, this.user, required this.userRole});
+  const MoreMenuButton(
+      {super.key,
+      this.user,
+      required this.userRole,
+      required this.isAdminUser});
   final AppUser? user;
   final String userRole;
+  final bool isAdminUser;
 
   // * Keys for testing using find.byKey()
   static const messageInKey = Key('menuMessage');
 
   static const accountKey = Key('menuAccount');
+  static const adminKey = Key('menuAdmin');
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +45,12 @@ class MoreMenuButton extends StatelessWidget {
             value: PopupMenuOption.account,
             child: Text('Account'.hardcoded),
           ),
+          if (isAdminUser)
+            PopupMenuItem(
+              key: adminKey,
+              value: PopupMenuOption.admin,
+              child: Text('Admin'.hardcoded),
+            ),
         ];
       },
       onSelected: (option) {
@@ -53,10 +66,13 @@ class MoreMenuButton extends StatelessWidget {
             }
 
             break;
+
           case PopupMenuOption.message:
             // context.goNamed(AppRoute.messages.name);
             showNotImplementedAlertDialog(context: context);
             break;
+          case PopupMenuOption.admin:
+            context.goNamed(AppRoute.admin.name);
         }
       },
     );

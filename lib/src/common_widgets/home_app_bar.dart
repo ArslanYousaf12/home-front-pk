@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:home_front_pk/src/common_widgets/action_text_button.dart';
 import 'package:home_front_pk/src/common_widgets/more_menu_button.dart';
 
 import 'package:home_front_pk/src/constants/app_sizes.dart';
+import 'package:home_front_pk/src/features/authentication/data/fake_auth_repository.dart';
+import 'package:home_front_pk/src/localization/string_hardcoded.dart';
+import 'package:home_front_pk/src/routing/app_router.dart';
 
-class HomeAppBar extends StatelessWidget {
+class HomeAppBar extends ConsumerWidget {
   HomeAppBar({
-    super.key,
     this.notificationCallBack,
     this.messageCallBack,
     this.logOut,
@@ -22,7 +27,10 @@ class HomeAppBar extends StatelessWidget {
   Color? backColor;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(authStateChangeProvider).value;
+    // TODO: Add role-based authorization
+    final isAdminUser = user != null;
     return AppBar(
       backgroundColor: backColor,
       leading: InkWell(
@@ -44,7 +52,14 @@ class HomeAppBar extends StatelessWidget {
         gapW12,
         MoreMenuButton(
           userRole: userRole,
+          isAdminUser: true,
         ),
+        if (isAdminUser)
+          ActionTextButton(
+            key: MoreMenuButton.adminKey,
+            text: 'Admin'.hardcoded,
+            onPressed: () => context.pushNamed(AppRoute.admin.name),
+          ),
       ],
     );
   }

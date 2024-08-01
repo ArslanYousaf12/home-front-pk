@@ -1,23 +1,69 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class ConstructorIslamabad {
-  const ConstructorIslamabad(
-      {required this.id,
-      required this.title,
-      required this.icon,
-      required this.detail,
-      required this.name,
-      required this.imageUrl,
-      required this.location,
-      });
-  final String id;
+typedef ConstructorID = String;
+
+class ConstructorIslamabad extends Equatable {
+  const ConstructorIslamabad({
+    required this.id,
+    required this.title,
+    required this.icon,
+    required this.detail,
+    required this.name,
+    required this.imageUrl,
+    required this.location,
+  });
+  final ConstructorID id;
   final String title;
   final IconData icon;
   final String detail;
   final String name;
   final String imageUrl;
   final String location;
+
+  factory ConstructorIslamabad.fromMap(Map<String, dynamic> map) {
+    return ConstructorIslamabad(
+      id: map['id'],
+      title: map['title'],
+      icon: map['icon'],
+      detail: map['detail'],
+      name: map['name'],
+      imageUrl: map['imageUrl'],
+      location: map['location'],
+    );
+  }
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'icon': icon,
+      'detail': detail,
+      'name': name,
+      'imageUrl': imageUrl,
+      'location': location,
+    };
+  }
+
+  ConstructorIslamabad copyWith({
+    ConstructorID? id,
+    String? title,
+    IconData? icon,
+    String? detail,
+    String? name,
+    String? imageUrl,
+    String? location,
+  }) {
+    return ConstructorIslamabad(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      icon: icon ?? this.icon,
+      detail: detail ?? this.detail,
+      name: name ?? this.name,
+      imageUrl: imageUrl ?? this.imageUrl,
+      location: location ?? this.location,
+    );
+  }
 
   @override
   String toString() {
@@ -45,4 +91,15 @@ class ConstructorIslamabad {
         name.hashCode ^
         imageUrl.hashCode;
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        title,
+        icon,
+        detail,
+        name,
+        imageUrl,
+        location,
+      ];
 }

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/common_widgets/async_value_widget.dart';
 import 'package:home_front_pk/src/common_widgets/custom_talent_card.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
-import 'package:home_front_pk/src/features/dashboard/data/fake_designer_repo.dart';
+import 'package:home_front_pk/src/features/dashboard/data/designer_repo/fake_designer_repo.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 
 class DesignerListScreen extends ConsumerWidget {

@@ -9,19 +9,24 @@ import 'package:home_front_pk/src/features/authentication/presentation/sign_in/d
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/client/client_signup.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/constructor/constructor_signup.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/designer/designer_signup.dart';
+
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/constructors.dart/constructor_detailed.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/designers_list/deigner_list_screen.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/designers_list/designer_detailed.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/tabs.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/constructor_dashboard/constrcutor_dashboard.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/designer_dashboard/designer_dashboard.dart';
+
 import 'package:home_front_pk/src/features/new_requests/presentation/new_request.dart';
 import 'package:home_front_pk/src/features/portfolio/presentation/constructor_portfolio.dart';
 import 'package:home_front_pk/src/features/portfolio/presentation/designer_portfolio.dart';
-import 'package:home_front_pk/src/features/profile/presentation/profile_screen.dart';
+
+import 'package:home_front_pk/src/features/user-management/presentation/admin_product_edit_screen.dart';
+import 'package:home_front_pk/src/features/user-management/presentation/admin_product_upload_screen.dart';
+import 'package:home_front_pk/src/features/user-management/presentation/admin_products_add_screen.dart';
+import 'package:home_front_pk/src/features/user-management/presentation/admin_products_screen.dart';
 import 'package:home_front_pk/src/features/welcome/presentation/seller_screen.dart';
 import 'package:home_front_pk/src/features/welcome/presentation/welcome_screen.dart';
-import 'package:home_front_pk/src/routing/go_router_refresh_stream.dart';
 
 enum AppRoute {
   welcome, // Welcome/Sign In screen for all users
@@ -34,6 +39,10 @@ enum AppRoute {
   signUpConstructor, // Sign Up screen for constructors
   signUpDesigner, // Sign Up screen for designers
   clientTabs,
+  admin,
+  adminAdd,
+  adminUploadProduct,
+  adminEditProduct,
   clientDashboard, // Dashboard screen for clients
   clientAccount,
   clientMessage,
@@ -66,189 +75,177 @@ enum AppRoute {
   schedule, // Calendar or schedule of upcoming projects for constructors
 }
 
-// final goRouterProvider = Provider<GoRouter>((ref) {
-//   final authRepository = ref.watch(authRepositoryProvider);
-//
-//
-//  return
-
 final routerProvider = Provider<GoRouter>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
-  return GoRouter(
-      initialLocation: '/',
-      debugLogDiagnostics: true,
-      // redirect: (context, state) {
-      //   final isLoggedIn = authRepository.currentUser != null;
-      //   // if (!isLoggedIn && !state.uri.path.contains('sign-in')) {
-      //   //   return '/';
-      //   // }
-
-      //   if (isLoggedIn) {
-      //     final userRole = ref.read(userRoleProvider);
-      //     print(userRole);
-      //     if (userRole is AsyncData<String?> && userRole.value != null) {
-      //       if (userRole.value == 'buyer' &&
-      //           state.uri.path != 'client-dashboard') {
-      //         return 'client-dashboard';
-      //       }
-      //       if (userRole.value == 'constructor' &&
-      //           state.uri.path != 'constructor-dashboard') {
-      //         return 'constructor-dashboard';
-      //       }
-      //       if (userRole.value == 'designer' &&
-      //           state.uri.path != 'designer-dashboard') {
-      //         return 'designer-dashboard';
-      //       }
-      //     }
-      //     //     //   if (state.uri.path == '/sign-In-client') {
-      //     //     //     return '/client-dashboard';
-      //     //     //   } else if (state.uri.path == '/sign-in-constructor') {
-      //     //     //     return '/constructor-dashboard';
-      //     //     //   } else if (state.uri.path == '/sign-in-designer') {
-      //     //     //     return '/designer-dashboard';
-      //     //     //   }
-      //     //     // } else {
-      //     //     //   if (state.uri.path == '/account') {
-      //     //     //     return '/';
-      //     //     //   }
-      //   }
-      //   return null;
-      // },
-      // refreshListenable:
-      //     GoRouterRefreshStream(authRepository.authStateChange()),
+  return GoRouter(initialLocation: '/', debugLogDiagnostics: true, routes: [
+    GoRoute(
+      path: '/',
+      name: AppRoute.welcome.name,
+      builder: (context, state) => const WelcomeScreen(),
       routes: [
         GoRoute(
-          path: '/',
-          name: AppRoute.welcome.name,
-          builder: (context, state) => const WelcomeScreen(),
+          path: 'admin',
+          name: AppRoute.admin.name,
+          pageBuilder: (context, state) => const MaterialPage(
+            fullscreenDialog: true,
+            child: AdminProductsScreen(),
+          ),
           routes: [
             GoRoute(
-              path: 'seller',
-              name: AppRoute.seller.name,
-              builder: (context, state) => const SellerScreen(),
+              path: 'add',
+              name: AppRoute.adminAdd.name,
+              pageBuilder: (context, state) => const MaterialPage(
+                fullscreenDialog: true,
+                child: AdminProductsAddScreen(),
+              ),
+              routes: [
+                GoRoute(
+                  path: ':id',
+                  name: AppRoute.adminUploadProduct.name,
+                  builder: (context, state) {
+                    final productId = state.pathParameters['id']!;
+                    return AdminProductUploadScreen(productId: productId);
+                  },
+                ),
+              ],
             ),
             GoRoute(
-                path: 'new-request',
-                name: AppRoute.newRequest.name,
-                builder: (context, state) {
-                  return const NewRequest();
-                }),
-            GoRoute(
-                path: 'sign-In-client',
-                name: AppRoute.signInClient.name,
-                pageBuilder: (context, state) => const MaterialPage(
-                      fullscreenDialog: false,
-                      child: ClientSignInScreen(),
+              path: 'edit/:id',
+              name: AppRoute.adminEditProduct.name,
+              pageBuilder: (context, state) {
+                final productId = state.pathParameters['id']!;
+                return MaterialPage(
+                  fullscreenDialog: true,
+                  child: AdminProductEditScreen(constructorID: productId),
+                );
+              },
+            ),
+          ],
+        ),
+        GoRoute(
+          path: 'seller',
+          name: AppRoute.seller.name,
+          builder: (context, state) => const SellerScreen(),
+        ),
+        GoRoute(
+            path: 'new-request',
+            name: AppRoute.newRequest.name,
+            builder: (context, state) {
+              return const NewRequest();
+            }),
+        GoRoute(
+            path: 'sign-In-client',
+            name: AppRoute.signInClient.name,
+            pageBuilder: (context, state) => const MaterialPage(
+                  fullscreenDialog: false,
+                  child: ClientSignInScreen(),
+                ),
+            routes: [
+              GoRoute(
+                  path: 'client-dashboard',
+                  name: AppRoute.clientDashboard.name,
+                  builder: (context, state) => const UserTabScreen(),
+                  routes: [
+                    GoRoute(
+                      path: 'account',
+                      name: AppRoute.clientAccount.name,
+                      builder: (context, state) => const AccountScreen(),
                     ),
+                    GoRoute(
+                      path: 'constructor-detailed-screen/:id',
+                      name: AppRoute.constructorDetailed.name,
+                      builder: (context, state) {
+                        final constructorId = state.pathParameters['id']!;
+                        return ConstructorDetailedScreen(
+                            constructorId: constructorId);
+                      },
+                    ),
+                    GoRoute(
+                        path: 'designer-list',
+                        name: AppRoute.designerList.name,
+                        builder: (context, state) => const DesignerListScreen(),
+                        routes: [
+                          GoRoute(
+                              path: 'designer-detailed-screen/:id',
+                              name: AppRoute.designerDetailed.name,
+                              builder: (context, state) {
+                                final designerId = state.pathParameters['id']!;
+                                return DesignerDetailedScreen(
+                                    designerId: designerId);
+                              }),
+                        ])
+                  ]),
+              GoRoute(
+                path: 'sign-up-client',
+                name: AppRoute.signUpClient.name,
+                builder: (context, state) => const ClientSignUp(),
+              ),
+            ]),
+        GoRoute(
+          path: 'sign-in-constructor',
+          name: AppRoute.signInConstructor.name,
+          pageBuilder: (context, state) => const MaterialPage(
+            fullscreenDialog: false,
+            child: ConstructorSignIn(),
+          ),
+          routes: [
+            GoRoute(
+                path: 'constructor-dashboard',
+                name: AppRoute.constructorDashboard.name,
+                builder: (context, state) => const ConstructorDashboard(),
                 routes: [
                   GoRoute(
-                      path: 'client-dashboard',
-                      name: AppRoute.clientDashboard.name,
-                      builder: (context, state) => const UserTabScreen(),
-                      routes: [
-                        GoRoute(
-                          path: 'account',
-                          name: AppRoute.clientAccount.name,
-                          builder: (context, state) => const AccountScreen(),
-                        ),
-                        GoRoute(
-                          path: 'constructor-detailed-screen/:id',
-                          name: AppRoute.constructorDetailed.name,
-                          builder: (context, state) {
-                            final constructorId = state.pathParameters['id']!;
-                            return ConstructorDetailedScreen(
-                                constructorId: constructorId);
-                          },
-                        ),
-                        GoRoute(
-                            path: 'designer-list',
-                            name: AppRoute.designerList.name,
-                            builder: (context, state) =>
-                                const DesignerListScreen(),
-                            routes: [
-                              GoRoute(
-                                  path: 'designer-detailed-screen/:id',
-                                  name: AppRoute.designerDetailed.name,
-                                  builder: (context, state) {
-                                    final designerId =
-                                        state.pathParameters['id']!;
-                                    return DesignerDetailedScreen(
-                                        designerId: designerId);
-                                  }),
-                            ])
-                      ]),
+                    path: 'constructor-account',
+                    name: AppRoute.constructorAccount.name,
+                    builder: (context, state) => const AccountScreen(),
+                  ),
                   GoRoute(
-                    path: 'sign-up-client',
-                    name: AppRoute.signUpClient.name,
-                    builder: (context, state) => const ClientSignUp(),
+                    path: 'constructor-portfolio',
+                    name: AppRoute.constructorPortfolio.name,
+                    builder: (context, state) => const ConstructorPortfolio(),
                   ),
                 ]),
             GoRoute(
-              path: 'sign-in-constructor',
-              name: AppRoute.signInConstructor.name,
-              pageBuilder: (context, state) => const MaterialPage(
-                fullscreenDialog: false,
-                child: ConstructorSignIn(),
-              ),
-              routes: [
-                GoRoute(
-                    path: 'constructor-dashboard',
-                    name: AppRoute.constructorDashboard.name,
-                    builder: (context, state) => const ConstructorDashboard(),
-                    routes: [
-                      GoRoute(
-                        path: 'constructor-account',
-                        name: AppRoute.constructorAccount.name,
-                        builder: (context, state) => const AccountScreen(),
-                      ),
-                      GoRoute(
-                        path: 'constructor-portfolio',
-                        name: AppRoute.constructorPortfolio.name,
-                        builder: (context, state) =>
-                            const ConstructorPortfolio(),
-                      ),
-                    ]),
-                GoRoute(
-                  path: 'sign-up-constructor',
-                  name: AppRoute.signUpConstructor.name,
-                  builder: (context, state) => const ConstructorSignUp(),
-                ),
-              ],
+              path: 'sign-up-constructor',
+              name: AppRoute.signUpConstructor.name,
+              builder: (context, state) => const ConstructorSignUp(),
             ),
-            GoRoute(
-              path: 'sign-in-designer',
-              name: AppRoute.signInDesigner.name,
-              pageBuilder: (context, state) => const MaterialPage(
-                fullscreenDialog: false,
-                child: DesignerSignIn(),
-              ),
-              routes: [
-                GoRoute(
-                    path: 'designer-dashboard',
-                    name: AppRoute.designerDashboard.name,
-                    builder: (context, state) => const DesignerDashboard(),
-                    routes: [
-                      GoRoute(
-                        path: 'designer-account',
-                        name: AppRoute.designerAccount.name,
-                        builder: (context, state) => const AccountScreen(),
-                      ),
-                      GoRoute(
-                        path: 'designer-portfolio',
-                        name: AppRoute.designerPortfolio.name,
-                        builder: (context, state) => const DesignerPortfolio(),
-                      ),
-                    ]),
-                GoRoute(
-                  path: 'sign-up-designer',
-                  name: AppRoute.signUpDesigner.name,
-                  builder: (context, state) => const DesignerSignUp(),
-                ),
-              ],
-            ),
-            // ],
-            // ),
           ],
-        )
-      ]);
+        ),
+        GoRoute(
+          path: 'sign-in-designer',
+          name: AppRoute.signInDesigner.name,
+          pageBuilder: (context, state) => const MaterialPage(
+            fullscreenDialog: false,
+            child: DesignerSignIn(),
+          ),
+          routes: [
+            GoRoute(
+                path: 'designer-dashboard',
+                name: AppRoute.designerDashboard.name,
+                builder: (context, state) => const DesignerDashboard(),
+                routes: [
+                  GoRoute(
+                    path: 'designer-account',
+                    name: AppRoute.designerAccount.name,
+                    builder: (context, state) => const AccountScreen(),
+                  ),
+                  GoRoute(
+                    path: 'designer-portfolio',
+                    name: AppRoute.designerPortfolio.name,
+                    builder: (context, state) => const DesignerPortfolio(),
+                  ),
+                ]),
+            GoRoute(
+              path: 'sign-up-designer',
+              name: AppRoute.signUpDesigner.name,
+              builder: (context, state) => const DesignerSignUp(),
+            ),
+          ],
+        ),
+        // ],
+        // ),
+      ],
+    )
+  ]);
 });

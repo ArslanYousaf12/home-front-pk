@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
 import 'package:home_front_pk/src/common_widgets/async_value_widget.dart';
 import 'package:home_front_pk/src/common_widgets/talent_detailed_widget.dart';
-import 'package:home_front_pk/src/features/dashboard/data/fake_designer_repo.dart';
+import 'package:home_front_pk/src/features/dashboard/data/designer_repo/fake_designer_repo.dart';
 import 'package:home_front_pk/src/features/dashboard/domain/designer.dart';
 
 class DesignerDetailedScreen extends ConsumerWidget {
