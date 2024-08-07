@@ -27,6 +27,13 @@ class ConstructorRepository {
   Future<List<ConstructorIslamabad>> searchConstructors(String query) {
     return Future.value([]);
   }
+
+  Future<void> createConstructor(ConstructorID id, String imageUrl) {
+    return _firestore.doc('constructors/$id').set({
+      'id': id,
+      'imageUrl': imageUrl,
+    }, SetOptions(merge: true));
+  }
 }
 
 @Riverpod(keepAlive: true)

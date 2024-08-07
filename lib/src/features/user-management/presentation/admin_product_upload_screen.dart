@@ -10,7 +10,9 @@ import 'package:home_front_pk/src/constants/app_sizes.dart';
 import 'package:home_front_pk/src/constants/breakpoints.dart';
 import 'package:home_front_pk/src/features/dashboard/domain/constructor.dart';
 import 'package:home_front_pk/src/features/user-management/data/template_products_providers.dart';
+import 'package:home_front_pk/src/features/user-management/presentation/admin_product_upload_controller.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
+import 'package:home_front_pk/src/utils/async_value_ui.dart';
 
 /// Used to upload a product to cloud storage
 class AdminProductUploadScreen extends StatelessWidget {
@@ -37,17 +39,18 @@ class AdminProductUpload extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: Uncomment
-    // ref.listen<AsyncValue>(
-    //   adminProductUploadControllerProvider,
-    //   (_, state) => state.showAlertDialogOnError(context),
-    // );
-    // // State of the upload operation
-    // final state = ref.watch(adminProductUploadControllerProvider);
-    // final isLoading = state.isLoading;
-    const isLoading = false;
+    ref.listen<AsyncValue>(
+      adminProductUploadControllerProvider,
+      (_, state) => state.showAlertDialogOnError(context),
+    );
+    // State of the upload operation
+    final state = ref.watch(adminProductUploadControllerProvider);
+    final isLoading = state.isLoading;
+    // const isLoading = false;
     // Product to be uploaded
+    debugPrint('Product ID: $productId');
     final templateProductValue = ref.watch(templateProductProvider(productId));
+    debugPrint('Template product value: $templateProductValue');
     return AsyncValueWidget<ConstructorIslamabad?>(
       value: templateProductValue,
       data: (templateProduct) => SingleChildScrollView(
@@ -63,16 +66,11 @@ class AdminProductUpload extends ConsumerWidget {
                 PrimaryButton(
                   text: 'Upload'.hardcoded,
                   isLoading: isLoading,
-                  onPressed: () => showAlertDialog(
-                    context: context,
-                    title: 'Not implemented'.hardcoded,
-                  ),
-                  // TODO: Uncomment
-                  // onPressed: isLoading
-                  //     ? null
-                  //     : () => ref
-                  //         .read(adminProductUploadControllerProvider.notifier)
-                  //         .upload(templateProduct),
+                  onPressed: isLoading
+                      ? null
+                      : () => ref
+                          .read(adminProductUploadControllerProvider.notifier)
+                          .upload(templateProduct),
                 ),
               ] else
                 ErrorMessageWidget(
