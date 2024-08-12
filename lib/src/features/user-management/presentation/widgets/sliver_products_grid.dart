@@ -10,7 +10,7 @@ import 'package:home_front_pk/src/constants/breakpoints.dart';
 import 'package:home_front_pk/src/features/dashboard/data/constructor_repo/constructor_repository.dart';
 // import 'package:home_front_pk/src/features/dashboard/data/constructor_repo/fake_constructor_repo.dart';
 import 'package:home_front_pk/src/features/dashboard/domain/constructor.dart';
-import 'package:home_front_pk/src/features/user-management/presentation/product_card.dart';
+import 'package:home_front_pk/src/features/user-management/presentation/widgets/product_card.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 
 /// A widget that displays the list of products that match the search query.

@@ -11,7 +11,7 @@ import 'package:home_front_pk/src/constants/app_sizes.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/account/account_screen_controller.dart';
 import 'package:home_front_pk/src/features/dashboard/data/constructor_repo/constructor_repository.dart';
 
-import 'package:home_front_pk/src/features/user-management/presentation/sliver_products_grid.dart';
+import 'package:home_front_pk/src/features/user-management/presentation/widgets/sliver_products_grid.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 import 'package:home_front_pk/src/utils/constants.dart';

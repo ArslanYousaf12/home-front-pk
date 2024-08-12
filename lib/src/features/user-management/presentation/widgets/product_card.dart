@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_front_pk/src/common_widgets/custom_image.dart';
+import 'package:home_front_pk/src/common_widgets/custom_image_network.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 import 'package:home_front_pk/src/features/dashboard/domain/constructor.dart';
 import 'package:home_front_pk/src/utils/currency_formatter%20copy.dart';
@@ -27,10 +28,8 @@ class ProductCard extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              CustomImage(
+              CustomImageNetwork(
                 imageUrl: product.imageUrl,
-                width: 150,
-                height: 150,
               ),
               gapH8,
               const Divider(),

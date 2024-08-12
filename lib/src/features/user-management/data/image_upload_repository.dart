@@ -33,6 +33,11 @@ class ImageUploadRepository {
       SettableMetadata(contentType: 'image/jpeg'),
     );
   }
+
+  Future<void> deleteConstructorImage(String imageUrl) async {
+    final ref = _storage.refFromURL(imageUrl);
+    await ref.delete();
+  }
 }
 
 @riverpod

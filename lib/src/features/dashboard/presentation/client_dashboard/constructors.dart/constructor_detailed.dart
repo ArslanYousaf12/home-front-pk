@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_front_pk/src/common_widgets/async_value_widget.dart';
 import 'package:home_front_pk/src/common_widgets/talent_detailed_widget.dart';
+import 'package:home_front_pk/src/features/dashboard/data/constructor_repo/constructor_repository.dart';
 import 'package:home_front_pk/src/features/dashboard/data/constructor_repo/fake_constructor_repo.dart';
 
 class ConstructorDetailedScreen extends ConsumerWidget {

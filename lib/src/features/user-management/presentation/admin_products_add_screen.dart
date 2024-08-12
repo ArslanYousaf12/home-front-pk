@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/common_widgets/async_value_widget.dart';
 import 'package:home_front_pk/src/features/dashboard/domain/constructor.dart';
 import 'package:home_front_pk/src/features/user-management/data/template_products_providers.dart';
-import 'package:home_front_pk/src/features/user-management/presentation/product_card.dart';
-import 'package:home_front_pk/src/features/user-management/presentation/sliver_products_grid.dart';
+import 'package:home_front_pk/src/features/user-management/presentation/widgets/product_card.dart';
+import 'package:home_front_pk/src/features/user-management/presentation/widgets/sliver_products_grid.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 

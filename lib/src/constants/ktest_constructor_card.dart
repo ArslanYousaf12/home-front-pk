@@ -8,7 +8,6 @@ final ktestConstructor = [
     location: 'B-17, Islamabad',
     imageUrl: 'assets/person.jpeg',
     title: 'Residential Builder',
-    icon: Icons.build,
     detail: 'Experienced in constructing high-quality residential buildings.',
   ),
   const ConstructorIslamabad(
@@ -17,7 +16,6 @@ final ktestConstructor = [
     location: 'DHA Phase II, Islamabad',
     imageUrl: 'assets/person.jpeg',
     title: 'Commercial Builder',
-    icon: Icons.build,
     detail:
         'Specializes in building commercial properties such as office buildings.',
   ),
@@ -27,7 +25,6 @@ final ktestConstructor = [
     imageUrl: 'assets/person.jpeg',
     location: 'Bahria Town, Islamabad',
     title: 'Custom Home Builder',
-    icon: Icons.build,
     detail: 'Tailors construction projects to clients\' unique preferences.',
   ),
   const ConstructorIslamabad(
@@ -36,7 +33,6 @@ final ktestConstructor = [
     location: 'G-11 Markaz, Islamabad',
     imageUrl: 'assets/person.jpeg',
     title: 'Renovation Contractor',
-    icon: Icons.build,
     detail: 'Skilled in renovating existing buildings and homes.',
   ),
 ];

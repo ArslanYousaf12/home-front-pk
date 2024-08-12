@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:home_front_pk/src/features/user-management/presentation/sliver_products_grid.dart';
+import 'package:home_front_pk/src/features/user-management/presentation/widgets/sliver_products_grid.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 

@@ -8,7 +8,6 @@ class ConstructorIslamabad extends Equatable {
   const ConstructorIslamabad({
     required this.id,
     required this.title,
-    required this.icon,
     required this.detail,
     required this.name,
     required this.imageUrl,
@@ -16,7 +15,7 @@ class ConstructorIslamabad extends Equatable {
   });
   final ConstructorID id;
   final String title;
-  final IconData icon;
+
   final String detail;
   final String name;
   final String imageUrl;
@@ -24,20 +23,18 @@ class ConstructorIslamabad extends Equatable {
 
   factory ConstructorIslamabad.fromMap(Map<String, dynamic> map) {
     return ConstructorIslamabad(
-      id: map['id'],
-      title: map['title'],
-      icon: map['icon'],
-      detail: map['detail'],
-      name: map['name'],
-      imageUrl: map['imageUrl'],
-      location: map['location'],
+      id: map['id'] as String,
+      title: map['title'] ?? '',
+      detail: map['detail'] ?? '',
+      name: map['name'] ?? '',
+      imageUrl: map['imageUrl'] as String,
+      location: map['location'] ?? '',
     );
   }
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'title': title,
-      'icon': icon,
       'detail': detail,
       'name': name,
       'imageUrl': imageUrl,
@@ -48,7 +45,6 @@ class ConstructorIslamabad extends Equatable {
   ConstructorIslamabad copyWith({
     ConstructorID? id,
     String? title,
-    IconData? icon,
     String? detail,
     String? name,
     String? imageUrl,
@@ -57,7 +53,6 @@ class ConstructorIslamabad extends Equatable {
     return ConstructorIslamabad(
       id: id ?? this.id,
       title: title ?? this.title,
-      icon: icon ?? this.icon,
       detail: detail ?? this.detail,
       name: name ?? this.name,
       imageUrl: imageUrl ?? this.imageUrl,
@@ -67,7 +62,7 @@ class ConstructorIslamabad extends Equatable {
 
   @override
   String toString() {
-    return 'ConstructorIslamabad(id: $id, title: $title, icon: $icon, detail: $detail, name: $name, imageUrl: $imageUrl)';
+    return 'ConstructorIslamabad(id: $id, title: $title,  detail: $detail, name: $name, imageUrl: $imageUrl)';
   }
 
   @override
@@ -76,7 +71,6 @@ class ConstructorIslamabad extends Equatable {
 
     return other.id == id &&
         other.title == title &&
-        other.icon == icon &&
         other.detail == detail &&
         other.name == name &&
         other.imageUrl == imageUrl;
@@ -86,7 +80,6 @@ class ConstructorIslamabad extends Equatable {
   int get hashCode {
     return id.hashCode ^
         title.hashCode ^
-        icon.hashCode ^
         detail.hashCode ^
         name.hashCode ^
         imageUrl.hashCode;
@@ -96,7 +89,6 @@ class ConstructorIslamabad extends Equatable {
   List<Object?> get props => [
         id,
         title,
-        icon,
         detail,
         name,
         imageUrl,

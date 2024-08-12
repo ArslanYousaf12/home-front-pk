@@ -1,6 +1,6 @@
-import 'package:home_front_pk/src/features/dashboard/data/constructor_repo/constructor_repository.dart';
 import 'package:home_front_pk/src/features/dashboard/domain/constructor.dart';
-import 'package:home_front_pk/src/features/user-management/data/image_upload_repository.dart';
+import 'package:home_front_pk/src/features/user-management/application/image_upload_service.dart';
+
 import 'package:home_front_pk/src/routing/app_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'admin_product_upload_controller.g.dart';
@@ -15,16 +15,7 @@ class AdminProductUploadController extends _$AdminProductUploadController {
   Future<void> upload(ConstructorIslamabad constructor) async {
     try {
       state = const AsyncLoading();
-      final downloadUrl = await ref
-          .read(imageUploadRepositoryProvider)
-          .uploadProductImageFromAsset(
-            constructor.imageUrl,
-            constructor.id,
-          );
-      ref.read(constructorRepositoryProvider).createConstructor(
-            constructor.id,
-            downloadUrl,
-          );
+      await ref.read(imageUploadServiceProvider).uploadProduct(constructor);
       ref.read(routerProvider).goNamed(
         AppRoute.adminEditProduct.name,
         pathParameters: {

@@ -84,28 +84,46 @@ class FakeConstructorRepository implements ConstructorRepository {
     // TODO: implement watchConstructorsList
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> updateConstructor(ConstructorIslamabad constructor) {
+    // TODO: implement updateConstructor
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> deleteConstructor(ConstructorID id) {
+    // TODO: implement deleteConstructor
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ConstructorIslamabad?> fetchConstructor(ConstructorID id) {
+    // TODO: implement fetchConstructor
+    throw UnimplementedError();
+  }
 }
 
-final constructorRepositoryProvider =
-    Provider<FakeConstructorRepository>((ref) {
-  return FakeConstructorRepository();
-});
+// final constructorRepositoryProvider =
+//     Provider<FakeConstructorRepository>((ref) {
+//   return FakeConstructorRepository();
+// });
 
-final constructorsListFutureProvider =
-    FutureProvider.autoDispose<List<ConstructorIslamabad>>((ref) {
-  final constructorRepository = ref.watch(constructorRepositoryProvider);
+// final constructorsListFutureProvider =
+//     FutureProvider.autoDispose<List<ConstructorIslamabad>>((ref) {
+//   final constructorRepository = ref.watch(constructorRepositoryProvider);
 
-  return constructorRepository.fetchConstructorList();
-});
+//   return constructorRepository.fetchConstructorList();
+// });
 
-final constructorsListStreamProvider =
-    StreamProvider.autoDispose<List<ConstructorIslamabad>>((ref) {
-  final constructorRepository = ref.watch(constructorRepositoryProvider);
-  return constructorRepository.watchConstructorList();
-});
+// final constructorsListStreamProvider =
+//     StreamProvider.autoDispose<List<ConstructorIslamabad>>((ref) {
+//   final constructorRepository = ref.watch(constructorRepositoryProvider);
+//   return constructorRepository.watchConstructorList();
+// });
 
-final constructorProvider =
-    StreamProvider.autoDispose.family<ConstructorIslamabad?, String>((ref, id) {
-  final constructorRepository = ref.watch(constructorRepositoryProvider);
-  return constructorRepository.watchConstructor(id);
-});
+// final constructorProvider =
+//     StreamProvider.autoDispose.family<ConstructorIslamabad?, String>((ref, id) {
+//   final constructorRepository = ref.watch(constructorRepositoryProvider);
+//   return constructorRepository.watchConstructor(id);
+// });

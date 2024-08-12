@@ -23,7 +23,7 @@ final constructorRepositoryProvider = Provider<ConstructorRepository>.internal(
 
 typedef ConstructorRepositoryRef = ProviderRef<ConstructorRepository>;
 String _$constructorsListStreamHash() =>
-    r'90f9241608d4fb26f19d431a544a5ee1252bfea5';
+    r'edf9876c43d4f625718582fb53b7189dbb937897';
 
 /// See also [constructorsListStream].
 @ProviderFor(constructorsListStream)
@@ -58,7 +58,7 @@ final constructorsListFutureProvider =
 
 typedef ConstructorsListFutureRef
     = AutoDisposeFutureProviderRef<List<ConstructorIslamabad>>;
-String _$constructorHash() => r'ce454546557a4ab7c116a9a17878ce7446de4fcd';
+String _$constructorFutureHash() => r'3ed99e606d566e1f5a6f5010c3a63fe7bc249fc8';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -80,6 +80,139 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
+
+/// See also [constructorFuture].
+@ProviderFor(constructorFuture)
+const constructorFutureProvider = ConstructorFutureFamily();
+
+/// See also [constructorFuture].
+class ConstructorFutureFamily
+    extends Family<AsyncValue<ConstructorIslamabad?>> {
+  /// See also [constructorFuture].
+  const ConstructorFutureFamily();
+
+  /// See also [constructorFuture].
+  ConstructorFutureProvider call(
+    String id,
+  ) {
+    return ConstructorFutureProvider(
+      id,
+    );
+  }
+
+  @override
+  ConstructorFutureProvider getProviderOverride(
+    covariant ConstructorFutureProvider provider,
+  ) {
+    return call(
+      provider.id,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'constructorFutureProvider';
+}
+
+/// See also [constructorFuture].
+class ConstructorFutureProvider
+    extends AutoDisposeFutureProvider<ConstructorIslamabad?> {
+  /// See also [constructorFuture].
+  ConstructorFutureProvider(
+    String id,
+  ) : this._internal(
+          (ref) => constructorFuture(
+            ref as ConstructorFutureRef,
+            id,
+          ),
+          from: constructorFutureProvider,
+          name: r'constructorFutureProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$constructorFutureHash,
+          dependencies: ConstructorFutureFamily._dependencies,
+          allTransitiveDependencies:
+              ConstructorFutureFamily._allTransitiveDependencies,
+          id: id,
+        );
+
+  ConstructorFutureProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+  }) : super.internal();
+
+  final String id;
+
+  @override
+  Override overrideWith(
+    FutureOr<ConstructorIslamabad?> Function(ConstructorFutureRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: ConstructorFutureProvider._internal(
+        (ref) => create(ref as ConstructorFutureRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<ConstructorIslamabad?> createElement() {
+    return _ConstructorFutureProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ConstructorFutureProvider && other.id == id;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin ConstructorFutureRef
+    on AutoDisposeFutureProviderRef<ConstructorIslamabad?> {
+  /// The parameter `id` of this provider.
+  String get id;
+}
+
+class _ConstructorFutureProviderElement
+    extends AutoDisposeFutureProviderElement<ConstructorIslamabad?>
+    with ConstructorFutureRef {
+  _ConstructorFutureProviderElement(super.provider);
+
+  @override
+  String get id => (origin as ConstructorFutureProvider).id;
+}
+
+String _$constructorHash() => r'ce454546557a4ab7c116a9a17878ce7446de4fcd';
 
 /// See also [constructor].
 @ProviderFor(constructor)

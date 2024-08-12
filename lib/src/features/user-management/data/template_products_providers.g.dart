@@ -25,7 +25,7 @@ final templateConstructorsRepositoryProvider =
 typedef TemplateConstructorsRepositoryRef
     = AutoDisposeProviderRef<FakeConstructorRepository>;
 String _$templateConstructorsListHash() =>
-    r'9874c41b147de168c4b2f3360d6a92c90e5818b0';
+    r'b4da9b0a70f6f3f4610faf9b9d4e14b629e8b89c';
 
 /// * A [StreamProvider] to return only the template products to be shown in the
 /// * [AdminProductsAddScreen] widget
