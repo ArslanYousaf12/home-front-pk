@@ -9,6 +9,8 @@ import 'package:home_front_pk/src/features/authentication/presentation/sign_in/d
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/client/client_signup.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/constructor/constructor_signup.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/designer/designer_signup.dart';
+import 'package:home_front_pk/src/features/cost_calculator/presentation/CostBreakGraphdownScreen.dart';
+import 'package:home_front_pk/src/features/cost_calculator/presentation/cost_breakdown_screen.dart';
 
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/constructors.dart/constructor_detailed.dart';
 import 'package:home_front_pk/src/features/dashboard/presentation/client_dashboard/designers_list/deigner_list_screen.dart';
@@ -39,6 +41,8 @@ enum AppRoute {
   signUpConstructor, // Sign Up screen for constructors
   signUpDesigner, // Sign Up screen for designers
   clientTabs,
+  costBreakDownGraph,
+  costBreakDownScreen,
   admin,
   adminAdd,
   adminUploadProduct,
@@ -146,6 +150,24 @@ final routerProvider = Provider<GoRouter>((ref) {
                   name: AppRoute.clientDashboard.name,
                   builder: (context, state) => const UserTabScreen(),
                   routes: [
+                    GoRoute(
+                      path: 'cost-break-down',
+                      name: AppRoute.costBreakDownScreen.name,
+                      builder: (context, state) {
+                        final area = double.parse(state.extra as String);
+                        debugPrint('Area: $area');
+                        return CostBreakdownScreen(area: area);
+                      },
+                    ),
+                    GoRoute(
+                      path: 'cost-break-down-graph',
+                      name: AppRoute.costBreakDownGraph.name,
+                      builder: (context, state) {
+                        final area = double.parse(state.extra as String);
+                        debugPrint('Area: $area');
+                        return CostBreakdownGraphScreen(area: area);
+                      },
+                    ),
                     GoRoute(
                       path: 'account',
                       name: AppRoute.clientAccount.name,

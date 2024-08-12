@@ -1,18 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/common_widgets/lable_inputfield.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
+import 'package:home_front_pk/src/features/cost_calculator/presentation/calculator_screen_controller.dart';
+import 'package:home_front_pk/src/features/cost_calculator/presentation/cost_breakdown_screen.dart';
+import 'package:home_front_pk/src/routing/app_router.dart';
 import 'package:home_front_pk/src/utils/constants.dart';
 
-class CalculatorScreen extends StatefulWidget {
+class CalculatorScreen extends ConsumerStatefulWidget {
   const CalculatorScreen({super.key});
 
   @override
-  State<CalculatorScreen> createState() => _CalculatorScreenState();
+  ConsumerState<CalculatorScreen> createState() => _CalculatorScreenState();
 }
 
-class _CalculatorScreenState extends State<CalculatorScreen> {
+class _CalculatorScreenState extends ConsumerState<CalculatorScreen> {
   String _selectedUnit = 'Square Foot';
   final List<String> _units = ['Square Foot', 'Marla', 'Kanal'];
+  final TextEditingController _areaController = TextEditingController();
+
+  @override
+  void dispose() {
+    _areaController.dispose();
+    super.dispose();
+  }
+
+  double convertToSquareFeet(double area, String unit) {
+    switch (unit) {
+      case 'Square Foot':
+        return area;
+      case 'Marla':
+        return area * 272.25; // 1 Marla = 272.25 sq ft
+      case 'Kanal':
+        return area * 5445; // 1 Kanal = 5445 sq ft
+      default:
+        return area;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -22,7 +48,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text(
               'Construction Cost Calculator',
@@ -35,7 +60,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 child: Column(
                   children: [
                     LabelInputField(
-                      child: const TextField(
+                      child: TextField(
+                        controller: _areaController,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: 'Area Size',
                           contentPadding: EdgeInsets.all(10),
@@ -49,7 +76,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         ),
                         style: TextStyle(color: Colors.black, fontSize: 20),
                         cursorHeight: 15,
-                        obscureText: true,
                       ),
                     ),
                     gapH20,
@@ -96,7 +122,28 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                             backgroundColor: kSecondaryColor,
                             foregroundColor: Colors.white,
                             maximumSize: const Size(250, 120)),
-                        onPressed: () {},
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            double area =
+                                double.tryParse(_areaController.text) ?? 0;
+                            double squareFeetArea =
+                                convertToSquareFeet(area, _selectedUnit);
+                            ref
+                                .read(
+                                    calculatorScreenControllerProvider.notifier)
+                                .calculateCost(squareFeetArea);
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (context) =>
+                            //           CostBreakdownScreen(area: squareFeetArea),
+                            //     ));
+                            context.goNamed(
+                              AppRoute.costBreakDownScreen.name,
+                              extra: squareFeetArea.toString(),
+                            );
+                          }
+                        },
                         child: const Text(
                           'Calculate Cost',
                           style: TextStyle(
