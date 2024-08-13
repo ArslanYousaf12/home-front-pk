@@ -1,21 +1,88 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:home_front_pk/src/common_widgets/action_load_button.dart';
 import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/account/account_screen_controller.dart';
+import 'package:home_front_pk/src/features/profile/data/profile_image_upload_repository.dart';
+import 'package:home_front_pk/src/features/profile/presentation/profile_screen_controller.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 
-class ProfileScreen extends ConsumerWidget {
-  ProfileScreen({super.key});
+// Add these imports
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
-  String? selectedValue = null;
+// Add this provider
+final profileImageUploadRepoProvider =
+    Provider((ref) => ProfileImageUploadRepo());
+
+class ProfileScreen extends ConsumerStatefulWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
+  File? _imageFile;
+  String? _imageUrl;
+  final ImagePicker _picker = ImagePicker();
+
+  Future<File?> pickImage({ImageSource source = ImageSource.gallery}) async {
+    final XFile? pickedFile = await _picker.pickImage(
+      source: source,
+    );
+    if (pickedFile != null) {
+      return File(pickedFile.path);
+    }
+    return null;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileImage();
+  }
+
+  Future<void> _loadProfileImage() async {
+    final repo = ref.read(profileImageUploadRepoProvider);
+    final userId =
+        'xpZ5CzE4MPUSgBuGtQtdOoOO9t33'; // Replace with actual user ID
+    final url = await repo.fetchProfileImage(userId);
+    if (url != null) {
+      setState(() {
+        _imageUrl = url;
+      });
+    }
+  }
+
+  Future<void> _selectImage() async {
+    File? imageFile = await pickImage();
+
+    final userId =
+        'xpZ5CzE4MPUSgBuGtQtdOoOO9t33'; // Replace with actual user ID
+    final downloadUrl = await ref
+        .read(profileScreenControllerProvider.notifier)
+        .uploadImage(userId, imageFile!);
+
+    if (imageFile != null) {
+      setState(() {
+        _imageFile = imageFile;
+        _imageUrl = null; // Clear the previous URL
+      });
+      // Upload the new image
+      final newUrl = downloadUrl;
+      if (newUrl != null) {
+        setState(() {
+          _imageUrl = newUrl;
+        });
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final goRouter = ref.watch(routerProvider);
     return SafeArea(
       child: SizedBox(
@@ -24,31 +91,47 @@ class ProfileScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(15.0),
           child: Column(
             children: [
-              const Expanded(
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Flexible(
-                    child: CircleAvatar(
-                      maxRadius: 35,
-                      backgroundImage: AssetImage('assets/person.jpeg'),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      child: GestureDetector(
+                        onTap: _selectImage,
+                        child: CircleAvatar(
+                          maxRadius: 35,
+                          backgroundImage: _imageFile != null
+                              ? FileImage(_imageFile!)
+                              : _imageUrl != null
+                                  ? NetworkImage(_imageUrl!)
+                                  : const AssetImage('assets/person.jpeg')
+                                      as ImageProvider,
+                          child: _imageFile == null && _imageUrl == null
+                              ? const Icon(Icons.add_a_photo,
+                                  color: Colors.white)
+                              : null,
+                        ),
+                      ),
                     ),
-                  ),
-                  gapW16,
-                  Flexible(
-                    flex: 2,
-                    child: ListTile(
-                      title: Text(
-                        'Arslan Yousaf',
-                        style: TextStyle(
+                    gapW16,
+                    const Flexible(
+                      flex: 2,
+                      child: ListTile(
+                        title: Text(
+                          'Arslan Yousaf',
+                          style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
-                            fontFamily: 'Montserrat'),
+                            fontFamily: 'Montserrat',
+                          ),
+                        ),
+                        subtitle: Text('Id#12321.USER'),
                       ),
-                      subtitle: Text('Id#12321.USER'),
                     ),
-                  ),
-                ]),
+                  ],
+                ),
               ),
+              // ... Rest of the code remains the same
               Expanded(
                   child: Column(
                 children: [
@@ -119,6 +202,7 @@ class ProfileScreen extends ConsumerWidget {
   }
 }
 
+// ... Rest of the code (ProfileCard class) remains the same
 class ProfileCard extends StatelessWidget {
   const ProfileCard({
     super.key,
