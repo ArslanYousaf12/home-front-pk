@@ -33,7 +33,7 @@ class GoogleLoginButton extends ConsumerWidget {
             const Text(
               "Continue with Google",
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: Colors.black54,
               ),

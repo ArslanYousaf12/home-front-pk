@@ -18,6 +18,7 @@ import 'package:home_front_pk/src/features/user-management/presentation/admin_pr
 import 'package:home_front_pk/src/features/user-management/presentation/widgets/product_validator.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 import 'package:home_front_pk/src/utils/async_value_ui.dart';
+import 'package:home_front_pk/src/utils/constants.dart';
 
 /// Widget screen for updating existing products (edit mode).
 /// Products are first created inside [AdminProductUploadScreen].
@@ -155,6 +156,7 @@ class _AdminProductScreenContentsState
           ActionTextButton(
             text: 'Save'.hardcoded,
             onPressed: isLoading ? null : _submit,
+            color: kPrimaryColor,
           ),
         ],
       ),
