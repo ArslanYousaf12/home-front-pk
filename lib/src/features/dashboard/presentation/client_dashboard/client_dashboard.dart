@@ -9,6 +9,7 @@ import 'package:home_front_pk/src/common_widgets/persons_card.dart';
 import 'package:home_front_pk/src/common_widgets/responsive_center.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/account/account_screen_controller.dart';
+import 'package:home_front_pk/src/features/chat_section/presentation/chat_screen.dart';
 import 'package:home_front_pk/src/features/dashboard/data/constructor_repo/constructor_repository.dart';
 
 import 'package:home_front_pk/src/features/user-management/presentation/widgets/sliver_products_grid.dart';
@@ -68,7 +69,7 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
             titles: 'Dashboard ',
             userRole: 'client',
             notificationCallBack: () =>
-                showNotImplementedAlertDialog(context: context),
+                context.goNamed(AppRoute.chatScreen.name),
             logOut: () async {
               final goRouter = GoRouter.of(context);
               final logout = await showAlertDialog(

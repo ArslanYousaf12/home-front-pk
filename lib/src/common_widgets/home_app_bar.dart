@@ -45,7 +45,7 @@ class HomeAppBar extends ConsumerWidget {
         GestureDetector(
           onTap: notificationCallBack,
           child: const Icon(
-            Icons.notifications_none_outlined,
+            Icons.message,
             size: 28,
           ),
         ),
