@@ -8,6 +8,7 @@ import 'package:home_front_pk/src/common_widgets/grid_card.dart';
 import 'package:home_front_pk/src/common_widgets/home_app_bar.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/account/account_screen_controller.dart';
+import 'package:home_front_pk/src/features/chat_section/presentation/chat_screen.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 
@@ -115,11 +116,11 @@ class _DesignerDashboardState extends ConsumerState<DesignerDashboard> {
                             showNotImplementedAlertDialog(context: context),
                       ),
                       GridCard(
-                        iconName: FontAwesomeIcons.comments,
-                        title: 'Messages',
-                        onPressed: () =>
-                            showNotImplementedAlertDialog(context: context),
-                      ),
+                          iconName: FontAwesomeIcons.comments,
+                          title: 'Messages',
+                          onPressed: () => context.goNamed(
+                                AppRoute.chatScreen.name,
+                              )),
                       GridCard(
                         iconName: FontAwesomeIcons.paperPlane,
                         title: 'Offers Sent',

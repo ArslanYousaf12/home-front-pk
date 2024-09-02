@@ -9,6 +9,7 @@ import 'package:home_front_pk/src/features/authentication/presentation/sign_in/d
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/client/client_signup.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/constructor/constructor_signup.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/sign_up/designer/designer_signup.dart';
+import 'package:home_front_pk/src/features/chat_section/presentation/chat_screen.dart';
 import 'package:home_front_pk/src/features/cost_calculator/presentation/CostBreakGraphdownScreen.dart';
 import 'package:home_front_pk/src/features/cost_calculator/presentation/cost_breakdown_screen.dart';
 
@@ -45,6 +46,7 @@ enum AppRoute {
   costBreakDownScreen,
   admin,
   adminAdd,
+  chatScreen,
   adminUploadProduct,
   adminEditProduct,
   clientDashboard, // Dashboard screen for clients
@@ -87,6 +89,12 @@ final routerProvider = Provider<GoRouter>((ref) {
       name: AppRoute.welcome.name,
       builder: (context, state) => const WelcomeScreen(),
       routes: [
+        GoRoute(
+            path: 'chat',
+            name: AppRoute.chatScreen.name,
+            builder: (context, state) {
+              return ChatScreen();
+            }),
         GoRoute(
           path: 'admin',
           name: AppRoute.admin.name,
