@@ -1,7 +1,5 @@
-// import 'package:flutter/foundation.dart';
 import 'package:home_front_pk/src/common_widgets/notifier_mounted.dart';
 import 'package:home_front_pk/src/features/cost_calculator/data/cost_calculator_repo.dart';
-// import 'package:home_front_pk/src/features/cost_calculator/domain/construction_cost.dart';
 import 'package:home_front_pk/src/features/cost_calculator/domain/construction_cost_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -19,7 +17,7 @@ class CalculatorScreenController extends _$CalculatorScreenController
   Future<void> calculateCost(double area) async {
     state = const AsyncLoading();
     final value = await AsyncValue.guard(
-      () => ref.read(fetchcostProvider.future),
+      () => ref.read(fetchCostProvider.future),
     );
 
     if (value.hasError) {
@@ -28,8 +26,9 @@ class CalculatorScreenController extends _$CalculatorScreenController
     }
 
     final costs = value.value!;
-    final totalCost = _calculateTotalCost(costs, area);
-    final breakdown = _calculateBreakdown(costs, area);
+    final selectedOptions = ref.read(selectedOptionsProvider);
+    final totalCost = _calculateTotalCost(costs, selectedOptions, area);
+    final breakdown = _calculateBreakdown(costs, selectedOptions, area);
 
     if (mounted) {
       state = AsyncData({
@@ -39,47 +38,104 @@ class CalculatorScreenController extends _$CalculatorScreenController
     }
   }
 
-  double _calculateTotalCost(ConstructionCostsModel costs, double area) {
-    return (costs.bricks +
-                costs.cement +
-                costs.plumbing +
-                costs.electricity +
-                costs.labor +
-                costs.foundation +
-                costs.roofing +
-                costs.windows +
-                costs.hvac +
-                costs.flooring +
-                costs.interiorFinishes +
-                costs.cabinetry) *
-            area +
-        costs.appliances +
-        costs.landscaping * area +
-        costs.permits +
-        costs.architectFees * area +
-        costs.sitePrep * area;
+  double _calculateTotalCost(
+    ConstructionCostsModel costs,
+    Map<String, Map<String, MaterialOption>> selectedOptions,
+    double area,
+  ) {
+    double total = 0.0;
+
+    void addCost(String category, String type, MaterialOption option) {
+      switch (option.unit) {
+        case 'per sq ft':
+          total += option.pricePerUnit * area;
+          break;
+        case 'flat rate':
+          total += option.pricePerUnit;
+          break;
+        case 'per brick':
+          // Assuming average brick coverage
+          total += option.pricePerUnit * (area * 35); // 35 bricks per sq ft
+          break;
+        case 'per bag':
+          // Assuming average cement usage
+          total += option.pricePerUnit * (area * 0.4); // 0.4 bags per sq ft
+          break;
+        case 'per meter':
+          // Assuming average wiring/piping needs
+          total += option.pricePerUnit * (area * 0.5); // 0.5 meters per sq ft
+          break;
+        case 'per ton':
+          // Assuming average HVAC needs
+          total += option.pricePerUnit * (area * 0.0002); // 1 ton per 500 sq ft
+          break;
+        case 'per linear ft':
+          // Assuming average cabinet length needs
+          total +=
+              option.pricePerUnit * (area * 0.2); // 0.2 linear ft per sq ft
+          break;
+        case 'per day':
+          // Assuming construction duration based on area
+          total += option.pricePerUnit * (area * 0.02); // 1 day per 50 sq ft
+          break;
+        default:
+          total += option.pricePerUnit;
+      }
+    }
+
+    selectedOptions.forEach((category, types) {
+      types.forEach((type, option) {
+        addCost(category, type, option);
+      });
+    });
+
+    return total;
   }
 
   Map<String, double> _calculateBreakdown(
-      ConstructionCostsModel costs, double area) {
-    return {
-      'Bricks': costs.bricks * area,
-      'Cement': costs.cement * area,
-      'Plumbing': costs.plumbing * area,
-      'Electricity': costs.electricity * area,
-      'Labor': costs.labor * area,
-      'Foundation': costs.foundation * area,
-      'Roofing': costs.roofing * area,
-      'Windows': costs.windows * area,
-      'HVAC': costs.hvac * area,
-      'Flooring': costs.flooring * area,
-      'Interior Finishes': costs.interiorFinishes * area,
-      'Cabinetry': costs.cabinetry * area,
-      'Appliances': costs.appliances,
-      'Landscaping': costs.landscaping * area,
-      'Permits': costs.permits,
-      'Architect Fees': costs.architectFees * area,
-      'Site Preparation': costs.sitePrep * area,
-    };
+    ConstructionCostsModel costs,
+    Map<String, Map<String, MaterialOption>> selectedOptions,
+    double area,
+  ) {
+    final breakdown = <String, double>{};
+
+    selectedOptions.forEach((category, types) {
+      types.forEach((type, option) {
+        double cost = 0.0;
+
+        switch (option.unit) {
+          case 'per sq ft':
+            cost = option.pricePerUnit * area;
+            break;
+          case 'flat rate':
+            cost = option.pricePerUnit;
+            break;
+          case 'per brick':
+            cost = option.pricePerUnit * (area * 35);
+            break;
+          case 'per bag':
+            cost = option.pricePerUnit * (area * 0.4);
+            break;
+          case 'per meter':
+            cost = option.pricePerUnit * (area * 0.5);
+            break;
+          case 'per ton':
+            cost = option.pricePerUnit * (area * 0.0002);
+            break;
+          case 'per linear ft':
+            cost = option.pricePerUnit * (area * 0.2);
+            break;
+          case 'per day':
+            cost = option.pricePerUnit * (area * 0.02);
+            break;
+          default:
+            cost = option.pricePerUnit;
+        }
+
+        breakdown['$category - $type'] = cost;
+      });
+    });
+
+    return breakdown;
   }
 }

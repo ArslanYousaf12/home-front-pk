@@ -34,7 +34,7 @@ class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
             userRole: 'constructor',
             titles: 'Constructor Dashboard',
             notificationCallBack: () =>
-                showNotImplementedAlertDialog(context: context),
+                context.goNamed(AppRoute.chatScreen.name),
             logOut: () async {
               final goRouter = GoRouter.of(context);
               final logout = await showAlertDialog(
