@@ -28,6 +28,9 @@ import 'package:home_front_pk/src/features/user-management/presentation/admin_pr
 import 'package:home_front_pk/src/features/user-management/presentation/admin_product_upload_screen.dart';
 import 'package:home_front_pk/src/features/user-management/presentation/admin_products_add_screen.dart';
 import 'package:home_front_pk/src/features/user-management/presentation/admin_products_screen.dart';
+import 'package:home_front_pk/src/features/user_job_post/domain/job_post_model.dart';
+import 'package:home_front_pk/src/features/user_job_post/presentation/job_post_screen.dart';
+import 'package:home_front_pk/src/features/user_job_post/presentation/user_jobs_screen.dart';
 import 'package:home_front_pk/src/features/welcome/presentation/seller_screen.dart';
 import 'package:home_front_pk/src/features/welcome/presentation/welcome_screen.dart';
 
@@ -52,6 +55,8 @@ enum AppRoute {
   clientDashboard, // Dashboard screen for clients
   clientAccount,
   clientMessage,
+  createJobPost,
+  userJobs,
   constructorDetailed,
   designerList,
   designerDetailed,
@@ -87,7 +92,7 @@ final routerProvider = Provider<GoRouter>((ref) {
     GoRoute(
       path: '/',
       name: AppRoute.welcome.name,
-      builder: (context, state) => const WelcomeScreen(),
+      builder: (context, state) => WelcomeScreen(),
       routes: [
         GoRoute(
             path: 'chat',
@@ -165,6 +170,20 @@ final routerProvider = Provider<GoRouter>((ref) {
                         final area = double.parse(state.extra as String);
                         debugPrint('Area: $area');
                         return CostBreakdownScreen(area: area);
+                      },
+                    ),
+                    GoRoute(
+                      path: 'user-job-post',
+                      name: AppRoute.createJobPost.name,
+                      builder: (context, state) {
+                        return const CreateJobPostScreen();
+                      },
+                    ),
+                    GoRoute(
+                      path: 'user-jobs',
+                      name: AppRoute.userJobs.name,
+                      builder: (context, state) {
+                        return const UserJobsScreen();
                       },
                     ),
                     GoRoute(

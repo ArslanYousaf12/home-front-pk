@@ -7,7 +7,7 @@ part of 'calculator_screen_controller.dart';
 // **************************************************************************
 
 String _$calculatorScreenControllerHash() =>
-    r'eefb87addcc8fbde75bb3bb9884e59039c0eb746';
+    r'926b940f277a118545854be87376abacd5cc1421';
 
 /// See also [CalculatorScreenController].
 @ProviderFor(CalculatorScreenController)

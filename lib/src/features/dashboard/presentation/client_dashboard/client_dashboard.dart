@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
@@ -94,22 +95,32 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(top: 20, left: 5, right: 5),
                 child: Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      dashboardCard(
-                        title: 'Post jobs',
-                        iconData: Icons.work,
+                      GestureDetector(
+                        onTap: () {
+                          context.goNamed(AppRoute.createJobPost.name);
+                        },
+                        child: dashboardCard(
+                          title: 'Post jobs',
+                          iconData: Icons.work,
+                        ),
                       ),
                       gapW16,
-                      dashboardCard(
-                        title: 'Accept Offers',
-                        iconData: Icons.local_offer_rounded,
-                        color: Colors.green,
+                      GestureDetector(
+                        onTap: () {
+                          context.goNamed(AppRoute.userJobs.name);
+                        },
+                        child: dashboardCard(
+                          title: 'Accept Offers',
+                          iconData: Icons.local_offer_rounded,
+                          color: Colors.green,
+                        ),
                       ),
                     ],
                   ),
