@@ -13,13 +13,25 @@ final userJobsControllerProvider =
 class UserJobsController extends StateNotifier<AsyncValue<List<JobPost>>> {
   final Ref _ref;
   StreamSubscription<List<JobPost>>? _subscription;
+  StreamSubscription<User?>? _authSubscription;
 
   UserJobsController(this._ref) : super(const AsyncValue.loading()) {
-    loadUserJobs();
+    // Listen to auth state changes
+    _authSubscription = FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (user != null) {
+        loadUserJobs();
+      } else {
+        state = const AsyncValue.data([]);
+      }
+    });
   }
 
   void loadUserJobs() {
-    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      state = const AsyncValue.error('No user logged in', StackTrace.empty);
+      return;
+    }
 
     state = const AsyncValue.loading();
     _subscription?.cancel();
@@ -34,6 +46,7 @@ class UserJobsController extends StateNotifier<AsyncValue<List<JobPost>>> {
   @override
   void dispose() {
     _subscription?.cancel();
+    _authSubscription?.cancel();
     super.dispose();
   }
 }

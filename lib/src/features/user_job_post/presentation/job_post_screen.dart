@@ -168,9 +168,9 @@ class _CreateJobPostScreenState extends ConsumerState<CreateJobPostScreen> {
                               estimatedCost: _estimatedCost,
                               budget: _budget,
                             );
-                        if (mounted && !jobPostState.hasError) {
-                          context.goNamed(AppRoute.userJobs.name);
-                        }
+
+                        // ignore: use_build_context_synchronously
+                        context.goNamed(AppRoute.userJobs.name);
                       }
                     },
               child: jobPostState.isLoading
