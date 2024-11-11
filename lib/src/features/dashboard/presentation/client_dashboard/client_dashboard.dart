@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:home_front_pk/src/client_proposal_management/presentation/client_job_screen.dart';
+import 'package:home_front_pk/src/client_proposal_management/presentation/client_proposal_screen.dart';
 import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
 import 'package:home_front_pk/src/common_widgets/async_value_widget.dart';
 import 'package:home_front_pk/src/common_widgets/home_app_bar.dart';
@@ -95,6 +97,14 @@ class _ClientDashboardState extends ConsumerState<ClientDashboard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return ClientJobsScreen();
+                    }));
+                  },
+                  child: Text('proposal')),
               Padding(
                 padding: EdgeInsets.only(top: 20, left: 5, right: 5),
                 child: Expanded(

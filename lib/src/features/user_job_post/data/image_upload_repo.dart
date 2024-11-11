@@ -22,4 +22,12 @@ class StorageRepository {
       throw Exception('Failed to upload images: $e');
     }
   }
+
+  Future<String> uploadChatImage(String chatId, File image) async {
+    final ref = _storage
+        .ref()
+        .child('chats/$chatId/${DateTime.now().millisecondsSinceEpoch}');
+    await ref.putFile(image);
+    return await ref.getDownloadURL();
+  }
 }
