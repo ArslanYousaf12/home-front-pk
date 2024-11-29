@@ -7,8 +7,12 @@ import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 import 'package:home_front_pk/src/constructor_apply_job/presentation/constructor_job_screen.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/account/account_screen_controller.dart';
+import 'package:home_front_pk/src/features/ongoing_project/presentation/ongoing_screen.dart';
+import 'package:home_front_pk/src/features/profile/presentation/profile_screen.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
+import 'package:home_front_pk/src/offer_sent/presentation/new_request.dart';
 import 'package:home_front_pk/src/payment_module/presentation/wallet_screen.dart';
+import 'package:home_front_pk/src/profile_dashboard/presentation/profile_screen.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 
 class ConstructorDashboard extends ConsumerStatefulWidget {
@@ -151,8 +155,12 @@ class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
                     icon: FontAwesomeIcons.listCheck,
                     title: 'Ongoing Projects',
                     subtitle: 'Track your projects',
-                    onTap: () =>
-                        showNotImplementedAlertDialog(context: context),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const OngoingProjectsScreen(),
+                      ),
+                    ),
                   ),
                   _buildModernGridCard(
                     icon: FontAwesomeIcons.comments,
@@ -164,8 +172,12 @@ class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
                     icon: FontAwesomeIcons.paperPlane,
                     title: 'Offers Sent',
                     subtitle: 'Track your proposals',
-                    onTap: () =>
-                        showNotImplementedAlertDialog(context: context),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NewRequestScreen(),
+                      ),
+                    ),
                   ),
                   _buildModernGridCard(
                     icon: FontAwesomeIcons.wallet,
@@ -189,12 +201,17 @@ class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
                             ),
                           )),
                   _buildModernGridCard(
-                    icon: FontAwesomeIcons.userPen,
-                    title: 'Profile',
-                    subtitle: 'Update details',
-                    onTap: () =>
-                        showNotImplementedAlertDialog(context: context),
-                  ),
+                      icon: FontAwesomeIcons.userPen,
+                      title: 'Profile',
+                      subtitle: 'Update details',
+                      onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProfileScreenNew(
+                                userType: 'constructor', // or 'designer'
+                              ),
+                            ),
+                          )),
                 ]),
               ),
             ),
