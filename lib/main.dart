@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:home_front_pk/firebase_options.dart';
 // import 'package:flutter/material.dart';
@@ -11,10 +12,13 @@ import 'package:home_front_pk/src/localization/string_hardcoded.dart';
 
 void main() async {
   //ensure flutter SDK is ready for widget rendering
-  WidgetsFlutterBinding.ensureInitialized();
+
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FlutterNativeSplash.remove();
   registerErroHandler();
 
   runApp(ProviderScope(observers: [

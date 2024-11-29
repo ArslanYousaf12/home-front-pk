@@ -63,6 +63,35 @@ dependencies:
   timeago: ^3.7.0
   file_picker: ^8.0.7
   photo_view: ^0.15.0
+  flutter_native_splash: ^2.4.1
+  shared_preferences: ^2.3.3
+  flutter_launcher_icons: ^0.14.1
+flutter_native_splash:
+  color: "#FFFFFF"
+  color_dark: "#262626"
+  image: assets/logo.jpeg
+  image_dark: assets/logo.jpeg
+  
+  android_12:
+    image: assets/logo.jpeg
+    icon_background_color: "#FFFFFF"
+    image_dark: assets/logo.jpeg
+    icon_background_color_dark: "#262626"
+
+  web: false
+
+flutter_launcher_icons:
+  ios: true
+  android: true
+  image_path_ios: "assets/easybuild.jpeg"
+  image_path_ios_dark_transparent: "assets/easybuild.jpeg"
+  image_path_android: "assets/easybuild.jpeg"
+  adaptive_icon_background: "	#FFFFFF"
+  adaptive_icon_foreground: "assets/easybuild.jpeg"
+  remove_alpha_ios: true
+  web:
+    generate: true
+    image_path: "assets/easybuild.jpeg"
   
 
 dev_dependencies:
@@ -70,7 +99,6 @@ dev_dependencies:
     sdk: flutter
   integration_test:
     sdk: flutter 
-  flutter_launcher_icons: 0.13.1
   freezed: ^2.4.6
   json_serializable: ^6.7.1
   build_runner: 2.4.10
