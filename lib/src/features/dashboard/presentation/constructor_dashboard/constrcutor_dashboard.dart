@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:home_front_pk/src/analytics/presentation/analytics_dashboard.dart';
 import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
 import 'package:home_front_pk/src/constructor_apply_job/presentation/constructor_job_screen.dart';
@@ -177,12 +178,16 @@ class _ConstructorDashboardState extends ConsumerState<ConstructorDashboard> {
                     ),
                   ),
                   _buildModernGridCard(
-                    icon: FontAwesomeIcons.chartLine,
-                    title: 'Analytics',
-                    subtitle: 'View insights',
-                    onTap: () =>
-                        showNotImplementedAlertDialog(context: context),
-                  ),
+                      icon: FontAwesomeIcons.chartLine,
+                      title: 'Analytics',
+                      subtitle: 'View insights',
+                      onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AnalyticsDashboard(
+                                  userType: 'constructor'),
+                            ),
+                          )),
                   _buildModernGridCard(
                     icon: FontAwesomeIcons.userPen,
                     title: 'Profile',
