@@ -8,6 +8,7 @@ import 'package:home_front_pk/src/common_widgets/cutome_curved_container.dart';
 import 'package:home_front_pk/src/common_widgets/grid_card.dart';
 import 'package:home_front_pk/src/common_widgets/home_app_bar.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
+import 'package:home_front_pk/src/constructor_apply_job/presentation/constructor_job_screen.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/account/account_screen_controller.dart';
 import 'package:home_front_pk/src/features/chat_section/presentation/chat_screen.dart';
 import 'package:home_front_pk/src/features/ongoing_project/presentation/ongoing_screen.dart';
@@ -123,7 +124,12 @@ class _DesignerDashboardState extends ConsumerState<DesignerDashboard> {
         ),
         gapH12,
         ElevatedButton.icon(
-          onPressed: () => showNotImplementedAlertDialog(context: context),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ConstructorJobsScreen(),
+            ),
+          ),
           icon: const Icon(Icons.search),
           label: const Text('Find Design Projects'),
           style: ElevatedButton.styleFrom(
@@ -163,7 +169,12 @@ class _DesignerDashboardState extends ConsumerState<DesignerDashboard> {
             icon: FontAwesomeIcons.briefcase,
             title: 'New Requests',
             subtitle: 'View design requests',
-            onTap: () => context.pushNamed(AppRoute.newRequest.name),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ConstructorJobsScreen(),
+              ),
+            ),
           ),
           _buildModernGridCard(
             icon: FontAwesomeIcons.listCheck,
