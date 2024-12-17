@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:home_front_pk/src/analytics/presentation/analytics_dashboard.dart';
+import 'package:home_front_pk/src/features/analytics/presentation/analytics_dashboard.dart';
 import 'package:home_front_pk/src/common_widgets/alert_dialogs.dart';
 import 'package:home_front_pk/src/common_widgets/cutome_curved_container.dart';
 import 'package:home_front_pk/src/common_widgets/grid_card.dart';
 import 'package:home_front_pk/src/common_widgets/home_app_bar.dart';
 import 'package:home_front_pk/src/constants/app_sizes.dart';
-import 'package:home_front_pk/src/constructor_apply_job/presentation/constructor_job_screen.dart';
+import 'package:home_front_pk/src/features/constructor_apply_job/presentation/constructor_job_screen.dart';
 import 'package:home_front_pk/src/features/authentication/presentation/account/account_screen_controller.dart';
 import 'package:home_front_pk/src/features/chat_section/presentation/chat_screen.dart';
 import 'package:home_front_pk/src/features/ongoing_project/presentation/ongoing_screen.dart';
 import 'package:home_front_pk/src/localization/string_hardcoded.dart';
-import 'package:home_front_pk/src/offer_sent/presentation/new_request.dart';
-import 'package:home_front_pk/src/payment_module/presentation/wallet_screen.dart';
-import 'package:home_front_pk/src/profile_dashboard/presentation/profile_screen.dart';
+import 'package:home_front_pk/src/features/offer_sent/presentation/new_request.dart';
+import 'package:home_front_pk/src/features/payment_module/presentation/wallet_screen.dart';
+import 'package:home_front_pk/src/features/profile_dashboard/presentation/profile_screen.dart';
 import 'package:home_front_pk/src/routing/app_router.dart';
 
 class DesignerDashboard extends ConsumerStatefulWidget {

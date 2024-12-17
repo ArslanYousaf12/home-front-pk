@@ -27,7 +27,7 @@ export const sendWelcomeEmail = functions.auth.user().onCreate(async (user: func
     const displayName = user.displayName || "New User";
 
     const mailOptions = {
-      from: "your-email@gmail.com", // Your Gmail address
+      from: "arslanshyousaf@gmail.com", // Your Gmail address
       to: email,
       subject: "Welcome to Our App! 🎉",
       html: `

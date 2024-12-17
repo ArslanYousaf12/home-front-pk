@@ -44,3 +44,6 @@ app.*.map.json
 
 #ignore the coverage
 coverage/lcov.info
+
+# FVM Version Cache
+.fvm/

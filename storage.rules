@@ -1,0 +1,18 @@
+rules_version = '2';
+
+// Craft rules based on data in your Firestore database
+// allow write: if firestore.get(
+//    /databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin;
+service firebase.storage {
+  match /b/{bucket}/o {
+     match /constructors/{id} {
+      allow read: if true;
+      // TODO: Only admins should have write access
+      // allow write: if request.auth.token.admin == true;
+      allow write: if request.auth.uid != null;
+    }
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
