@@ -45,7 +45,7 @@ Stay tuned for a showcase of our app in action.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/home-front-pk.git
+   git clone https://github.com/arslanyousaf12/home-front-pk.git
    ```
 
 2. Navigate to the project directory:
