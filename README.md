@@ -36,8 +36,16 @@ Welcome to **Home Front PK**, a versatile Flutter application designed to bridge
 
 ## 📸 Screenshots
 
-### Coming Soon!
-Stay tuned for a showcase of our app in action.
+
+<div align="center">
+ <img src="screenshots/welcome.png" width="200" alt="Courses Screen" />
+  <img src="screenshots/login.png" width="200" alt="Chat Screen" />
+  <img src="screenshots/client.png" width="200" alt="Home Screen" />
+  <img src="screenshots/constructor.png" width="200" alt="Search Screen" />
+ 
+
+</div>
+
 
 ---
 
